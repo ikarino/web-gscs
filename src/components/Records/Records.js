@@ -1,7 +1,5 @@
-// import React, { useState, useEffect } from 'react';
 import React from 'react';
 import { useSelector } from 'react-redux';
-// import { useFirestore, useFirestoreConnect } from 'react-redux-firebase';
 import { useFirestoreConnect } from 'react-redux-firebase';
 
 import Container from 'react-bootstrap/Container';

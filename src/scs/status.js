@@ -235,6 +235,12 @@ const BasicMonsterInfo = {
   "笑いぶくろ": {species: 8, mhp0: 35, atk0: 0, def0: 5, maximum_lv: 99, recovery: 50},
 };
 
+/**
+ * モンスターの能力値を返す
+ * @param {string} name モンスター名
+ * @param {Number} lv レベル
+ * @returns {BasicMonsterInfo} base モンスターの能力値
+ */
 export const getStatus = (name, lv) => {
   let base = JSON.parse(JSON.stringify(BasicMonsterInfo[name]));
   base.mhp0 += MHP[base.species-1][lv-1];
@@ -259,6 +265,7 @@ export const getLvByDexp = (name, start_lv, dexp) => {
     }
   }
   console.assert(false, "invalid value encountered.");
+  return null;
 };
 
 export const implemented = [

@@ -4,6 +4,7 @@
 
 import { Friend, Enemy } from "./unit";
 import { implemented } from "./status";
+import { Map } from './map';
 
 /**
  * 0～N-1のランダムな整数を返す。
@@ -36,14 +37,8 @@ export class Manager {
     // 1:     壁
     // 9:     Enemy -> 後で20以降に連番で振る
     // 10-19: Friend
-    this.map = [];
-    for (let irow = 0; irow < inp.map.row; irow++) {
-      this.map.push(inp.map.data.slice(
-        irow*inp.map.col,
-        (irow+1)*inp.map.col
-      ));
-    }
-
+    this.map = new Map(inp.map);
+    
     // Friendの読み込み
      for (const [order, friend] of inp.friends.entries()) {
       // placeを探す
@@ -72,73 +67,9 @@ export class Manager {
     for (const mapIndex of enemyMapIndex) {
       const place = [Math.floor(mapIndex/inp.map.col), mapIndex%inp.map.col]
       this.enemys.push(new Enemy(place, this.number, this.pconf));
-      this.setMap(place, this.number+20);
+      this.map.setMap(place, this.number+20);
       this.number += 1;
     }
-  }
-
-  // --------------------------------------------------------------------
-  /**
-   * 引数Unitの周囲の攻撃可能な敵or移動可能な空白マスに関する配列を返す
-   * @param {Unit} me 対象のキャラクター
-   * @param {Boolean} kado true/false=角抜けあり/角抜けなし
-   * @param {Boolean} empty true/false=敵/空白マス
-   * @return {Array[Number]} targets 周囲の敵リスト(Friendの場合は行動順, Enemyの場合はnumber), emptyの場合は空白マスplaceリスト
-   */
-  findTargets(me, kado=false, empty=false) {
-    const rowMe = me.place[0];
-    const colMe = me.place[1];
-
-    /**
-     * FriendにとってのEnemyなのか、またはEnemyにとってのFriendなのかを返す。
-     * 空白マスを探している場合は空白かそれ以外かを返す。
-     * @param {Number} number this.mapの値
-     * @returns {Boolean} 
-     */
-    const isTarget = (number) => {
-      if (empty) {
-        return number === 0;
-      }
-      if (this.getMap(me.place) >= 20) {
-        return (10 <= number && number <= 19);
-      } else {
-        return number >= 20;
-      }
-    };
-
-    let targets = [];
-    for (let drow of [-1, 0, 1]) {
-      for (let dcol of [-1, 0, 1]) {
-        const place = [rowMe+drow, colMe+dcol];
-        const number = this.getMap(place);
-        if (! isTarget(number)) { continue; }       // not target
-        if (drow === 0 && dcol === 0) { continue; } // myself
-
-        // 上下左右は無条件で追加
-        if (dcol*drow === 0) {
-          if (empty) {
-            targets.push(place);
-          } else {
-            targets.push(number);
-          }
-          continue;
-        }
-
-        // 斜めは壁によって角抜けになっているかで場合分け
-        const numberUD = this.map[rowMe+drow][colMe];
-        const numberLR = this.map[rowMe][colMe+dcol];
-        const isPlaceKado = (numberUD === 1 || numberLR === 1);
-        if (!isPlaceKado || kado) {
-          if (empty) { 
-            targets.push(place); 
-          } else { 
-            targets.push(number);
-          }
-        }
-      }
-    }
-    return targets;
-
   }
 
   /**
@@ -164,38 +95,21 @@ export class Manager {
       index = index > 7 ? index - 8 : index;
 
       const place = addPlace(sumo.place, dplaceList[index]);
-      if (this.getMap(place) === 0) {
+      if (this.map.getMap(place) === 0) {
         this.addEnemy(place);
         return;
       }
     }
   };
 
-  setMap(place, number) {
-    this.map[place[0]][place[1]] = number;
-  }
-
-  getMap(place) {
-    return this.map[place[0]][place[1]];
-  }
-
   getEnemyByNumber(number) {
-    for (const enemy of this.enemys) {
-      if (enemy.number === number) {
-        return enemy;
-      }
-    }
-    console.assert(false, `wrong enemy number: ${number}`);
-    return null;
+    return this.enemys.filter(e => e.number === number)[0];
   };
 
   addEnemy(place) {
-    console.assert(
-      this.getMap(place) === 0, 
-      `enemy was added to invalid place${place}`);
     if (Math.random() < this.pconf.p_divide) {
       this.enemys.push(new Enemy(place, this.number, this.pconf));
-      this.setMap(place, this.number+20);
+      this.map.setMap(place, this.number+20);
       this.number += 1;
     }
   }
@@ -234,10 +148,9 @@ export class Manager {
     // 敵の行動
     for (let enemy of this.enemys) {
       // 1. 攻撃を試みる
-      const targets = this.findTargets(enemy);
+      const targets = this.map.findTargets(enemy.place);
       if (targets.length !== 0) {
         const target = targets[randint(targets.length)];
-        console.assert(10 <= target && target <= 19, `wrong target ${target}`);
         const friend = this.friends[target-10]
         const result = enemy.attack(friend);
 
@@ -249,11 +162,11 @@ export class Manager {
       }
 
       // 2. 移動を試みる
-      const emptyPlaces = this.findTargets(enemy, false, true);
+      const emptyPlaces = this.map.findTargets(enemy.place, false, true);
       if (emptyPlaces.length !== 0) {
         const place = emptyPlaces[randint(emptyPlaces.length)];
-        this.setMap(enemy.place, 0);
-        this.setMap(place, enemy.number+20);
+        this.map.setMap(enemy.place, 0);
+        this.map.setMap(place, enemy.number+20);
         enemy.place = place;
       }
 
@@ -298,7 +211,7 @@ export class Manager {
     if (enemy.chp <= 0) {
       // 攻撃後に倒れた場合
       friend.getExp();
-      this.setMap(enemy.place, 0);
+      this.map.setMap(enemy.place, 0);
       this.enemys = this.enemys.filter(e => e !== enemy);
       return "killed";
     } else if (result) {
@@ -310,7 +223,7 @@ export class Manager {
   }
 
   actionNormal(f) {
-    const targets = this.findTargets(f);
+    const targets = this.map.findTargets(f.place);
     if (targets.length !== 0) {
       const target = targets[randint(targets.length)];
       const enemy = this.getEnemyByNumber(target - 20);
@@ -323,7 +236,7 @@ export class Manager {
    * @param {Friend} f おばけキノコ
    */
   actionObakeKinoko(f) {
-    const targets = this.findTargets(f);
+    const targets = this.map.findTargets(f.place);
     if (targets.length !== 0) {
       // 対象を決定するところまでは同じ
       const target = targets[randint(targets.length)];
@@ -346,7 +259,7 @@ export class Manager {
    * @param {Friend} f キラーマシン
    */
   actionKillerMachine(f) {
-    const targets = this.findTargets(f);
+    const targets = this.map.findTargets(f.place);
     if (targets.length !== 0) {
       const target = targets[randint(targets.length)];
       const enemy = this.getEnemyByNumber(target - 20);
@@ -371,7 +284,7 @@ export class Manager {
     for (let drow of [-1, 0, 1]) {
       for (let dcol of [-1, 0, 1]) {
         const place = addPlace(f.place, [drow, dcol]);
-        const number = this.getMap(place);
+        const number = this.map.getMap(place);
         if (drow === 0 && dcol === 0) { continue; }  // me
 
         if (10 <= number && number <= 19) {          // friends
@@ -401,7 +314,7 @@ export class Manager {
     }
 
     // 3.
-    const attackTargets = this.findTargets(f);
+    const attackTargets = this.map.findTargets(f.place);
     // 4.
     for (let enemyId of attackTargets) {
       if (Math.random() < this.pconf.p_hoimi_attack) {
@@ -412,21 +325,6 @@ export class Manager {
     }
   }
 
-  // --------------------------------------------------------------------
-  showMap() {
-    let string = "";
-    for (const row of this.map) {
-      for (const mass of row) {
-        if (mass === 0) { string += " "; }
-        else if (mass === 1) { string += "#"; }
-        else if (mass < 20) { string += (mass-10).toString(10); }
-        else { string += "*"; }
-      }
-      string += "\n";
-    }
-    console.log(string);
-  }
-  // --------------------------------------------------------------------
   toJson() {
     // exp/monster
     let exp_per_monster = [];
@@ -455,6 +353,7 @@ export class Manager {
       }
     }
 
+    this.number -= this.enemys.length;
     return {
       result: result,
       reason: reason,

@@ -5,6 +5,11 @@ const updatesModule = createSlice({
   name: "updates",
   initialState : [
     {
+      text: "分裂方向を実装しました。",
+      date: "2020.1.26",
+      id: "sdakljfa"
+    },
+    {
       text: "おばけキノコの特技を実装しました。",
       date: "2020.1.20",
       id: "asdfaskdjfad;l"

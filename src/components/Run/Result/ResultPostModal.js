@@ -55,7 +55,8 @@ const ResultPostModal = (props) => {
           username: doc.data().username,
           userid: doc.data().userid,
           created_at: doc.data().created_at,
-          recordid: doc.id
+          recordid: doc.id,
+          comment: doc.data().comment
         };
         firestore.collection('recordlogs').add(recordlog).then(docref_recordlog => {
           history.push('/');
