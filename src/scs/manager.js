@@ -162,7 +162,7 @@ export class Manager {
       }
 
       // 2. 移動を試みる
-      const emptyPlaces = this.map.findTargets(enemy.place, false, true);
+      const emptyPlaces = this.map.findTargets(enemy.place, true, false);
       if (emptyPlaces.length !== 0) {
         const place = emptyPlaces[randint(emptyPlaces.length)];
         this.map.setMap(enemy.place, 0);

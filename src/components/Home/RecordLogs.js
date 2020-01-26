@@ -12,6 +12,7 @@ const RecordLogs = () => {
   const [recordLogs, setRecordLogs] = useState([]);
 
   useEffect(() => {
+    console.log("loading recordlogs ...");
     firestore.collection("recordlogs")
     .orderBy("created_at", "desc")
     .limit(5)
@@ -27,7 +28,7 @@ const RecordLogs = () => {
         console.log("Error getting documents: ", error);
     });
 
-  }, [recordLogs]);
+  }, []);
 
   const recordLists = recordLogs.map(record => (
       <ListGroup.Item className="p-1 pl-3" key={record.recordid}>

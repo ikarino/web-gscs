@@ -55,14 +55,14 @@ const PlaygroundCard = () => {
   };
   
   const pass1EnemyTurn = () => {
-    manager.turn_enemy();
+    manager.turnEnemy();
     const nm = copyManager();
     setManager(nm);
     setIsEnemyTurn(false);
   };
 
   const pass1FriendTurn = () => {
-    manager.turn_friend();
+    manager.turnFriend();
     const nm = copyManager();
     setManager(nm);
     setIsEnemyTurn(true);
@@ -77,7 +77,7 @@ const PlaygroundCard = () => {
   
 
   // ---------------------------------------------------------
-  const hpTable = manager.map.map((row, irow) => {
+  const hpTable = manager.map.data.map((row, irow) => {
     const tds = row.map((m, im) => {
       const key = `m${irow}-${im}`;
       if(m === 0) {

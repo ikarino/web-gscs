@@ -62,7 +62,7 @@ const RecordDetails = (props) => {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>ターン経過率</td>
+                      <td>ターン経験値</td>
                       <td>{record.exp_per_turn.toFixed(1)}</td>
                     </tr>
                     <tr>
