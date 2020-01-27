@@ -75,14 +75,16 @@ export class Friend extends Unit {
     this.weaken_def = weaken_def;     // 防御力弱化回数
     this.hp_dope = hp_dope;
     this.mhp += hp_dope;              // HPドーピングを反映
-    this.kill_count = 0;              // 倒した数
+    this.killCount = 0;               // 倒した数
+    this.divisionLossCount = 0;       // 攻撃した際に分裂させるスペースが無かった回数
+    this.actionLossCount = 0;         // 攻撃対象が無く、無駄にターンを消費した回数
 
     if (weaken_atk !== 0) { this.setAtk(); }
     if (weaken_def !== 0) { this.setDef(); }
   }
 
   getExp(exp=22) {
-    this.kill_count += 1;
+    this.killCount += 1;
     this.exp += exp;
     // TODO 経験値22でレベルが2つ以上上がった場合
     // レベルアップした場合

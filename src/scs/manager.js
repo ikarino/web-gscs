@@ -29,7 +29,7 @@ export class Manager {
     this.enemys = [];
     this.config = inp.config;
     this.pconf = pconf;
-    this.number = 0;
+    this.killCount = 0;
 
     // array => nested array
     // this.mapの中身
@@ -66,9 +66,9 @@ export class Manager {
     }, [])
     for (const mapIndex of enemyMapIndex) {
       const place = [Math.floor(mapIndex/inp.map.col), mapIndex%inp.map.col]
-      this.enemys.push(new Enemy(place, this.number, this.pconf));
-      this.map.setMap(place, this.number+20);
-      this.number += 1;
+      this.enemys.push(new Enemy(place, this.killCount, this.pconf));
+      this.map.setMap(place, this.killCount+20);
+      this.killCount += 1;
     }
   }
 
@@ -97,9 +97,10 @@ export class Manager {
       const place = addPlace(sumo.place, dplaceList[index]);
       if (this.map.getMap(place) === 0) {
         this.addEnemy(place);
-        return;
+        return true;
       }
     }
+    return false;
   };
 
   getEnemyByNumber(number) {
@@ -108,9 +109,9 @@ export class Manager {
 
   addEnemy(place) {
     if (Math.random() < this.pconf.p_divide) {
-      this.enemys.push(new Enemy(place, this.number, this.pconf));
-      this.map.setMap(place, this.number+20);
-      this.number += 1;
+      this.enemys.push(new Enemy(place, this.killCount, this.pconf));
+      this.map.setMap(place, this.killCount+20);
+      this.killCount += 1;
     }
   }
 
@@ -178,7 +179,10 @@ export class Manager {
     for (const speed of [true, false]) {
       for (let friend of this.friends) {
         if (speed || friend.double_speed) {
-          this.actionFriend(friend);
+          const isActed = this.actionFriend(friend);
+          if (!isActed) {
+            friend.actionLossCount += 1;
+          }
           friend.naturalRecovery();
         }
       }
@@ -187,13 +191,13 @@ export class Manager {
 
   actionFriend(f) {
     if (implemented.indexOf(f.name) === -1 || f.sealed) {
-      this.actionNormal(f);
+      return this.actionNormal(f);
     } else if (f.name === "キラーマシン") {
-      this.actionKillerMachine(f);
+      return this.actionKillerMachine(f);
     } else if (f.name === "ホイミスライム") {
-      this.actionHoimiSlime(f);
+      return this.actionHoimiSlime(f);
     } else if (f.name === "おばけキノコ") {
-      this.actionObakeKinoko(f);
+      return this.actionObakeKinoko(f);
     } else {
       throw new Error(`action implemented but not used: ${f.name}`)
     }
@@ -216,7 +220,10 @@ export class Manager {
       return "killed";
     } else if (result) {
       // 攻撃後に生き残った場合（分裂処理）
-      this.divide(enemy);
+      const wasAbleToDivide = this.divide(enemy);
+      if (!wasAbleToDivide) {
+        friend.divisionLossCount += 1;
+      }
       return "survived";
     }
     return "missed";
@@ -228,7 +235,9 @@ export class Manager {
       const target = targets[randint(targets.length)];
       const enemy = this.getEnemyByNumber(target - 20);
       this.attack(f, enemy);
+      return true;
     }
+    return false;
   }
 
   /**
@@ -251,7 +260,10 @@ export class Manager {
 
       // 攻撃する場合
       this.attack(f, enemy);
+
+      return true;
     }
+    return false;
   }
 
   /**
@@ -267,7 +279,9 @@ export class Manager {
       const result = this.attack(f, enemy); // 攻撃1回目
       if (result === "killed") return;      // 一回目で倒したら終了
       this.attack(f, enemy);                // 攻撃2回目
+      return true;
     }
+    return false;
   }
 
   /**
@@ -279,6 +293,8 @@ export class Manager {
    * @param {Friend} f ホイミスライム
    */
   actionHoimiSlime(f) {
+    let returnValue = false;
+
     // 1.
     let hoimiTargets = [];
     for (let drow of [-1, 0, 1]) {
@@ -296,6 +312,7 @@ export class Manager {
         }
       }
     }
+    returnValue = returnValue || hoimiTargets.length;
 
     // 2.
     let execSkill = false;
@@ -310,29 +327,34 @@ export class Manager {
         target.chp += 25;
         if (target.chp > target.mhp) { target.chp = target.mhp; }
       }
-      return;  // ホイミを発動した場合はここで抜ける
+      return returnValue;  // ホイミを発動した場合はここで抜ける
     }
 
     // 3.
     const attackTargets = this.map.findTargets(f.place);
+    returnValue = returnValue || attackTargets.length;
     // 4.
     for (let enemyId of attackTargets) {
       if (Math.random() < this.pconf.p_hoimi_attack) {
         let enemy = this.getEnemyByNumber(enemyId - 20);
         this.attack(f, enemy);
-        return;
+        return returnValue;
       }
     }
+    return returnValue;
   }
 
   toJson() {
     // exp/monster
-    let exp_per_monster = [];
-    let exp_per_monster_per_turn = [];
-    for (const f of this.friends) {
-      exp_per_monster.push(f.kill_count*22);
-      exp_per_monster_per_turn.push(f.kill_count*22/this.config.turn);
-    }
+    let exp_per_monster = this.friends.map(f => f.killCount*22);
+    let exp_per_monster_per_turn = this.friends.map(f => f.killCount*22/this.config.turn);
+
+    // loss counts
+    let division_loss_count = this.friends.map(f => f.divisionLossCount/this.config.turn);
+    let action_loss_count = this.friends.map(f => {
+      const turns = f.double_speed ? 2 : 1;
+      return f.actionLossCount/this.config.turn/turns;
+    });
 
     // result
     let result = true;
@@ -353,16 +375,20 @@ export class Manager {
       }
     }
 
-    this.number -= this.enemys.length;
+    this.killCount -= this.enemys.length;
     return {
       result: result,
       reason: reason,
       friend_order_killed: friend_order_killed,
       exp: {
-        total: this.number*22,
-        per_turn: this.number*22/this.turn_now,
+        total: this.killCount*22,
+        per_turn: this.killCount*22/this.turn_now,
         per_monster: exp_per_monster,                    // TODO
         per_monster_per_turn: exp_per_monster_per_turn,  // TODO
+      },
+      loss: {
+        action: action_loss_count,
+        division: division_loss_count,
       },
       turn_passed: this.turn_now,
     };

@@ -13,6 +13,8 @@ const ResultTable = ({ outputs, post_inp }) => {
   const std_stopped_by_friend_kill = outputs ? std_bd(outputs.filter(o => o.reason === "friends are killed").length, post_inp.config.trial) : 0;
   const mean_stopped_by_enemy_genocide = outputs ? outputs.filter(o => o.reason === "enemys are genocided").length*100.0/post_inp.config.trial : 0;
   const std_stopped_by_enemy_genocide = outputs ? std_bd(outputs.filter(o => o.reason === "enemys are genocided").length, post_inp.config.trial) : 0;
+  const mean_loss_action = outputs ? mean(outputs.map(o => mean(o.loss.action)))*100 : 0;
+  const std_loss_action = outputs ? std(outputs.map(o => mean(o.loss.action)))*100 : 0;
   return (
     <Table striped bordered hover size="sm" className="mb-3 result-table">
       <thead>
@@ -42,6 +44,11 @@ const ResultTable = ({ outputs, post_inp }) => {
           <td>敵スモ消滅率</td>
           <td>{mean_stopped_by_enemy_genocide.toFixed(1)+"%"}</td>
           <td>{std_stopped_by_enemy_genocide.toFixed(1)+"%"}</td>
+        </tr>
+        <tr>
+          <td>待機率</td>
+          <td>{mean_loss_action.toFixed(1)+"%"}</td>
+          <td>{std_loss_action.toFixed(1)+"%"}</td>
         </tr>
       </tbody>
     </Table>
