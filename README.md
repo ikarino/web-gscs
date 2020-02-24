@@ -1,3 +1,41 @@
+# web-gscs
+
+typescript で書き直しているブランチ
+
+scs の実行にはできれば web worker api を使いたかったけど、現時点では cra を eject しないと駄目っぽいから、非同期で実行する。
+
+## TODO
+
+投稿機能に関わる firebase/firestore は後回しで、とりあえず Run/Playground が動くにようにがんばる。
+
+- [] firebase auth 統合
+- [] firestore 統合
+- [x] Link(react-router-dom)
+- [] Dashboard 画面 UI
+- [x] Run 画面 UI
+- [] Playground 画面 UI
+- [] Records 画面 UI
+
+## dep memo
+
+- create-react-app --typescript
+
+### core
+
+- @reduxjs/toolkit
+- @types/react-redux
+
+### react components
+
+- @material-ui/core
+- @material-ui/icons
+
+### scs
+
+- torneko3js
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

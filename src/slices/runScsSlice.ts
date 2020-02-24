@@ -26,7 +26,7 @@ export const runScsAsync = (inp: SCSInput): AppThunk => {
 
   const run = (trials: number) =>
     new Promise(reslove => {
-      console.log("fuck");
+      console.log("hello from function run");
       setTimeout(() => {
         for (let trial = 0; trial < trials; trial++) {
           m.trial();
@@ -36,7 +36,7 @@ export const runScsAsync = (inp: SCSInput): AppThunk => {
     });
 
   return async dispatch => {
-    console.log("running async function");
+    console.log("hello from returned async function");
     dispatch(runScsSlice.actions.progress(0));
     dispatch(runScsSlice.actions.start(inp));
     for (let i = 0; i < 10; i++) {

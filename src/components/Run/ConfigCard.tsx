@@ -53,7 +53,9 @@ export default function ConfigCard() {
   ));
 
   const handleStart = () => {
+    console.log("hello from config card !");
     runScsAsync(inp);
+    console.log("see you from config card !");
   };
 
   return (

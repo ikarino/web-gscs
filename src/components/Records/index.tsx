@@ -1,16 +1,10 @@
-import * as React from "react";
+import React from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import FieldCard from "./FieldCard";
-import FriendCard from "./FriendCard";
-import ConfigCard from "./ConfigCard";
-import ResultCard from "./ResultCard";
-
-// スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -19,29 +13,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function Run() {
+export default function Records() {
   const classes = useStyles();
+  console.log("hekko, from records page");
   return (
     <>
       <CssBaseline />
       <Container maxWidth="md" className={classes.container}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
-            <FieldCard />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <FriendCard />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ConfigCard />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <ResultCard />
-          </Grid>
+          My Awesome Records Page
         </Grid>
       </Container>
     </>
   );
 }
-
-export default Run;
