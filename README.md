@@ -15,6 +15,7 @@ scs の実行にはできれば web worker api を使いたかったけど、現
 - [x] Run 画面 UI
 - [] Playground 画面 UI
 - [] Records 画面 UI
+- [] About 画面 UI
 
 ## dep memo
 
