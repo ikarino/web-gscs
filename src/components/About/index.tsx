@@ -27,7 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
       // paddingBottom: theme.spacing(2)
       marginBottom: theme.spacing(2)
     },
-    heading: {},
+    heading: {
+      marginTop: theme.spacing(2)
+    },
     secondaryHeading: {
       fontSize: theme.typography.pxToRem(15),
       color: theme.palette.text.secondary

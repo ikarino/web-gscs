@@ -30,7 +30,7 @@ function FieldContainer({ field, fixed }: Props) {
         <FieldCell
           data={data}
           place={{ row, col }}
-          width={`${100 / field.col - 1}%`}
+          width={`${100 / field.col}%`}
           fixed={fixed}
           key={`row${row}-col${col}`}
         />

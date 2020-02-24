@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import {
+  Paper,
+  Box,
   Card,
   CardHeader,
   CardContent,
@@ -26,7 +28,10 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "lightgray"
     },
     buttonGroup: {
-      paddingTop: "5px"
+      paddingTop: theme.spacing(2)
+    },
+    fieldPaper: {
+      margin: "auto"
     }
   })
 );
@@ -41,7 +46,10 @@ function FieldCard() {
       <CardHeader title="Field" className={classes.header} />
 
       <CardContent>
-        <FieldContainer field={field} fixed={false} />
+        <Paper>
+          <FieldContainer field={field} fixed={false} />
+        </Paper>
+
         <ButtonGroup
           color="primary"
           size="small"

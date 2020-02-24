@@ -8,22 +8,27 @@ scs の実行にはできれば web worker api を使いたかったけど、現
 
 投稿機能に関わる firebase/firestore は後回しで、とりあえず Run/Playground が動くにようにがんばる。
 
-- [] firebase auth 統合
-- [] firestore 統合
+- [ ] firebase auth 統合
+- [ ] firestore 統合
+- [ ] scs 非同期実行
 - [x] Link(react-router-dom)
-- [] Dashboard 画面 UI
+- [ ] Dashboard 画面 UI
 - [x] Run 画面 UI
-- [] Playground 画面 UI
-- [] Records 画面 UI
-- [] About 画面 UI
+- [ ] Playground 画面 UI
+- [ ] Records 画面 UI
+- [ ] About 画面 UI
 
-## dep memo
+## Dependencies memo
 
-- create-react-app --typescript
+```
+yarn create react-app web-gscs --typescript
+```
 
 ### core
 
+- react-router-dom
 - @reduxjs/toolkit
+- react-redux
 - @types/react-redux
 
 ### react components
