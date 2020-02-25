@@ -2,21 +2,17 @@ import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Card, CardHeader, CardContent, Button } from "@material-ui/core";
+import { Card, CardHeader, CardContent } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import Box from "@material-ui/core/Box";
 
-import { sampleSCSInputs, SCSTrialOutput, Manager } from "torneko3js";
+import { sampleSCSInputs } from "torneko3js";
 
 import scsInputSlice from "../../slices/scsInputSlice";
-import runScsSlice, { runScsAsync } from "../../slices/runScsSlice";
 import { RootState } from "../../store";
-import { useSampleWorker } from "../../workers/useSampleWorker";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,16 +20,13 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "lightgray"
     },
     buttonGroup: {
-      paddingTop: "5px"
+      paddingTop: theme.spacing(1)
     },
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
       width: "100%",
       textAlign: "right"
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2)
     },
     calcButton: {
       justifyContent: "center"
@@ -43,19 +36,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ConfigCard() {
   const inp = useSelector((state: RootState) => state.scsInput.inp);
-  const isRunning = useSelector((state: RootState) => state.runScs.isRunning);
   const config = inp.config;
   const numSumoLimit =
     config.numSumoLimit === undefined ? 9 : config.numSumoLimit;
   const templateName = useSelector(
     (state: RootState) => state.scsInput.templateName
   );
-  const progress = useSelector((state: RootState) => state.runScs.progress);
+
   const dispatch = useDispatch();
   const classes = useStyles();
-
-  // web worker hook
-  const sampleWorker = useSampleWorker();
 
   // react-doms
   const templates = Object.keys(sampleSCSInputs).map(templateName => (
@@ -63,19 +52,6 @@ export default function ConfigCard() {
       {templateName}
     </MenuItem>
   ));
-
-  const handleStart = async () => {
-    dispatch(runScsSlice.actions.start(inp));
-    let outputs: SCSTrialOutput[] = [];
-    for (let t = 0; t < 10; t++) {
-      const result = await sampleWorker.runScs10(inp);
-      outputs = outputs.concat(result);
-      dispatch(runScsSlice.actions.progress((t + 1) * 10));
-    }
-    const m = new Manager(inp);
-    m.trialOutputs = outputs;
-    dispatch(runScsSlice.actions.finish(m.summarizeOutputs()));
-  };
 
   return (
     <Card variant="outlined">
@@ -153,28 +129,8 @@ export default function ConfigCard() {
           >
             {templates}
           </Select>
-          <FormHelperText>
-            典型的なスモコン形状をテンプレートとして読み込みます
-          </FormHelperText>
+          <FormHelperText>典型的なスモコン形状を読み込みます</FormHelperText>
         </FormControl>
-        <Box
-          display="flex"
-          justifyContent="center"
-          m={1}
-          p={1}
-          bgcolor="background.paper"
-        >
-          <Button
-            onClick={handleStart}
-            disabled={isRunning}
-            variant="outlined"
-            color="secondary"
-            className={classes.calcButton}
-          >
-            {isRunning ? "計算中" : "計算開始"}
-          </Button>
-        </Box>
-        <LinearProgress variant="determinate" value={progress} />
       </CardContent>
     </Card>
   );
