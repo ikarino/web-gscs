@@ -7,15 +7,11 @@ import {
   Typography,
   Link,
   Paper,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
   List,
   ListItem,
   ListItemIcon,
   ListItemText
 } from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import EmailIcon from "@material-ui/icons/Email";
 import TwitterIcon from "@material-ui/icons/Twitter";
 

@@ -8,12 +8,15 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Box from "@material-ui/core/Box";
 
-import { sampleSCSInputs } from "torneko3js";
+import { sampleSCSInputs, SCSTrialOutput, Manager } from "torneko3js";
 
 import scsInputSlice from "../../slices/scsInputSlice";
-import { runScsAsync } from "../../slices/runScsSlice";
+import runScsSlice, { runScsAsync } from "../../slices/runScsSlice";
 import { RootState } from "../../store";
+import { useSampleWorker } from "../../workers/useSampleWorker";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,19 +34,28 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     selectEmpty: {
       marginTop: theme.spacing(2)
+    },
+    calcButton: {
+      justifyContent: "center"
     }
   })
 );
 
 export default function ConfigCard() {
   const inp = useSelector((state: RootState) => state.scsInput.inp);
+  const isRunning = useSelector((state: RootState) => state.runScs.isRunning);
   const config = inp.config;
+  const numSumoLimit =
+    config.numSumoLimit === undefined ? 9 : config.numSumoLimit;
   const templateName = useSelector(
     (state: RootState) => state.scsInput.templateName
   );
   const progress = useSelector((state: RootState) => state.runScs.progress);
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  // web worker hook
+  const sampleWorker = useSampleWorker();
 
   // react-doms
   const templates = Object.keys(sampleSCSInputs).map(templateName => (
@@ -52,10 +64,17 @@ export default function ConfigCard() {
     </MenuItem>
   ));
 
-  const handleStart = () => {
-    console.log("hello from config card !");
-    runScsAsync(inp);
-    console.log("see you from config card !");
+  const handleStart = async () => {
+    dispatch(runScsSlice.actions.start(inp));
+    let outputs: SCSTrialOutput[] = [];
+    for (let t = 0; t < 10; t++) {
+      const result = await sampleWorker.runScs10(inp);
+      outputs = outputs.concat(result);
+      dispatch(runScsSlice.actions.progress((t + 1) * 10));
+    }
+    const m = new Manager(inp);
+    m.trialOutputs = outputs;
+    dispatch(runScsSlice.actions.finish(m.summarizeOutputs()));
   };
 
   return (
@@ -99,6 +118,28 @@ export default function ConfigCard() {
           </FormHelperText>
         </FormControl>
         <FormControl className={classes.formControl}>
+          <InputLabel id="numSumoLimit-select-labell">
+            スモグル発生数制限
+          </InputLabel>
+          <Select
+            labelId="numSumoLimit-select-label"
+            id="numSumoLimit-select"
+            value={numSumoLimit}
+            onChange={e => {
+              dispatch(
+                scsInputSlice.actions.setNumSumoLimit(e.target.value as number)
+              );
+            }}
+          >
+            {[...Array(29)].map((v, i) => (
+              <MenuItem value={i + 1} key={`sumo${i + 1}`}>
+                {i + 1}
+              </MenuItem>
+            ))}
+          </Select>
+          <FormHelperText>発生できるスモグルの数を制限します</FormHelperText>
+        </FormControl>
+        <FormControl className={classes.formControl}>
           <InputLabel id="template-select-labell">テンプレート</InputLabel>
           <Select
             labelId="template-select-label"
@@ -116,8 +157,24 @@ export default function ConfigCard() {
             典型的なスモコン形状をテンプレートとして読み込みます
           </FormHelperText>
         </FormControl>
-        <Button onClick={handleStart}>START</Button>
-        <div>progress: {progress}</div>
+        <Box
+          display="flex"
+          justifyContent="center"
+          m={1}
+          p={1}
+          bgcolor="background.paper"
+        >
+          <Button
+            onClick={handleStart}
+            disabled={isRunning}
+            variant="outlined"
+            color="secondary"
+            className={classes.calcButton}
+          >
+            {isRunning ? "計算中" : "計算開始"}
+          </Button>
+        </Box>
+        <LinearProgress variant="determinate" value={progress} />
       </CardContent>
     </Card>
   );

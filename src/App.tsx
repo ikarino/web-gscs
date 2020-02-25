@@ -14,10 +14,6 @@ import Records from "./components/Records";
 import RecordDetails from "./components/RecordDetails";
 import About from "./components/About";
 
-function Temp() {
-  return <div>temp</div>;
-}
-
 function App() {
   return (
     <Provider store={store}>

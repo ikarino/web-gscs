@@ -33,3 +33,19 @@ export const actionSetTrial = (
     }
   };
 };
+
+export const actionSetNumSumoLimit = (
+  state: SliceSCSInput,
+  action: PayloadAction<number>
+): SliceSCSInput => {
+  return {
+    ...state,
+    inp: {
+      ...state.inp,
+      config: {
+        ...state.inp.config,
+        numSumoLimit: action.payload
+      }
+    }
+  };
+};
