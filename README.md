@@ -2,7 +2,7 @@
 
 typescript で書き直しているブランチ
 
-scs の実行にはできれば web worker api を使いたかったけど、現時点では cra を eject しないと駄目っぽいから、非同期で実行する。
+scs の実行には web worker api を使う。
 
 ## TODO
 
@@ -10,10 +10,19 @@ scs の実行にはできれば web worker api を使いたかったけど、現
 
 - [ ] firebase auth 統合
 - [ ] firestore 統合
-- [ ] scs 非同期実行
+- [x] worker api(workerize loader)
 - [x] Link(react-router-dom)
 - [ ] Dashboard 画面 UI
-- [x] Run 画面 UI
+- [ ] Run 画面 UI
+  - [x] Field
+  - [x] Friend
+    - [x] テンプレート切替時の Dialogue 未反映問題
+    - [ ] UI 調整
+  - [x] Conifg
+  - [ ] Result
+    - [ ] SummaryGrid(UI と円グラフの反映速度)
+    - [ ] BarChartGrid
+    - [ ] StatisticsGrid
 - [ ] Playground 画面 UI
 - [ ] Records 画面 UI
 - [ ] About 画面 UI
@@ -35,6 +44,7 @@ yarn create react-app web-gscs --typescript
 
 - @material-ui/core
 - @material-ui/icons
+- victory
 
 ### scs
 

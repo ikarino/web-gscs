@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -40,9 +40,14 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  // TODO
-  // friend not changes even if props.f changes
   const [friend, setFriend] = useState(f);
+
+  useEffect(() => {
+    if (friend !== f) {
+      setFriend(f);
+    }
+    // eslint-disable-next-line
+  }, [f]);
 
   const handleClose = () => {
     setOpen(false);
@@ -85,7 +90,6 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
       : friend.doubleSpeed
       ? true
       : false;
-  console.log(friend);
   const isSealed =
     friend.isSealed === undefined ? false : friend.isSealed ? true : false;
 
@@ -103,151 +107,149 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
     >
       <DialogTitle>ID: {order}の仲間設定</DialogTitle>
       <DialogContent>
-        <form className={classes.container}>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="friend-name">種族</InputLabel>
-            <Select
-              native
-              value={friend.name}
-              onChange={e =>
-                setFriend({ ...friend, name: e.target.value as string })
-              }
-              input={<Input id="friend-name" />}
-            >
-              {nameOptions}
-            </Select>
-          </FormControl>
-
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="friend-lv">Lv</InputLabel>
-            <Select
-              native
-              value={friend.lv}
-              onChange={e =>
-                setFriend({ ...friend, lv: parseInt(e.target.value as string) })
-              }
-              input={<Input id="friend-lv" />}
-            >
-              {new Array(99).fill(1).map((_, i) => (
-                <option key={`lv${i}`} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isDoubleSpeed}
-                onChange={e =>
-                  setFriend({ ...friend, doubleSpeed: e.target.checked })
-                }
-                value={isDoubleSpeed}
-                color="primary"
-              />
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="friend-name">種族</InputLabel>
+          <Select
+            native
+            value={friend.name}
+            onChange={e =>
+              setFriend({ ...friend, name: e.target.value as string })
             }
-            label={isDoubleSpeed ? "倍速" : "等速"}
-          />
+            input={<Input id="friend-name" />}
+          >
+            {nameOptions}
+          </Select>
+        </FormControl>
 
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isSealed}
-                onChange={e =>
-                  setFriend({ ...friend, isSealed: e.target.checked })
-                }
-                value={isSealed}
-                color="primary"
-              />
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="friend-lv">Lv</InputLabel>
+          <Select
+            native
+            value={friend.lv}
+            onChange={e =>
+              setFriend({ ...friend, lv: parseInt(e.target.value as string) })
             }
-            label={isSealed ? "封印有" : "封印無"}
-          />
-
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="friend-hpDope">HPドーピング</InputLabel>
-            <Select
-              native
-              value={hpDope}
+            input={<Input id="friend-lv" />}
+          >
+            {new Array(99).fill(1).map((_, i) => (
+              <option key={`lv${i}`} value={i + 1}>
+                {i + 1}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+        <br />
+        <FormControlLabel
+          control={
+            <Switch
+              checked={isDoubleSpeed}
               onChange={e =>
-                setFriend({
-                  ...friend,
-                  hpDope: parseInt(e.target.value as string)
-                })
+                setFriend({ ...friend, doubleSpeed: e.target.checked })
               }
-              input={<Input id="friend-hpDope" />}
-            >
-              {new Array(500).fill(1).map((_, i) => (
-                <option key={`hpDope${i}`} value={i}>
-                  {i}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
+              value={isDoubleSpeed}
+              color="primary"
+            />
+          }
+          label={isDoubleSpeed ? "倍速" : "等速"}
+        />
 
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="friend-atkDope">攻撃力ドーピング</InputLabel>
-            <Select
-              native
-              value={atkDope}
+        <FormControlLabel
+          control={
+            <Switch
+              checked={isSealed}
               onChange={e =>
-                setFriend({
-                  ...friend,
-                  atkDope: parseInt(e.target.value as string)
-                })
+                setFriend({ ...friend, isSealed: e.target.checked })
               }
-              input={<Input id="friend-atkDope" />}
-            >
-              {new Array(10).fill(1).map((_, i) => (
-                <option key={`atkDope${i}`} value={i * 5}>
-                  {i * 5}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
+              value={isSealed}
+              color="primary"
+            />
+          }
+          label={isSealed ? "封印有" : "封印無"}
+        />
+        <br />
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="friend-hpDope">HPドーピング</InputLabel>
+          <Select
+            native
+            value={hpDope}
+            onChange={e =>
+              setFriend({
+                ...friend,
+                hpDope: parseInt(e.target.value as string)
+              })
+            }
+            input={<Input id="friend-hpDope" />}
+          >
+            {new Array(500).fill(1).map((_, i) => (
+              <option key={`hpDope${i}`} value={i}>
+                {i}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
 
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="friend-weakenAtk">攻撃力弱化</InputLabel>
-            <Select
-              native
-              value={weakenAtk}
-              onChange={e =>
-                setFriend({
-                  ...friend,
-                  weakenAtk: parseInt(e.target.value as string)
-                })
-              }
-              input={<Input id="friend-weakenAtk" />}
-            >
-              {new Array(10).fill(1).map((_, i) => (
-                <option key={`weakenAtk${i}`} value={i}>
-                  {i}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="friend-atkDope">攻撃力ドーピング</InputLabel>
+          <Select
+            native
+            value={atkDope}
+            onChange={e =>
+              setFriend({
+                ...friend,
+                atkDope: parseInt(e.target.value as string)
+              })
+            }
+            input={<Input id="friend-atkDope" />}
+          >
+            {new Array(10).fill(1).map((_, i) => (
+              <option key={`atkDope${i}`} value={i * 5}>
+                {i * 5}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+        <br />
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="friend-weakenAtk">攻撃力弱化</InputLabel>
+          <Select
+            native
+            value={weakenAtk}
+            onChange={e =>
+              setFriend({
+                ...friend,
+                weakenAtk: parseInt(e.target.value as string)
+              })
+            }
+            input={<Input id="friend-weakenAtk" />}
+          >
+            {new Array(10).fill(1).map((_, i) => (
+              <option key={`weakenAtk${i}`} value={i}>
+                {i}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
 
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="friend-weakenDef">防御力弱化</InputLabel>
-            <Select
-              native
-              value={weakenDef}
-              onChange={e =>
-                setFriend({
-                  ...friend,
-                  weakenDef: parseInt(e.target.value as string)
-                })
-              }
-              input={<Input id="friend-weakenDef" />}
-            >
-              {new Array(10).fill(1).map((_, i) => (
-                <option key={`weakenDef${i}`} value={i}>
-                  {i}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </form>
+        <FormControl className={classes.formControl}>
+          <InputLabel htmlFor="friend-weakenDef">防御力弱化</InputLabel>
+          <Select
+            native
+            value={weakenDef}
+            onChange={e =>
+              setFriend({
+                ...friend,
+                weakenDef: parseInt(e.target.value as string)
+              })
+            }
+            input={<Input id="friend-weakenDef" />}
+          >
+            {new Array(10).fill(1).map((_, i) => (
+              <option key={`weakenDef${i}`} value={i}>
+                {i}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary">

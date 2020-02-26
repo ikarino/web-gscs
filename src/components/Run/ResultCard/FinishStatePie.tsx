@@ -11,14 +11,14 @@ export default function FinishStatePie({ success, killed, genocided }: Props) {
   const sum = success + killed + genocided;
   const successRate = sum === 0 ? 0 : (100 * success) / sum;
 
-  const data =
-    sum === 0
-      ? [{ x: "未計算", y: 100 }]
-      : [
-          { x: "success", y: success },
-          { x: "killed", y: killed },
-          { x: "genocided", y: genocided }
-        ];
+  let data: { x: string; y: number }[] = [];
+  if (sum === 0) {
+    data = [{ x: "未計算", y: 100 }];
+  } else {
+    if (success) data.push({ x: "success", y: success });
+    if (killed) data.push({ x: "killed", y: killed });
+    if (genocided) data.push({ x: "genocided", y: genocided });
+  }
 
   return (
     <svg viewBox="0 0 400 400">

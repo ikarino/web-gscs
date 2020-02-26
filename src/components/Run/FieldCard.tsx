@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "lightgray"
     },
     buttonGroup: {
-      paddingTop: theme.spacing(2)
+      marginTop: theme.spacing(2)
     },
     fieldPaper: {
       margin: "auto"
@@ -57,6 +57,7 @@ function FieldCard() {
           size="small"
           aria-label="outlined primary button group"
           className={classes.buttonGroup}
+          component={Paper}
         >
           <Button
             size="small"

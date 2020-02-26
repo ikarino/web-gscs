@@ -61,7 +61,7 @@ export default function SummaryPaper() {
     dispatch(runScsSlice.actions.finish(m.summarizeOutputs()));
   };
 
-  const successCount = outputs.filter(o => o.result.finishState === "sucess")
+  const successCount = outputs.filter(o => o.result.finishState === "success")
     .length;
   const killedCount = outputs.filter(o => o.result.finishState === "killed")
     .length;
