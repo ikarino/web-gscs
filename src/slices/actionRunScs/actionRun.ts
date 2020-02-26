@@ -1,16 +1,17 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 
-import { SCSInput, SCSSummarizedOutput } from "torneko3js";
+import { SCSInput, SCSSummarizedOutput, SCSTrialOutput } from "torneko3js";
 
 import { SliceRunScs } from "../slice.interface";
 
 export const actionProgess = (
   state: SliceRunScs,
-  action: PayloadAction<number>
+  action: PayloadAction<{ progress: number; outputs: SCSTrialOutput[] }>
 ): SliceRunScs => {
   return {
     ...state,
-    progress: action.payload
+    progress: action.payload.progress,
+    outputs: action.payload.outputs
   };
 };
 
@@ -25,7 +26,8 @@ export const actionStart = (
       scsInput: action.payload // here
     },
     progress: 0, // here
-    isRunning: true //here
+    isRunning: true, //here,
+    outputs: [] // here
   };
 };
 

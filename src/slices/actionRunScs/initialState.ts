@@ -43,5 +43,6 @@ export const initialState: SliceRunScs = {
     }
   },
   progress: 0,
-  isRunning: false
+  isRunning: false,
+  outputs: []
 };

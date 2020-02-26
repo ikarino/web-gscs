@@ -40,6 +40,8 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  // TODO
+  // friend not changes even if props.f changes
   const [friend, setFriend] = useState(f);
 
   const handleClose = () => {
@@ -83,6 +85,7 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
       : friend.doubleSpeed
       ? true
       : false;
+  console.log(friend);
   const isSealed =
     friend.isSealed === undefined ? false : friend.isSealed ? true : false;
 

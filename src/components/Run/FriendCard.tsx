@@ -10,6 +10,9 @@ import { RootState } from "../../store";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      height: "100%"
+    },
     header: {
       backgroundColor: "lightgray"
     },
@@ -23,7 +26,7 @@ function FriendCard() {
   const friends = useSelector((state: RootState) => state.scsInput.inp.friends);
   const classes = useStyles();
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" className={classes.root}>
       <CardHeader title="Friend" className={classes.header} />
       <CardContent>
         <FriendTable friends={friends} editable={true} />

@@ -1,4 +1,4 @@
-import { SCSInput, SCSSummarizedOutput } from "torneko3js";
+import { SCSInput, SCSSummarizedOutput, SCSTrialOutput } from "torneko3js";
 
 type WebGscsRecord = {
   scsInput: SCSInput;
@@ -30,4 +30,5 @@ export type SliceRunScs = {
   record: WebGscsRecord;
   progress: number;
   isRunning: boolean;
+  outputs: SCSTrialOutput[];
 };

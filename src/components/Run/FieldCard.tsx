@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import {
   Paper,
-  Box,
   Card,
   CardHeader,
   CardContent,
@@ -24,6 +23,9 @@ import scsInputSlice from "../../slices/scsInputSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      height: "100%"
+    },
     header: {
       backgroundColor: "lightgray"
     },
@@ -42,7 +44,7 @@ function FieldCard() {
 
   const classes = useStyles();
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" className={classes.root}>
       <CardHeader title="Field" className={classes.header} />
 
       <CardContent>

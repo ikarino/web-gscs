@@ -16,6 +16,9 @@ import { RootState } from "../../store";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      height: "100%"
+    },
     header: {
       backgroundColor: "lightgray"
     },
@@ -54,7 +57,7 @@ export default function ConfigCard() {
   ));
 
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" className={classes.root}>
       <CardHeader title="Config" className={classes.header} />
       <CardContent>
         <FormControl className={classes.formControl}>

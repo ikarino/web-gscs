@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { AppThunk } from "../store";
-
 import {
   initialState,
   actionProgess,
   actionStart,
   actionFinish
 } from "./actionRunScs";
-import { Manager, SCSInput } from "torneko3js";
 
 const runScsSlice = createSlice({
   name: "runScs",
@@ -19,6 +16,10 @@ const runScsSlice = createSlice({
     finish: actionFinish
   }
 });
+
+/*
+import { AppThunk } from "../store";
+import { Manager, SCSInput } from "torneko3js";
 
 export const runScsAsync = (inp: SCSInput): AppThunk => {
   console.log("starting ...");
@@ -46,5 +47,5 @@ export const runScsAsync = (inp: SCSInput): AppThunk => {
     dispatch(runScsSlice.actions.finish(m.summarizeOutputs()));
   };
 };
-
+*/
 export default runScsSlice;
