@@ -5,7 +5,7 @@ import { Card, CardHeader, CardContent, Grid } from "@material-ui/core";
 
 import SummaryPaper from "./SummaryPaper";
 import BarChartPaper from "./BarChartPaper";
-import StatisticalCheckPaper from "./StatisticalCheckPaper";
+import StatisticsPaper from "./StatisticsPaper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +33,7 @@ export default function ResultCard() {
             <BarChartPaper />
           </Grid>
           <Grid item xs={12} md={4}>
-            <StatisticalCheckPaper />
+            <StatisticsPaper />
           </Grid>
         </Grid>
       </CardContent>

@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Paper, Typography } from "@material-ui/core";
-import { RootState } from "../../../store";
+import { RootState } from "../../../../store";
 
-import { mean, std } from "../../share/mathFunctions";
+import { mean, std } from "../../../share/mathFunctions";
 
-import StatisticalCheckChart from "./StatisticalCheckChart";
+import StatisticalCheckChart from "./LineChart";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

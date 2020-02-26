@@ -5,7 +5,7 @@ type Props = {
   mean: any[];
 };
 
-export default function StatisticalCheckChart({ mean }: Props) {
+export default function LineChart({ mean }: Props) {
   return (
     <VictoryChart theme={VictoryTheme.material}>
       <VictoryLine

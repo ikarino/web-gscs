@@ -3,14 +3,22 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Paper, Box, LinearProgress, Button, Grid } from "@material-ui/core";
+import {
+  Paper,
+  Box,
+  LinearProgress,
+  Button,
+  Grid,
+  Typography
+} from "@material-ui/core";
 
 import { SCSTrialOutput, Manager } from "torneko3js";
 
-import runScsSlice from "../../../slices/runScsSlice";
-import { RootState } from "../../../store";
-import { useSampleWorker } from "../../../workers/useSampleWorker";
-import InputChips from "../../share/InputChips";
+import runScsSlice from "../../../../slices/runScsSlice";
+import { RootState } from "../../../../store";
+import { useSampleWorker } from "../../../../workers/useSampleWorker";
+import InputChips from "../../../share/InputChips";
+import { mean } from "../../../share/mathFunctions";
 
 import FinishStatePie from "./FinishStatePie";
 
@@ -27,6 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     papers: {
       margin: theme.spacing(1)
+    },
+    exp: {
+      marginTop: theme.spacing(4)
     }
   })
 );
@@ -69,6 +80,8 @@ export default function SummaryPaper() {
     o => o.result.finishState === "genocided"
   ).length;
 
+  const mExp = mean(outputs.map(o => o.exp.perTurn));
+
   return (
     <Paper className={classes.root}>
       <Paper className={classes.papers}>
@@ -102,7 +115,9 @@ export default function SummaryPaper() {
             />
           </Grid>
           <Grid item xs={4}>
-            経験値
+            <div className={classes.exp}>
+              <Typography variant="button">{mExp}</Typography>
+            </div>
             <br />
             ターン経過率
           </Grid>
