@@ -1,7 +1,10 @@
 import * as React from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Card, CardHeader, CardContent, Grid } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import Grid from "@material-ui/core/Grid";
 
 import SummaryPaper from "./SummaryPaper";
 import BarChartPaper from "./BarChartPaper";

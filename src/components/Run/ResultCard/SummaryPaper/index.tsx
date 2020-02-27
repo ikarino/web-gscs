@@ -3,14 +3,12 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import {
-  Paper,
-  Box,
-  LinearProgress,
-  Button,
-  Grid,
-  Typography
-} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 import { SCSTrialOutput, Manager } from "torneko3js";
 

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "web-gscs",
+  "name": "PS2ゲーム「トルネコ3」のスモコンシミュレータ",
   "icons": [
     {
       "src": "favicon.ico",

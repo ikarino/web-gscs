@@ -13,6 +13,7 @@ import Playground from "./components/Playground";
 import Records from "./components/Records";
 import RecordDetails from "./components/RecordDetails";
 import About from "./components/About";
+import ServiceWorkerWrapper from "./components/ServiceWorkerWrapper";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/about" component={About} />
           <Route component={Records} />
         </Switch>
+        <ServiceWorkerWrapper />
       </BrowserRouter>
     </Provider>
   );

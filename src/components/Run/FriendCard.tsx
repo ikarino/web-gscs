@@ -2,7 +2,9 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Card, CardHeader, CardContent } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
 
 import FriendTable from "../share/FriendTable";
 

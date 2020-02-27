@@ -1,13 +1,12 @@
 import React from "react";
-
 import { useSelector } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Paper } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+
 import { RootState } from "../../../../store";
 
 import { mean } from "../../../share/mathFunctions";
-
 import StatisticalCheckChart from "./LineChart";
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -7,8 +7,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+
 import { SCSFriendInput } from "torneko3js";
-import { Typography } from "@material-ui/core";
 
 import FriendChip from "./FriendChip";
 import FriendEditDialogue from "./FriendEditDialogue";
