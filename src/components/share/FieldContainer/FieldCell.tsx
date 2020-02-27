@@ -74,7 +74,7 @@ type Props = {
 function FieldCell({ data, place, width, fixed }: Props) {
   // redux
   const activePlace = useSelector(
-    (state: RootState) => state.scsInput.activePlace
+    (state: RootState) => state.scsInput.present.activePlace
   );
   const dispatch = useDispatch();
 

@@ -39,7 +39,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function FieldCard() {
-  const field = useSelector((state: RootState) => state.scsInput.inp.field);
+  const field = useSelector(
+    (state: RootState) => state.scsInput.present.inp.field
+  );
   const dispatch = useDispatch();
 
   const classes = useStyles();

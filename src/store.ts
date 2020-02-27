@@ -1,4 +1,5 @@
 import { configureStore, combineReducers, Action } from "@reduxjs/toolkit";
+import undoable from "redux-undo";
 import { ThunkAction } from "redux-thunk";
 
 import counterSlice from "./slices/counterSlice";
@@ -7,7 +8,7 @@ import runScsSlice from "./slices/runScsSlice";
 
 const rootReducer = combineReducers({
   counter: counterSlice.reducer,
-  scsInput: scsInputSlice.reducer,
+  scsInput: undoable(scsInputSlice.reducer, { limit: 10 }),
   runScs: runScsSlice.reducer
 });
 

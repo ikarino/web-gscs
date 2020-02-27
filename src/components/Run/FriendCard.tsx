@@ -23,7 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function FriendCard() {
-  const friends = useSelector((state: RootState) => state.scsInput.inp.friends);
+  const friends = useSelector(
+    (state: RootState) => state.scsInput.present.inp.friends
+  );
   const classes = useStyles();
   return (
     <Card variant="outlined" className={classes.root}>
