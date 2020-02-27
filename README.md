@@ -8,16 +8,15 @@ scs の実行には web worker api を使う。
 
 投稿機能に関わる firebase/firestore は後回しで、とりあえず Run/Playground が動くにようにがんばる。
 
-- [ ] firebase auth 統合
-- [ ] firestore 統合
-- [x] worker api(workerize loader)
-- [x] Link(react-router-dom)
-- [ ] Dashboard 画面 UI
+- [x] worker api
+- [x] inbound links
+- [x] undo 機能
 - [ ] Run 画面 UI
   - [x] Field
   - [x] Friend
     - [x] テンプレート切替時の Dialogue 未反映問題
-    - [ ] UI 調整
+    - [ ] Drag Drop で並び替え
+    - [ ] 追加/削除機能
   - [x] Conifg
   - [ ] Result
     - [ ] SummaryGrid(UI と円グラフの反映速度)
@@ -26,6 +25,9 @@ scs の実行には web worker api を使う。
 - [ ] Playground 画面 UI
 - [ ] Records 画面 UI
 - [ ] About 画面 UI
+- [ ] Dashboard 画面 UI
+- [ ] firebase auth 統合
+- [ ] firestore 統合
 
 ## Dependencies memo
 
@@ -35,16 +37,20 @@ yarn create react-app web-gscs --typescript
 
 ### core
 
+- workerize-loader
 - react-router-dom
-- @reduxjs/toolkit
+- @types/react-router-dom
 - react-redux
 - @types/react-redux
+- @reduxjs/toolkit
+- redux-undo
 
 ### react components
 
 - @material-ui/core
 - @material-ui/icons
 - victory
+- @types/victory
 
 ### scs
 

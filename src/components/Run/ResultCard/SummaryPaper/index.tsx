@@ -111,14 +111,14 @@ export default function SummaryPaper() {
 
       <Paper className={classes.papers}>
         <Grid container>
-          <Grid item xs={8}>
+          <Grid item xs={7}>
             <FinishStatePie
               success={successCount}
               killed={killedCount}
               genocided={genocidedCount}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={5}>
             <div className={classes.exp}>
               <Typography variant="h5">{mExp.toFixed(1)}</Typography>
               <Typography

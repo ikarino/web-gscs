@@ -15,6 +15,7 @@ import FieldCard from "./FieldCard";
 import FriendCard from "./FriendCard";
 import ConfigCard from "./ConfigCard";
 import ResultCard from "./ResultCard";
+import PConfCard from "./PConfCard";
 
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>
@@ -64,6 +65,11 @@ function Run() {
           <Grid item xs={12}>
             <Paper className={classes.cardGrid}>
               <ResultCard />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Paper className={classes.cardGrid}>
+              <PConfCard />
             </Paper>
           </Grid>
         </Grid>

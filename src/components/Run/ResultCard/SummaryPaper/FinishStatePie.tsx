@@ -1,5 +1,5 @@
 import React from "react";
-import { VictoryPie, VictoryLabel } from "victory";
+import { VictoryPie, VictoryLabel, VictoryTheme } from "victory";
 
 type Props = {
   success: number;
@@ -23,6 +23,7 @@ export default function FinishStatePie({ success, killed, genocided }: Props) {
   return (
     <svg viewBox="0 0 400 400">
       <VictoryPie
+        theme={VictoryTheme.material}
         standalone={false}
         width={400}
         height={400}
@@ -31,7 +32,6 @@ export default function FinishStatePie({ success, killed, genocided }: Props) {
         labelRadius={100}
         style={{ labels: { fontSize: 40, fill: "black" } }}
         animate={{ duration: 2000 }}
-        colorScale={["lightgreen", "red", "gray"]}
       />
       <VictoryLabel
         textAnchor="middle"
