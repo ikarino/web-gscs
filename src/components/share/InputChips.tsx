@@ -21,37 +21,38 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const creatableWithExplosion = (field: SCSFieldInput) => {
+  let answer: number[] = [];
+  let test: number[] = [];
   for (let irow = 0; irow < field.row; irow++) {
     for (let icol = 0; icol < field.col; icol++) {
-      if (
-        icol === 0 ||
-        icol + 1 === field.col ||
-        irow === 0 ||
-        irow + 1 === field.row
-      ) {
+      const idata = irow * field.col + icol;
+      if (field.data[idata] === 1) {
         continue;
       }
-      if (field.data[irow * field.col + icol] !== 1) {
-        let nw = field.data[(irow - 1) * field.col + (icol - 1)] !== 1;
-        let nn = field.data[(irow - 1) * field.col + (icol + 0)] !== 1;
-        let ne = field.data[(irow - 1) * field.col + (icol + 1)] !== 1;
-        let ww = field.data[(irow + 0) * field.col + (icol - 1)] !== 1;
-        let ee = field.data[(irow + 0) * field.col + (icol + 1)] !== 1;
-        let sw = field.data[(irow + 1) * field.col + (icol - 1)] !== 1;
-        let ss = field.data[(irow + 1) * field.col + (icol + 0)] !== 1;
-        let se = field.data[(irow + 1) * field.col + (icol + 1)] !== 1;
-        if (
-          !(
-            (ww && nw && nn) ||
-            (ee && ne && nn) ||
-            (ww && sw && ss) ||
-            (ee && se && ss)
-          )
-        ) {
-          return false;
+
+      answer.push(idata);
+      let flag = false;
+      for (let dcol of [-1, 0, 1]) {
+        for (let drow of [-1, 0, 1]) {
+          if (field.data[(irow + drow) * field.col + (icol + dcol)] === 1) {
+            flag = true;
+          }
+        }
+      }
+
+      if (flag) {
+        continue;
+      }
+
+      for (let dcol of [-1, 0, 1]) {
+        for (let drow of [-1, 0, 1]) {
+          test.push((irow + drow) * field.col + (icol + dcol));
         }
       }
     }
+  }
+  for (const a of answer) {
+    if (!test.includes(a)) return false;
   }
   return true;
 };
@@ -64,7 +65,14 @@ type MyTipProps = {
 function MyTip({ title, label }: MyTipProps) {
   const classes = useStyles();
   return (
-    <Tooltip title={title} arrow className={classes.tip}>
+    <Tooltip
+      enterDelay={500}
+      leaveDelay={200}
+      title={title}
+      arrow
+      placement="top"
+      className={classes.tip}
+    >
       <Chip size="small" label={label} />
     </Tooltip>
   );

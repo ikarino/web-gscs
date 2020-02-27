@@ -92,6 +92,8 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
       : false;
   const isSealed =
     friend.isSealed === undefined ? false : friend.isSealed ? true : false;
+  const isSticked =
+    friend.isSticked === undefined ? false : friend.isSticked ? true : false;
 
   const hpDope = friend.hpDope === undefined ? 0 : friend.hpDope;
   const atkDope = friend.atkDope === undefined ? 0 : friend.atkDope;
@@ -165,6 +167,21 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
             />
           }
           label={isSealed ? "封印有" : "封印無"}
+        />
+
+        <FormControlLabel
+          control={
+            <Switch
+              checked={isSticked}
+              onChange={e =>
+                setFriend({ ...friend, isSticked: e.target.checked })
+              }
+              value={isSticked}
+              disabled={friend.name !== "ホイミスライム"}
+              color="primary"
+            />
+          }
+          label={isSticked ? "不動" : "可動"}
         />
         <br />
         <FormControl className={classes.formControl}>

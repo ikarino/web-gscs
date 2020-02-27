@@ -1,4 +1,9 @@
-# web-gscs
+<p align="center">
+  <img src="https://github.com/ikarino/web-gscs/blob/master/public/logo.png?raw=true" width=40%>
+</p>
+<h2 align="center">web-gscs</h2>
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1ac6a824-7bf1-454f-a2fb-7c71d07d8e03/deploy-status)](https://app.netlify.com/sites/web-gscs/deploys)
 
 typescript で書き直しているブランチ
 
@@ -22,6 +27,7 @@ scs の実行には web worker api を使う。
     - [ ] SummaryGrid(UI と円グラフの反映速度)
     - [ ] BarChartGrid
     - [ ] StatisticsGrid
+  - [ ] Probability Config
 - [ ] Playground 画面 UI
 - [ ] Records 画面 UI
 - [ ] About 画面 UI
