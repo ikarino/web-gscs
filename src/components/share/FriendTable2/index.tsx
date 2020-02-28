@@ -1,43 +1,17 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { RootState } from "../../../store";
 
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult
-} from "react-beautiful-dnd";
+import { FriendType } from "./types";
+import FriendList from "./FriendList";
 
-import { SCSFriendInput } from "torneko3js";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    quoteItem: {
-      width: "200px",
-      border: "1px solid grey",
-      marginBottom: "8px",
-      backgroundColor: "lightblue",
-      padding: "8px"
-    }
-  })
-);
-
-type TypeQuote = {
-  id: string;
-  content: string;
-};
-
-const initial = Array.from({ length: 10 }, (v, k) => k).map(k => {
-  const custom: TypeQuote = {
-    id: `id-${k}`,
-    content: `Quote ${k}`
-  };
-
-  return custom;
-});
-
-const reorder = (list: TypeQuote[], startIndex: number, endIndex: number) => {
+const reorder = (
+  list: FriendType[],
+  startIndex: number,
+  endIndex: number
+): FriendType[] => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -45,33 +19,20 @@ const reorder = (list: TypeQuote[], startIndex: number, endIndex: number) => {
   return result;
 };
 
-function Quote({ quote, index }: { quote: TypeQuote; index: number }) {
-  const classes = useStyles();
-  return (
-    <Draggable draggableId={quote.id} index={index}>
-      {provided => (
-        <div
-          className={classes.quoteItem}
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          {quote.content}
-        </div>
-      )}
-    </Draggable>
+const FriendTable = () => {
+  const fs = useSelector(
+    (store: RootState) => store.scsInput.present.inp.friends
   );
-}
+  const initial = fs.map(
+    (f, i): FriendType => ({
+      id: i.toString(),
+      content: f
+    })
+  );
 
-type Props = {
-  friends: SCSFriendInput[];
-  editable: boolean;
-};
+  const [state, setState] = useState({ items: initial });
 
-export default function FriendTable({ friends, editable }: Props) {
-  const [state, setState] = useState({ quotes: initial });
-
-  function onDragEnd(result: DropResult) {
+  const onDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
     }
@@ -80,29 +41,27 @@ export default function FriendTable({ friends, editable }: Props) {
       return;
     }
 
-    const quotes = reorder(
-      state.quotes,
+    const items = reorder(
+      state.items,
       result.source.index,
       result.destination.index
     );
 
-    setState({ quotes });
-  }
-
-  const list = state.quotes.map((quote: TypeQuote, index: number) => (
-    <Quote quote={quote} index={index} key={quote.id} />
-  ));
+    setState({ items });
+  };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="list">
         {provided => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
-            {list}
+            <FriendList friends={state.items} />
             {provided.placeholder}
           </div>
         )}
       </Droppable>
     </DragDropContext>
   );
-}
+};
+
+export default FriendTable;

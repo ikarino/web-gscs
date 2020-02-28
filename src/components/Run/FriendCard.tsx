@@ -7,6 +7,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 
 import FriendTable from "../share/FriendTable";
+// import FriendTable from "../share/FriendTable2";
 
 import { RootState } from "../../store";
 

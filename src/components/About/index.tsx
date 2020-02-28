@@ -48,73 +48,8 @@ export default function About() {
     <>
       <CssBaseline />
       <Container maxWidth="md" className={classes.container}>
-        <Paper elevation={1} className={classes.panel}>
-          <Typography className={classes.heading} variant="h5" gutterBottom>
-            用語の説明
-          </Typography>
-          <Paper elevation={1} className={classes.infoPanel}>
-            <Typography variant="h6">ターン経験値</Typography>
-            <Typography variant="h6"></Typography>
-            <Typography variant="caption">
-              1ターンあたりに得られた経験値です。仲間が死亡したり、敵スモグルが消滅してシミュレーションが止まっているターンは無視されています。
-            </Typography>
-            <Typography variant="h6">ターン経過率</Typography>
-            <Typography variant="caption">
-              仲間が死亡したり、敵スモグルが消滅せずに経過したターンです。100%が望ましい状態です。
-            </Typography>
-            <Typography variant="h6">仲間死亡率</Typography>
-            <Typography variant="caption">
-              試行のうち、仲間が死亡してシミュレーションが終了した試行数です。0%が望ましい状態です。
-            </Typography>
-            <Typography variant="h6">敵スモ消滅率</Typography>
-            <Typography variant="caption">
-              敵スモグルが消滅してシミュレーション終了した試行数です。0%が望ましい状態です。
-            </Typography>
-            <Typography variant="h6">待機率</Typography>
-            <Typography variant="caption">
-              行動できなかったターン数です（倍速はカウント）。0%が望ましい状態です。
-            </Typography>
-            <Typography variant="h6">分裂ロス</Typography>
-            <Typography variant="caption">
-              スモールグールに攻撃した際に分裂するスペースが無かった回数です。0が望ましい状態です。
-            </Typography>
-          </Paper>
-          <Typography className={classes.heading} variant="h5" gutterBottom>
-            実装内容
-          </Typography>
-          <Paper elevation={1} className={classes.infoPanel}>
-            実装内容
-          </Paper>
-          <Typography className={classes.heading} variant="h5" gutterBottom>
-            開発・連絡
-          </Typography>
-          <Paper elevation={1} className={classes.infoPanel}>
-            <Typography variant="caption">
-              バグ報告、コメント等は以下までお願いいたします。
-            </Typography>
-            <List>
-              <ListItem
-                button
-                component={Link}
-                href="mailto:ggrks218@gmail.com?subject=web-gscsについて"
-              >
-                <ListItemIcon>
-                  <EmailIcon />
-                </ListItemIcon>
-                <ListItemText primary="E-mail" />
-              </ListItem>
-              <ListItem
-                button
-                component={Link}
-                href="https://twitter.com/ikarino99"
-              >
-                <ListItemIcon>
-                  <TwitterIcon />
-                </ListItemIcon>
-                <ListItemText primary="Twitter" />
-              </ListItem>
-            </List>
-          </Paper>
+        <Paper elevation={4} className={classes.panel}>
+          Awesome About Page !
         </Paper>
       </Container>
     </>

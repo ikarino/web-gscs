@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import Paper from "@material-ui/core/Paper";
-import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -55,7 +55,7 @@ function FieldCard() {
           <FieldContainer field={field} fixed={false} />
         </Paper>
 
-        <Container>
+        <Box display="flex" justifyContent="center">
           <ButtonGroup
             color="primary"
             size="small"
@@ -104,7 +104,7 @@ function FieldCard() {
               <ArrowDownwardIcon />
             </Button>
           </ButtonGroup>
-        </Container>
+        </Box>
       </CardContent>
     </Card>
   );

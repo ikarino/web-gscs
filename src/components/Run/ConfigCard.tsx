@@ -118,7 +118,7 @@ export default function ConfigCard() {
               </MenuItem>
             ))}
           </Select>
-          <FormHelperText>発生できるスモグルの数を制限します</FormHelperText>
+          <FormHelperText>フロアユニット数の上限を考慮します</FormHelperText>
         </FormControl>
         <FormControl className={classes.formControl}>
           <InputLabel id="template-select-labell">テンプレート</InputLabel>
