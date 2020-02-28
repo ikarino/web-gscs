@@ -9,7 +9,8 @@ import {
   actionSetTurn,
   actionSetTrial,
   actionSetFriend,
-  actionSetNumSumoLimit
+  actionSetNumSumoLimit,
+  actionSetPConf
 } from "./actionSCSInput";
 
 const initialState: SliceSCSInput = {
@@ -36,6 +37,7 @@ const scsInputSlice = createSlice({
     setTurn: actionSetTurn,
     setTrial: actionSetTrial,
     setNumSumoLimit: actionSetNumSumoLimit,
+    setPConf: actionSetPConf,
     // inp.friends
     setFriend: actionSetFriend
   }

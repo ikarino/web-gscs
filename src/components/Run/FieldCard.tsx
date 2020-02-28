@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import Paper from "@material-ui/core/Paper";
+import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -54,54 +55,56 @@ function FieldCard() {
           <FieldContainer field={field} fixed={false} />
         </Paper>
 
-        <ButtonGroup
-          color="primary"
-          size="small"
-          aria-label="outlined primary button group"
-          className={classes.buttonGroup}
-          component={Paper}
-        >
-          <Button
+        <Container>
+          <ButtonGroup
+            color="primary"
             size="small"
-            onClick={() =>
-              dispatch(scsInputSlice.actions.changeFieldSize(true))
-            }
+            aria-label="outlined primary button group"
+            className={classes.buttonGroup}
+            component={Paper}
           >
-            <ZoomOutIcon />
-          </Button>
-          <Button
-            size="small"
-            onClick={() =>
-              dispatch(scsInputSlice.actions.changeFieldSize(false))
-            }
-          >
-            <ZoomInIcon />
-          </Button>
-          <Button
-            size="small"
-            onClick={() => dispatch(scsInputSlice.actions.moveField("left"))}
-          >
-            <ArrowBackIcon />
-          </Button>
-          <Button
-            size="small"
-            onClick={() => dispatch(scsInputSlice.actions.moveField("right"))}
-          >
-            <ArrowForwardIcon />
-          </Button>
-          <Button
-            size="small"
-            onClick={() => dispatch(scsInputSlice.actions.moveField("up"))}
-          >
-            <ArrowUpwardIcon />
-          </Button>
-          <Button
-            size="small"
-            onClick={() => dispatch(scsInputSlice.actions.moveField("down"))}
-          >
-            <ArrowDownwardIcon />
-          </Button>
-        </ButtonGroup>
+            <Button
+              size="small"
+              onClick={() =>
+                dispatch(scsInputSlice.actions.changeFieldSize(true))
+              }
+            >
+              <ZoomOutIcon />
+            </Button>
+            <Button
+              size="small"
+              onClick={() =>
+                dispatch(scsInputSlice.actions.changeFieldSize(false))
+              }
+            >
+              <ZoomInIcon />
+            </Button>
+            <Button
+              size="small"
+              onClick={() => dispatch(scsInputSlice.actions.moveField("left"))}
+            >
+              <ArrowBackIcon />
+            </Button>
+            <Button
+              size="small"
+              onClick={() => dispatch(scsInputSlice.actions.moveField("right"))}
+            >
+              <ArrowForwardIcon />
+            </Button>
+            <Button
+              size="small"
+              onClick={() => dispatch(scsInputSlice.actions.moveField("up"))}
+            >
+              <ArrowUpwardIcon />
+            </Button>
+            <Button
+              size="small"
+              onClick={() => dispatch(scsInputSlice.actions.moveField("down"))}
+            >
+              <ArrowDownwardIcon />
+            </Button>
+          </ButtonGroup>
+        </Container>
       </CardContent>
     </Card>
   );

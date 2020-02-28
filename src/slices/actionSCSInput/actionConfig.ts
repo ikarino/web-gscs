@@ -1,6 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 
 import { SliceSCSInput } from "../slice.interface";
+import { OverWriter } from "torneko3js";
 
 export const actionSetTurn = (
   state: SliceSCSInput,
@@ -45,6 +46,21 @@ export const actionSetNumSumoLimit = (
       config: {
         ...state.inp.config,
         numSumoLimit: action.payload
+      }
+    }
+  };
+};
+export const actionSetPConf = (
+  state: SliceSCSInput,
+  action: PayloadAction<OverWriter>
+): SliceSCSInput => {
+  return {
+    ...state,
+    inp: {
+      ...state.inp,
+      config: {
+        ...state.inp.config,
+        pConf: action.payload
       }
     }
   };

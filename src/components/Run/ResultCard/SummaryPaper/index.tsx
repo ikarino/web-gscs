@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
-import { SCSTrialOutput, Manager } from "torneko3js";
+import { SCSTrialOutput, summarizeSCSOutputs } from "torneko3js";
 
 import runScsSlice from "../../../../slices/runScsSlice";
 import { RootState } from "../../../../store";
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       backgroundColor: "lightgray"
     },
-    button: {
+    calcButton: {
       width: "100%"
     },
     root: {
@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     pos: {
       marginBottom: 12
+    },
+
+    postButton: {
+      padding: theme.spacing(1)
     }
   })
 );
@@ -68,9 +72,7 @@ export default function SummaryPaper() {
         })
       );
     }
-    const m = new Manager(inp);
-    m.trialOutputs = outputs;
-    dispatch(runScsSlice.actions.finish(m.summarizeOutputs()));
+    dispatch(runScsSlice.actions.finish(summarizeSCSOutputs(outputs)));
   };
 
   const successCount = outputs.filter(o => o.result.finishState === "success")
@@ -93,7 +95,7 @@ export default function SummaryPaper() {
             disabled={isRunning}
             variant="outlined"
             color="secondary"
-            className={classes.button}
+            className={classes.calcButton}
           >
             {isRunning ? "計算中" : "計算開始"}
           </Button>
@@ -140,6 +142,24 @@ export default function SummaryPaper() {
           </Grid>
         </Grid>
       </Paper>
+
+      <div className={classes.papers}>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.postButton}
+        >
+          投稿
+        </Button>
+        　
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.postButton}
+        >
+          ツイート
+        </Button>
+      </div>
     </Paper>
   );
 }

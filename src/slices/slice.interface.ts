@@ -10,7 +10,7 @@ type WebGscsRecord = {
     // userId: TODO
     allDoubleSpeed: boolean;
     allSingleSpeed: boolean;
-    creatable_with_explosion: boolean;
+    creatableWithExplosion: boolean;
     lvKinoko: number;
     lvKiton: number;
     numHoimiSlime: number;

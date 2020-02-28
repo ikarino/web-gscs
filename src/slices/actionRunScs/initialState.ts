@@ -33,7 +33,7 @@ export const initialState: SliceRunScs = {
       // userId: TODO
       allDoubleSpeed: false,
       allSingleSpeed: false,
-      creatable_with_explosion: false,
+      creatableWithExplosion: false,
       lvKinoko: 0,
       lvKiton: 0,
       numHoimiSlime: 0,
