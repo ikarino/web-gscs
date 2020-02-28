@@ -28,12 +28,14 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "redux-undo": "^1.0.0",
+    "source-map-explorer": "^2.3.1",
     "torneko3js": "^0.1.6",
     "typescript": "~3.7.2",
     "victory": "^34.1.1",
     "workerize-loader": "^1.1.0"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js' --html sme_result.html",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

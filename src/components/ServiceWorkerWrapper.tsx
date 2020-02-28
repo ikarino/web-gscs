@@ -1,7 +1,8 @@
 // for PWA update
 // https://felixgerschau.com/2020/01/27/cra-pwa-update-notification.html
 import React, { FC, useEffect } from "react";
-import { Snackbar, Button } from "@material-ui/core";
+import Snackbar from "@material-ui/core/Snackbar";
+import Button from "@material-ui/core/Button";
 import * as serviceWorker from "../serviceWorker";
 
 const ServiceWorkerWrapper: FC = () => {
