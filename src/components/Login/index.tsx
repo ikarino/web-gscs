@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
 
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -89,7 +88,6 @@ export default function Login() {
 
   return (
     <>
-      <CssBaseline />
       <Container maxWidth="md" className={classes.container}>
         <Paper elevation={4} className={classes.panel}>
           Awesome LOGIN Page !{content}

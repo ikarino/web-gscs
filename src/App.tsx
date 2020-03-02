@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 
+import CssBaseline from "@material-ui/core/CssBaseline";
 import NavBar from "./components/NavBar";
 import Run from "./components/Run";
 import Dashboard from "./components/Dashboard";
@@ -35,6 +36,7 @@ function App() {
         dispatch={store.dispatch}
       >
         <BrowserRouter>
+          <CssBaseline />
           <NavBar />
           <Switch>
             <Route exact path="/" component={Dashboard} />

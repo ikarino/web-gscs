@@ -2,7 +2,6 @@ import React from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
 
 import Paper from "@material-ui/core/Paper";
 
@@ -37,7 +36,6 @@ export default function About() {
 
   return (
     <>
-      <CssBaseline />
       <Container maxWidth="md" className={classes.container}>
         <Paper elevation={4} className={classes.panel}>
           Awesome About Page !

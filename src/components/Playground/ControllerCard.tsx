@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useLayoutEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -20,7 +20,6 @@ import ZoomInIcon from "@material-ui/icons/ZoomIn";
 
 import { Manager } from "torneko3js";
 
-import FieldContainer from "../share/FieldContainer";
 import { RootState } from "../../store";
 import scsInputSlice from "../../slices/scsInputSlice";
 
@@ -32,38 +31,72 @@ const useStyles = makeStyles<Theme, { width: string }>((theme: Theme) =>
     header: {
       backgroundColor: "lightgray"
     },
+    buttonBox: {
+      clear: "left"
+    },
     buttonGroup: {
       marginTop: theme.spacing(2)
     },
     fieldPaper: {
       margin: "auto"
     },
-    emptyCell: props => ({
+
+    cellWrapperBlack: props => ({
+      float: "left",
+      position: "relative",
       width: props.width,
+      paddingBottom: props.width,
+      overflow: "hidden",
+      backgroundColor: "black",
+      fontSize: "5pt",
+      border: "1px solid black"
+    }),
+    cellWrapperRed: props => ({
+      float: "left",
+      position: "relative",
+      width: props.width,
+      paddingBottom: props.width,
+      overflow: "hidden",
+      backgroundColor: "red",
+      fontSize: "5pt",
+      border: "1px solid black"
+    }),
+    cellWrapperWhite: props => ({
+      float: "left",
+      position: "relative",
+      width: props.width,
+      paddingBottom: props.width,
+      overflow: "hidden",
       backgroundColor: "white",
-      "&::before": {
-        content: "",
-        display: "block",
-        paddingTop: "100%"
-      }
+      fontSize: "5pt",
+      border: "1px solid black"
     }),
-    wallCell: props => ({
+    cellWrapperGreen: props => ({
+      float: "left",
+      position: "relative",
       width: props.width,
-      backgroundColor: "black"
-    }),
-    enemyCell: props => ({
-      width: props.width,
-      backgroundColor: "orange"
-    }),
-    friendCell: props => ({
-      width: props.width,
+      paddingBottom: props.width,
+      overflow: "hidden",
       backgroundColor: "lightgreen",
-      "&::before": {
-        content: "",
-        display: "block",
-        paddingTop: "100%"
-      }
-    })
+
+      // TODO
+      // responsive fontsize
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "5px"
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: "10px"
+      },
+      border: "1px solid black"
+    }),
+    cellString: {
+      position: "absolute",
+      height: "100%",
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+    }
   })
 );
 
@@ -72,47 +105,50 @@ export default function ControllerCard() {
   const dispatch = useDispatch();
   const m = new Manager(inp);
   m.init();
+  const [state, setState] = useState(true);
   const [manager, setManager] = useState(m);
   const classes = useStyles({ width: `${100 / inp.field.col}%` });
 
-  const hpTable = manager.field.data.map((row, irow) => {
-    const tds = row.map((m, im) => {
-      const key = `m${irow}-${im}`;
-      if (m === 0) {
-        return <td key={key} className={classes.emptyCell}></td>;
-      } else if (m === 1) {
-        return <td key={key} className={classes.wallCell}></td>;
-      } else if (10 <= m && m < 20) {
-        const hp = manager.friends[m - 10].chp.toFixed(0);
-        return (
-          <td key={key} className={classes.friendCell}>
-            {hp}
-          </td>
-        );
-      } else {
-        const hp = manager.getEnemyByNumber(m - 20).chp.toFixed(0);
-        return (
-          <td key={key} className={classes.enemyCell}>
-            {hp}
-          </td>
-        );
-      }
-    });
-    return <tr key={`row${irow}`}>{tds}</tr>;
+  const hpTable = m.field.data.flat().map((d, i) => {
+    if (state) {
+    }
+    let cellString = "";
+    let style: string;
+    if (d === 0) {
+      style = classes.cellWrapperWhite;
+    } else if (d === 1) {
+      style = classes.cellWrapperBlack;
+    } else if (d < 20) {
+      style = classes.cellWrapperGreen;
+      cellString = m.friends[d - 10].chp.toFixed(0);
+    } else {
+      style = classes.cellWrapperRed;
+      cellString = m.getEnemyByNumber(d - 20).chp.toFixed(0);
+    }
+    return (
+      <div className={style} key={`hptable-${i}`}>
+        <div className={classes.cellString}>{cellString}</div>
+      </div>
+    );
   });
+  const run = () => {
+    m.turnEnemy();
+    console.log(m.friends.map(f => f.chp));
+    setState(!state);
+  };
 
   return (
     <Card variant="outlined" className={classes.root}>
       <CardHeader title="Field" className={classes.header} />
 
       <CardContent>
-        <Paper>
-          <table className="mx-auto">
-            <tbody>{hpTable}</tbody>
-          </table>
-        </Paper>
+        <Paper>{hpTable}</Paper>
 
-        <Box display="flex" justifyContent="center">
+        <Box
+          display="flex"
+          justifyContent="center"
+          className={classes.buttonBox}
+        >
           <ButtonGroup
             color="primary"
             size="small"
@@ -120,12 +156,7 @@ export default function ControllerCard() {
             className={classes.buttonGroup}
             component={Paper}
           >
-            <Button
-              size="small"
-              onClick={() =>
-                dispatch(scsInputSlice.actions.changeFieldSize(true))
-              }
-            >
+            <Button size="small" onClick={run}>
               <ZoomOutIcon />
             </Button>
             <Button

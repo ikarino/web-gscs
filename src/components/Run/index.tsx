@@ -7,7 +7,6 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Fab from "@material-ui/core/Fab";
 import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
 
@@ -44,7 +43,6 @@ function Run() {
 
   return (
     <>
-      <CssBaseline />
       <Container maxWidth="md" className={classes.container}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>

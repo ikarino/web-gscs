@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
 
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -82,17 +81,14 @@ export default function UserPage() {
 
   const logOut = () => firebase.logout();
   return (
-    <>
-      <CssBaseline />
-      <Container maxWidth="md" className={classes.container}>
-        <Paper elevation={4} className={classes.panel}>
-          <Typography variant="h5">Awesome USER Page !</Typography>
-          {content}
-          <Button onClick={logOut} color="primary">
-            log out
-          </Button>
-        </Paper>
-      </Container>
-    </>
+    <Container maxWidth="md" className={classes.container}>
+      <Paper elevation={4} className={classes.panel}>
+        <Typography variant="h5">Awesome USER Page !</Typography>
+        {content}
+        <Button onClick={logOut} color="primary">
+          log out
+        </Button>
+      </Paper>
+    </Container>
   );
 }
