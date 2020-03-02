@@ -103,7 +103,7 @@ function FieldCell({ data, place, width, fixed }: Props) {
     default:
       src = fImages[data - 10];
       alt = "f" + String(data - 10);
-      if (place === activePlace) {
+      if (place.row === activePlace.row && place.col === activePlace.col) {
         className = classes.fieldCellActive;
       } else {
         className = classes.fieldCellFriend;

@@ -65,7 +65,7 @@ function Run() {
               <ResultCard />
             </Paper>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12}>
             <Paper className={classes.cardGrid}>
               <PConfCard />
             </Paper>
