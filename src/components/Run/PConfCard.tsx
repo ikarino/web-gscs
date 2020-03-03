@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  createStyles,
+  Theme,
+  ThemeProvider
+} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -15,7 +21,6 @@ import { defaultProbabilityConf, OverWriter } from "torneko3js";
 
 import scsInputSlice from "../../slices/scsInputSlice";
 import { RootState } from "../../store";
-import { initialState } from "../../slices/actionRunScs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     buttonGroup: {
       paddingTop: "5px"
+    },
+    eachPconf: {
+      margin: theme.spacing(1)
     }
   })
 );
@@ -37,21 +45,24 @@ export default function PConfCard() {
 
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [tmpPConf, setTmpPConf] = useState(defaultProbabilityConf);
+  const tmp = useSelector(
+    (state: RootState) => state.scsInput.present.inp.config.pConf
+  );
+  const pConf = tmp !== undefined ? tmp : defaultProbabilityConf;
+
   let iniState: { [key: string]: { [index: string]: boolean } } = {};
-  for (const k of Object.keys(tmpPConf)) {
+  for (const k of Object.keys(pConf)) {
     iniState[k] = {};
-    for (const kk of Object.keys(tmpPConf[k])) {
+    for (const kk of Object.keys(pConf[k])) {
       iniState[k][kk] = false;
     }
   }
-
   const [state, setState] = useState(iniState);
 
-  const list = Object.keys(tmpPConf).map(k => {
-    const items = Object.keys(tmpPConf[k]).map(kk => {
+  const list = Object.keys(pConf).map(k => {
+    const items = Object.keys(pConf[k]).map(kk => {
       return (
-        <div key={`box-${k}${kk}`}>
+        <React.Fragment key={`box-${k}${kk}`}>
           <Box
             display={state[k][kk] ? "none" : "block"}
             onClick={() => {
@@ -60,13 +71,15 @@ export default function PConfCard() {
               setState(newState);
             }}
           >
-            {kk}:{tmpPConf[k][kk]}
+            <Button>
+              {kk}:{pConf[k][kk]}
+            </Button>
           </Box>
           <Box display={state[k][kk] ? "block" : "none"}>
             <TextField
               key={`item-${k}-${kk}`}
               label={kk}
-              defaultValue={tmpPConf[k][kk]}
+              defaultValue={pConf[k][kk]}
               helperText={`default: ${defaultProbabilityConf[k][kk]}`}
               onChange={e => {
                 const newValue = parseFloat(e.target.value);
@@ -79,7 +92,6 @@ export default function PConfCard() {
                   JSON.stringify(defaultProbabilityConf)
                 );
                 newConf[k][kk] = newValue;
-                setTmpPConf(newConf);
                 dispatch(scsInputSlice.actions.setPConf(newConf));
               }}
             />
@@ -95,11 +107,18 @@ export default function PConfCard() {
               OK
             </Button>
           </Box>
-        </div>
+        </React.Fragment>
       );
     });
     return (
-      <Grid item key={`item-${k}`} xs={12} md={4}>
+      <Grid
+        item
+        key={`item-${k}`}
+        xs={12}
+        md={2}
+        component={Paper}
+        className={classes.eachPconf}
+      >
         <Typography variant="h6">{k}</Typography>
         {items}
       </Grid>
@@ -113,14 +132,15 @@ export default function PConfCard() {
       <CardContent>
         <Button
           onClick={() => {
-            setTmpPConf(defaultProbabilityConf);
             dispatch(scsInputSlice.actions.setPConf(defaultProbabilityConf));
-            console.log("fuck");
           }}
+          color="primary"
+          variant="outlined"
         >
           set default
         </Button>
-        <Grid container spacing={3}>
+
+        <Grid container spacing={3} justify="center">
           {list}
         </Grid>
       </CardContent>

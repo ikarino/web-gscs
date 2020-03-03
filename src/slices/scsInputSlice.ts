@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { sampleSCSInputs } from "torneko3js";
+import { sampleSCSInputs, defaultProbabilityConf } from "torneko3js";
 
 import { SliceSCSInput } from "./slice.interface";
 import {
@@ -24,11 +24,20 @@ const scsInputSlice = createSlice({
   initialState,
   reducers: {
     // templateName
-    setTemplate: (state, action) => ({
-      ...state,
-      templateName: action.payload,
-      inp: sampleSCSInputs[action.payload]
-    }),
+    setTemplate: (state, action) => {
+      const inp = {
+        ...sampleSCSInputs[action.payload],
+        config: {
+          ...sampleSCSInputs[action.payload].config,
+          pConf: defaultProbabilityConf
+        }
+      };
+      return {
+        ...state,
+        templateName: action.payload,
+        inp
+      };
+    },
     // inp.field
     changeField: actionChangeField,
     changeFieldSize: actionChangeFieldSize,
