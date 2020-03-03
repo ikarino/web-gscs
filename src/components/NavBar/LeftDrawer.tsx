@@ -95,7 +95,7 @@ export default function LeftDrawer({ drawer, setDrawer }: Props) {
             button
             key={`development`}
             component={MuiLink.default}
-            href="https://github.com/ikarino/web-gscs"
+            href="https://github.com/ikarino/web-gscs/tree/typescript"
           >
             <ListItemIcon>
               <GitHubIcon />

@@ -23,16 +23,16 @@ scs の実行には web worker api を使う。
     - [ ] Drag Drop で並び替え
     - [ ] 追加/削除機能
   - [x] Conifg
-  - [ ] Result
-    - [ ] SummaryGrid(UI と円グラフの反映速度)
-    - [ ] BarChartGrid
-    - [ ] StatisticsGrid
-  - [ ] Probability Config
+  - [x] Result
+    - [x] SummaryGrid(UI と円グラフの反映速度)
+    - [x] BarChartGrid
+    - [x] StatisticsGrid
+  - [x] Probability Config
 - [ ] Playground 画面 UI
 - [ ] Records 画面 UI
 - [ ] About 画面 UI
 - [ ] Dashboard 画面 UI
-- [ ] firebase auth 統合
+- [x] firebase auth 統合
 - [ ] firestore 統合
 
 ## Dependencies memo
