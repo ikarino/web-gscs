@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -18,7 +18,7 @@ import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ZoomOutIcon from "@material-ui/icons/ZoomOut";
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
 
-import { Manager } from "torneko3js";
+import { Manager, SCSInput } from "torneko3js";
 
 import { RootState } from "../../store";
 import scsInputSlice from "../../slices/scsInputSlice";
@@ -58,7 +58,12 @@ const useStyles = makeStyles<Theme, { width: string }>((theme: Theme) =>
       paddingBottom: props.width,
       overflow: "hidden",
       backgroundColor: "red",
-      fontSize: "5pt",
+      [theme.breakpoints.up("xs")]: {
+        fontSize: "calc(4vmin)"
+      },
+      [theme.breakpoints.up("md")]: {
+        fontSize: "10px"
+      },
       border: "1px solid black"
     }),
     cellWrapperWhite: props => ({
@@ -81,8 +86,8 @@ const useStyles = makeStyles<Theme, { width: string }>((theme: Theme) =>
 
       // TODO
       // responsive fontsize
-      [theme.breakpoints.down("xs")]: {
-        fontSize: "5px"
+      [theme.breakpoints.up("xs")]: {
+        fontSize: "calc(4vmin)"
       },
       [theme.breakpoints.up("md")]: {
         fontSize: "10px"
@@ -100,17 +105,73 @@ const useStyles = makeStyles<Theme, { width: string }>((theme: Theme) =>
   })
 );
 
-export default function ControllerCard() {
-  const inp = useSelector((state: RootState) => state.scsInput.inp);
-  const dispatch = useDispatch();
+const createInitialManager = (inp: SCSInput) => {
   const m = new Manager(inp);
   m.init();
-  const [state, setState] = useState(true);
+  return m;
+};
+
+interface Props {}
+
+interface State {
+  m: Manager;
+  manager: Manager;
+}
+/*
+class ControllerCard2 extends React.Component<Props, State> {
+  run() {
+    this.state.m.turnEnemy();
+    console.log(this.state.m.friends.map(f => f.chp));
+  }
+
+  reset() {
+    this.state.m.init();
+  }
+  render() {
+    return (
+      <Card variant="outlined" className={classes.root}>
+        <CardHeader title="Field" className={classes.header} />
+
+        <CardContent>
+          <Paper>{hpTable}</Paper>
+
+          <Box
+            display="flex"
+            justifyContent="center"
+            className={classes.buttonBox}
+          >
+            <ButtonGroup
+              color="primary"
+              size="small"
+              aria-label="outlined primary button group"
+              className={classes.buttonGroup}
+              component={Paper}
+            >
+              <Button size="small" onClick={this.run}>
+                <ZoomOutIcon />
+              </Button>
+              <Button size="small" onClick={this.reset}>
+                <ZoomOutIcon />
+              </Button>
+            </ButtonGroup>
+          </Box>
+        </CardContent>
+      </Card>
+    );
+  }
+}
+*/
+export default function ControllerCard() {
+  const inp = useSelector((state: RootState) => state.scsInput.inp);
+  const m = createInitialManager(inp);
+
+  const [manager, setManager] = useState(
+    JSON.parse(JSON.stringify(m)) as Manager
+  );
+
   const classes = useStyles({ width: `${100 / inp.field.col}%` });
 
-  const hpTable = m.field.data.flat().map((d, i) => {
-    if (state) {
-    }
+  const hpTable = manager.field.data.flat().map((d, i) => {
     let cellString = "";
     let style: string;
     if (d === 0) {
@@ -119,10 +180,13 @@ export default function ControllerCard() {
       style = classes.cellWrapperBlack;
     } else if (d < 20) {
       style = classes.cellWrapperGreen;
-      cellString = m.friends[d - 10].chp.toFixed(0);
+      cellString = manager.friends[d - 10].chp.toFixed(0);
     } else {
       style = classes.cellWrapperRed;
-      cellString = m.getEnemyByNumber(d - 20).chp.toFixed(0);
+      cellString = manager.enemys
+        .filter(e => e.num === d - 20)[0]
+        .chp.toFixed(0);
+      // cellString = manager.getEnemyByNumber(d - 20).chp.toFixed(0);
     }
     return (
       <div className={style} key={`hptable-${i}`}>
@@ -133,7 +197,12 @@ export default function ControllerCard() {
   const run = () => {
     m.turnEnemy();
     console.log(m.friends.map(f => f.chp));
-    setState(!state);
+    setManager(JSON.parse(JSON.stringify(m)) as Manager);
+  };
+
+  const reset = () => {
+    m.init();
+    setManager(JSON.parse(JSON.stringify(m)) as Manager);
   };
 
   return (
@@ -158,37 +227,8 @@ export default function ControllerCard() {
             <Button size="small" onClick={run}>
               <ZoomOutIcon />
             </Button>
-            <Button
-              size="small"
-              onClick={() =>
-                dispatch(scsInputSlice.actions.changeFieldSize(false))
-              }
-            >
-              <ZoomInIcon />
-            </Button>
-            <Button
-              size="small"
-              onClick={() => dispatch(scsInputSlice.actions.moveField("left"))}
-            >
-              <ArrowBackIcon />
-            </Button>
-            <Button
-              size="small"
-              onClick={() => dispatch(scsInputSlice.actions.moveField("right"))}
-            >
-              <ArrowForwardIcon />
-            </Button>
-            <Button
-              size="small"
-              onClick={() => dispatch(scsInputSlice.actions.moveField("up"))}
-            >
-              <ArrowUpwardIcon />
-            </Button>
-            <Button
-              size="small"
-              onClick={() => dispatch(scsInputSlice.actions.moveField("down"))}
-            >
-              <ArrowDownwardIcon />
+            <Button size="small" onClick={reset}>
+              <ZoomOutIcon />
             </Button>
           </ButtonGroup>
         </Box>
