@@ -38,7 +38,7 @@ export default function PConfCard() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const tmp = useSelector(
-    (state: RootState) => state.scsInput.present.inp.config.pConf
+    (state: RootState) => state.scsInput.inp.config.pConf
   );
   const pConf = tmp !== undefined ? tmp : defaultProbabilityConf;
 

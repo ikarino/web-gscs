@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -101,12 +101,11 @@ const useStyles = makeStyles<Theme, { width: string }>((theme: Theme) =>
 );
 
 export default function ControllerCard() {
-  const inp = useSelector((state: RootState) => state.scsInput.present.inp);
+  const inp = useSelector((state: RootState) => state.scsInput.inp);
   const dispatch = useDispatch();
   const m = new Manager(inp);
   m.init();
   const [state, setState] = useState(true);
-  const [manager, setManager] = useState(m);
   const classes = useStyles({ width: `${100 / inp.field.col}%` });
 
   const hpTable = m.field.data.flat().map((d, i) => {

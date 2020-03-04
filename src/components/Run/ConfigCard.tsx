@@ -40,12 +40,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ConfigCard() {
-  const inp = useSelector((state: RootState) => state.scsInput.present.inp);
+  const inp = useSelector((state: RootState) => state.scsInput.inp);
   const config = inp.config;
   const numSumoLimit =
     config.numSumoLimit === undefined ? 9 : config.numSumoLimit;
   const templateName = useSelector(
-    (state: RootState) => state.scsInput.present.templateName
+    (state: RootState) => state.scsInput.templateName
   );
 
   const dispatch = useDispatch();

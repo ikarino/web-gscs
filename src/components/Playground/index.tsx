@@ -1,14 +1,9 @@
 import * as React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { ActionCreators as UndoActionCreator } from "redux-undo";
-import { RootState } from "../../store";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import Fab from "@material-ui/core/Fab";
-import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
 
 import ControllerCard from "./ControllerCard";
 
@@ -31,10 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Playground() {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const past = useSelector((state: RootState) => state.scsInput.past);
-
-  const disabled = past.length === 0;
 
   return (
     <>
@@ -47,16 +38,6 @@ export default function Playground() {
           </Grid>
         </Grid>
       </Container>
-      <Fab
-        size="small"
-        color="primary"
-        aria-label="add"
-        className={classes.backFAB}
-        onClick={() => dispatch(UndoActionCreator.undo())}
-        disabled={disabled}
-      >
-        <SettingsBackupRestoreIcon />
-      </Fab>
     </>
   );
 }

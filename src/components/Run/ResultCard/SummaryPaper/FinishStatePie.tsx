@@ -1,6 +1,5 @@
 import React from "react";
-import { VictoryPie, VictoryLabel, VictoryTheme } from "victory";
-import color from "@material-ui/core/colors/amber";
+import { VictoryPie, VictoryLabel } from "victory";
 
 type Props = {
   success: number;

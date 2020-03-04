@@ -10,7 +10,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 
-import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis } from "victory";
+import { VictoryBar, VictoryChart, VictoryTheme } from "victory";
 
 import { summarizeSCSOutputs } from "torneko3js";
 
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function BarChartPaper() {
   const classes = useStyles();
-  const inp = useSelector((state: RootState) => state.scsInput.present.inp);
+  const inp = useSelector((state: RootState) => state.scsInput.inp);
   const outputs = useSelector((state: RootState) => state.runScs.outputs);
 
   const [selected, setSelected] = useState(0);

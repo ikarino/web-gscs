@@ -4,7 +4,7 @@ import {
   Action,
   getDefaultMiddleware
 } from "@reduxjs/toolkit";
-import undoable from "redux-undo";
+// import undoable from "redux-undo";
 import { ThunkAction } from "redux-thunk";
 
 import { firebaseReducer, actionTypes } from "react-redux-firebase";
@@ -15,7 +15,8 @@ import runScsSlice from "./slices/runScsSlice";
 
 const rootReducer = combineReducers({
   counter: counterSlice.reducer,
-  scsInput: undoable(scsInputSlice.reducer, { limit: 10 }),
+  // scsInput: undoable(scsInputSlice.reducer, { limit: 10 }),
+  scsInput: scsInputSlice.reducer,
   runScs: runScsSlice.reducer,
   firebase: firebaseReducer
 });

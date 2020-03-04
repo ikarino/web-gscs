@@ -20,9 +20,7 @@ const reorder = (
 };
 
 const FriendTable = () => {
-  const fs = useSelector(
-    (store: RootState) => store.scsInput.present.inp.friends
-  );
+  const fs = useSelector((store: RootState) => store.scsInput.inp.friends);
   const initial = fs.map(
     (f, i): FriendType => ({
       id: i.toString(),

@@ -51,7 +51,7 @@ export default function SummaryPaper() {
   // const config = useSelector((state: RootState) => state.scsInput.inp.config);
   const classes = useStyles();
   const isRunning = useSelector((state: RootState) => state.runScs.isRunning);
-  const inp = useSelector((state: RootState) => state.scsInput.present.inp);
+  const inp = useSelector((state: RootState) => state.scsInput.inp);
   const progress = useSelector((state: RootState) => state.runScs.progress);
   const outputs = useSelector((state: RootState) => state.runScs.outputs);
   const dispatch = useDispatch();
