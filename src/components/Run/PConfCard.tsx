@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import {
-  makeStyles,
-  createStyles,
-  Theme,
-  ThemeProvider
-} from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
@@ -17,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 
-import { defaultProbabilityConf, OverWriter } from "torneko3js";
+import { defaultProbabilityConf } from "torneko3js";
 
 import scsInputSlice from "../../slices/scsInputSlice";
 import { RootState } from "../../store";
@@ -40,9 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function PConfCard() {
-  // TODO
-  // useStateせずに直接Reduxの値をいじるだけにできないか
-
   const dispatch = useDispatch();
   const classes = useStyles();
   const tmp = useSelector(
@@ -66,9 +58,13 @@ export default function PConfCard() {
           <Box
             display={state[k][kk] ? "none" : "block"}
             onClick={() => {
-              let newState = { ...state };
-              newState[k][kk] = !state[k][kk];
-              setState(newState);
+              setState({
+                ...state,
+                [k]: {
+                  ...state[k],
+                  [kk]: !state[k][kk]
+                }
+              });
             }}
           >
             <Button>
@@ -88,20 +84,28 @@ export default function PConfCard() {
                   // show some popup
                   return;
                 }
-                let newConf = JSON.parse(
-                  JSON.stringify(defaultProbabilityConf)
+                dispatch(
+                  scsInputSlice.actions.setPConf({
+                    ...pConf,
+                    [k]: {
+                      ...pConf[k],
+                      [kk]: newValue
+                    }
+                  })
                 );
-                newConf[k][kk] = newValue;
-                dispatch(scsInputSlice.actions.setPConf(newConf));
               }}
             />
             <Button
               variant="contained"
               color="primary"
               onClick={() => {
-                let newState = { ...state };
-                newState[k][kk] = !state[k][kk];
-                setState(newState);
+                setState({
+                  ...state,
+                  [k]: {
+                    ...state[k],
+                    [kk]: !state[k][kk]
+                  }
+                });
               }}
             >
               OK
