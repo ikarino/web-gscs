@@ -12,7 +12,7 @@ import Container from "@material-ui/core/Container";
 
 import { VictoryBar, VictoryChart, VictoryTheme } from "victory";
 
-import { summarizeSCSOutputs } from "torneko3js";
+import { summarizeSCSOutputs } from "../../../../scs";
 
 import { RootState } from "../../../../store";
 

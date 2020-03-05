@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 
-import { sampleSCSInputs } from "torneko3js";
+import { sampleSCSInputs } from "../../scs";
 
 import scsInputSlice from "../../slices/scsInputSlice";
 import { RootState } from "../../store";

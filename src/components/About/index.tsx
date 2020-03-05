@@ -35,12 +35,10 @@ export default function About() {
   const classes = useStyles();
 
   return (
-    <>
-      <Container maxWidth="md" className={classes.container}>
-        <Paper elevation={4} className={classes.panel}>
-          Awesome About Page !
-        </Paper>
-      </Container>
-    </>
+    <Container maxWidth="md" className={classes.container}>
+      <Paper elevation={4} className={classes.panel}>
+        Awesome About Page !
+      </Paper>
+    </Container>
   );
 }

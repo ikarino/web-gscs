@@ -5,7 +5,7 @@ import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
 import Tooltip from "@material-ui/core/Tooltip";
 
-import { SCSInput, SCSFieldInput } from "torneko3js";
+import { SCSInput, SCSFieldInput } from "../../scs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

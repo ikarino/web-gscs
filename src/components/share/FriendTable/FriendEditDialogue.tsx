@@ -12,7 +12,7 @@ import Select from "@material-ui/core/Select";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
-import { SCSFriendInput } from "torneko3js";
+import { SCSFriendInput } from "../../../scs";
 import { useDispatch } from "react-redux";
 import scsInputSlice from "../../../slices/scsInputSlice";
 

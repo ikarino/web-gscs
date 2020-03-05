@@ -1,5 +1,5 @@
 import * as React from "react"; // props の型を定義
-import { SCSFieldInput } from "torneko3js";
+import { SCSFieldInput } from "../../../scs";
 import FieldCell from "./FieldCell";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";

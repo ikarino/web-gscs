@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 
 import { SliceSCSInput } from "../slice.interface";
-import { OverWriter } from "torneko3js";
+import { OverWriter } from "../../scs";
 
 export const actionSetTurn = (
   state: SliceSCSInput,

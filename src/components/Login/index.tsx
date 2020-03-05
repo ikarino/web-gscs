@@ -8,6 +8,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 
@@ -76,10 +77,10 @@ export default function Login() {
   });
 
   const content = isLoaded(auth) ? (
-    <>
+    <ButtonGroup size="large" color="primary">
       <Button onClick={loginWithGoogle}>Googleでログイン！</Button>
       <Button onClick={loginWithTwitter}>Twitterでログイン！</Button>
-    </>
+    </ButtonGroup>
   ) : (
     <Typography variant="body1" align="center">
       ログイン状態チェック中
@@ -87,12 +88,11 @@ export default function Login() {
   );
 
   return (
-    <>
-      <Container maxWidth="md" className={classes.container}>
-        <Paper elevation={4} className={classes.panel}>
-          Awesome LOGIN Page !{content}
-        </Paper>
-      </Container>
-    </>
+    <Container maxWidth="md" className={classes.container}>
+      <Paper elevation={4} className={classes.panel}>
+        <Typography variant="h5">LOGIN Page !</Typography>
+        {content}
+      </Paper>
+    </Container>
   );
 }

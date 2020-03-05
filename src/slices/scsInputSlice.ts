@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { sampleSCSInputs, defaultProbabilityConf } from "torneko3js";
+import { sampleSCSInputs, defaultProbabilityConf } from "../scs";
 
 import { SliceSCSInput } from "./slice.interface";
 import {

@@ -1,13 +1,21 @@
 import React from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      paddingTop: theme.spacing(2)
+      maxWidth: 600,
+      paddingTop: theme.spacing(2),
+      // paddingBottom: theme.spacing(2)
+      marginBottom: theme.spacing(2)
+    },
+    panel: {
+      width: "90%",
+      margin: "auto",
+      padding: theme.spacing(2)
     }
   })
 );
@@ -15,12 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Dashboard() {
   const classes = useStyles();
   return (
-    <>
-      <Container maxWidth="md" className={classes.container}>
-        <Grid container spacing={3}>
-          My Awesome Dashboard Page
-        </Grid>
-      </Container>
-    </>
+    <Container maxWidth="md" className={classes.container}>
+      <Paper elevation={4} className={classes.panel}>
+        My Awesome Dashboard Page
+      </Paper>
+    </Container>
   );
 }

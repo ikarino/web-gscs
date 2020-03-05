@@ -2,7 +2,7 @@ import React from "react";
 
 import Chip from "@material-ui/core/Chip";
 
-import { SCSFriendInput } from "torneko3js";
+import { SCSFriendInput } from "../../../scs";
 
 type Props = {
   f: SCSFriendInput;

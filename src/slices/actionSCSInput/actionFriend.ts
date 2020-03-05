@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 
 import { SliceSCSInput } from "../slice.interface";
-import { SCSFriendInput } from "torneko3js";
+import { SCSFriendInput } from "../../scs";
 
 type PayLoad = {
   order: number;

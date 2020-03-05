@@ -9,7 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
-import { SCSFriendInput } from "torneko3js";
+import { SCSFriendInput } from "../../../scs";
 
 import FriendChip from "./FriendChip";
 import FriendEditDialogue from "./FriendEditDialogue";

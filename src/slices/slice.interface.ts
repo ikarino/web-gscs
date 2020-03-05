@@ -1,4 +1,4 @@
-import { SCSInput, SCSSummarizedOutput, SCSTrialOutput } from "torneko3js";
+import { SCSInput, SCSSummarizedOutput, SCSTrialOutput } from "../scs";
 
 type WebGscsRecord = {
   scsInput: SCSInput;

@@ -1,4 +1,4 @@
-import { SCSFriendInput } from "torneko3js";
+import { SCSFriendInput } from "../../../scs";
 
 export type FriendType = {
   id: string;

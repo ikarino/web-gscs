@@ -1,4 +1,4 @@
-import { Manager, SCSInput } from "torneko3js";
+import { Manager, SCSInput } from "../scs";
 
 export function foo(a: number, b: number) {
   return `Worker result: ${a + b}`;

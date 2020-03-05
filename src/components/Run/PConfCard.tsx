@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 
-import { defaultProbabilityConf } from "torneko3js";
+import { defaultProbabilityConf } from "../../scs";
 
 import scsInputSlice from "../../slices/scsInputSlice";
 import { RootState } from "../../store";
