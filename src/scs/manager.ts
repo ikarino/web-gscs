@@ -17,7 +17,7 @@ import {
   defaultProbabilityConf,
   monstersSkillAdjacent,
   monstersSkillAdjacentWCorner,
-  monstersSkillAdjacentWOCorner,
+  // monstersSkillAdjacentWOCorner,
   logger
 } from "./config";
 import checkInp from "./checkInp";

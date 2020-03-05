@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -10,11 +10,14 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
+import Button from "@material-ui/core/Button";
+import Drawer from "@material-ui/core/Drawer";
 
-import { sampleSCSInputs } from "../../scs";
+import { sampleSCSInputs } from "../../../scs";
 
-import scsInputSlice from "../../slices/scsInputSlice";
-import { RootState } from "../../store";
+import scsInputSlice from "../../../slices/scsInputSlice";
+import { RootState } from "../../../store";
+import PConfTree from "./PconfTree";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ConfigCard() {
+  const [drawer, setDrawer] = useState(false);
   const inp = useSelector((state: RootState) => state.scsInput.inp);
   const config = inp.config;
   const numSumoLimit =
@@ -136,6 +140,12 @@ export default function ConfigCard() {
           </Select>
           <FormHelperText>典型的なスモコン形状を読み込みます</FormHelperText>
         </FormControl>
+        <Button color="primary" onClick={() => setDrawer(true)}>
+          確率設定
+        </Button>
+        <Drawer anchor="right" open={drawer} onClose={() => setDrawer(false)}>
+          <PConfTree />
+        </Drawer>
       </CardContent>
     </Card>
   );
