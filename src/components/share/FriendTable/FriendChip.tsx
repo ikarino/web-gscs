@@ -30,7 +30,7 @@ export default function FriendChip({ f }: Props) {
         <Chip size="small" label={`封`} />
       ) : null}
       {f.isSticked !== undefined && !f.isSticked ? (
-        <Chip size="small" label={`半`} />
+        <Chip size="small" label={`動`} />
       ) : null}
     </>
   );

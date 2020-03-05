@@ -4,6 +4,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 import Paper from "@material-ui/core/Paper";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,7 +15,18 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(2)
     },
     heading: {
-      marginTop: theme.spacing(2)
+      color: "#505050" /*文字色*/,
+      padding: "0.5em" /*文字周りの余白*/,
+      display: "inline-block" /*おまじない*/,
+      lineHeight: "1.3" /*行高*/,
+      background: "#dbebf8" /*背景色*/,
+      verticalAlign: "middle",
+      borderRadius: "25px 0px 0px 25px" /*左側の角を丸く*/,
+      "&:before": {
+        content: '"●"',
+        color: "white",
+        marginRight: "8px"
+      }
     },
     secondaryHeading: {
       fontSize: theme.typography.pxToRem(15),
@@ -27,6 +39,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     infoPanel: {
       padding: theme.spacing(2)
+    },
+    body: {
+      marginLeft: "10px",
+      marginBottom: "10px"
     }
   })
 );
@@ -37,7 +53,30 @@ export default function About() {
   return (
     <Container maxWidth="md" className={classes.container}>
       <Paper elevation={4} className={classes.panel}>
-        Awesome About Page !
+        <Typography variant="h6" className={classes.heading}>
+          web-gscsとは
+        </Typography>
+        <Typography variant="body1" className={classes.body}>
+          ブラウザ上でスモコンシミュレーションを行い、結果をシェアできるサービスです。
+        </Typography>
+        <Typography variant="h6" className={classes.heading}>
+          用語の説明
+        </Typography>
+        <Typography variant="body1" className={classes.body}>
+          あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+        </Typography>
+        <Typography variant="h6" className={classes.heading}>
+          実装内容
+        </Typography>
+        <Typography variant="body1" className={classes.body}>
+          あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+        </Typography>
+        <Typography variant="h6" className={classes.heading}>
+          開発・連絡
+        </Typography>
+        <Typography variant="body1" className={classes.body}>
+          あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+        </Typography>
       </Paper>
     </Container>
   );

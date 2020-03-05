@@ -1,55 +1,55 @@
 // sampleInputs.ts
 //
 
-import { SCSInput } from './interfaces';
+import { SCSInput } from "./interfaces";
 
 export const sampleInputs: { [index: string]: SCSInput } = {
-  '4キラーマ等速': {
+  "4キラーマ等速": {
     friends: [
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'ホイミスライム',
-        lv: 30,
+        name: "ホイミスライム",
+        lv: 30
       },
       {
-        name: 'キラーマシン',
-        lv: 13,
+        name: "キラーマシン",
+        lv: 13
       },
       {
-        name: 'キラーマシン',
-        lv: 13,
+        name: "キラーマシン",
+        lv: 13
       },
       {
-        name: 'キラーマシン',
-        lv: 13,
+        name: "キラーマシン",
+        lv: 13
       },
       {
-        name: 'スモールグール',
-        lv: 30,
+        name: "スモールグール",
+        lv: 30
       },
       {
-        name: 'ホイミスライム',
-        lv: 30,
-      },
+        name: "ホイミスライム",
+        lv: 30
+      }
     ],
     field: {
       row: 10,
@@ -154,70 +154,70 @@ export const sampleInputs: { [index: string]: SCSInput } = {
         1,
         1,
         1,
-        1,
-      ],
+        1
+      ]
     },
     config: {
       turn: 1500,
-      trial: 100,
-    },
+      trial: 100
+    }
   },
-  '4キラーマ倍速': {
+  "4キラーマ倍速": {
     friends: [
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
         doubleSpeed: true,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
         doubleSpeed: true,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
         doubleSpeed: true,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
         doubleSpeed: true,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'ホイミスライム',
+        name: "ホイミスライム",
         lv: 30,
-        doubleSpeed: true,
+        doubleSpeed: true
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        doubleSpeed: true,
+        doubleSpeed: true
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        doubleSpeed: true,
+        doubleSpeed: true
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        doubleSpeed: true,
+        doubleSpeed: true
       },
       {
-        name: 'スモールグール',
+        name: "スモールグール",
         lv: 30,
-        doubleSpeed: true,
+        doubleSpeed: true
       },
       {
-        name: 'ホイミスライム',
+        name: "ホイミスライム",
         lv: 30,
-        doubleSpeed: true,
-      },
+        doubleSpeed: true
+      }
     ],
     field: {
       row: 10,
@@ -322,59 +322,59 @@ export const sampleInputs: { [index: string]: SCSInput } = {
         1,
         1,
         1,
-        1,
-      ],
+        1
+      ]
     },
     config: {
       turn: 1500,
-      trial: 100,
-    },
+      trial: 100
+    }
   },
-  '3キラーマ等速': {
+  "3キラーマ等速": {
     friends: [
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
-        lv: 13,
+        name: "キラーマシン",
+        lv: 13
       },
       {
-        name: 'ホイミスライム',
-        lv: 30,
+        name: "ホイミスライム",
+        lv: 30
       },
       {
-        name: 'キラーマシン',
-        lv: 13,
+        name: "キラーマシン",
+        lv: 13
       },
       {
-        name: 'キラーマシン',
-        lv: 13,
+        name: "キラーマシン",
+        lv: 13
       },
       {
-        name: 'キラーマシン',
-        lv: 13,
+        name: "キラーマシン",
+        lv: 13
       },
       {
-        name: 'スモールグール',
-        lv: 30,
+        name: "スモールグール",
+        lv: 30
       },
       {
-        name: 'ホイミスライム',
-        lv: 30,
-      },
+        name: "ホイミスライム",
+        lv: 30
+      }
     ],
     field: {
       row: 10,
@@ -479,59 +479,60 @@ export const sampleInputs: { [index: string]: SCSInput } = {
         1,
         1,
         1,
-        1,
-      ],
+        1
+      ]
     },
     config: {
       turn: 1500,
-      trial: 100,
-    },
+      trial: 100
+    }
   },
   キノコ育成: {
     friends: [
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
+        weakenAtk: 6
       },
       {
-        name: 'ホイミスライム',
-        lv: 30,
+        name: "ホイミスライム",
+        lv: 30
       },
       {
-        name: 'キラーマシン',
-        lv: 13,
+        name: "キラーマシン",
+        lv: 13
       },
       {
-        name: 'キラーマシン',
-        lv: 13,
+        name: "キラーマシン",
+        lv: 13
       },
       {
-        name: 'おばけキノコ',
-        lv: 20,
+        name: "おばけキノコ",
+        lv: 20
       },
       {
-        name: 'スモールグール',
-        lv: 30,
+        name: "スモールグール",
+        lv: 30
       },
       {
-        name: 'ホイミスライム',
-        lv: 30,
-      },
+        name: "ホイミスライム",
+        lv: 30
+      }
     ],
     field: {
       row: 10,
@@ -636,16 +637,16 @@ export const sampleInputs: { [index: string]: SCSInput } = {
         1,
         1,
         1,
-        1,
-      ],
+        1
+      ]
     },
     config: {
       turn: 1500,
-      trial: 100,
-    },
+      trial: 100
+    }
   },
   ランダムウォーク: {
-    friends: [{ name: 'スモールグール', lv: 99, isSealed: true }],
+    friends: [{ name: "スモールグール", lv: 99, isSealed: true }],
     field: {
       row: 10,
       col: 10,
@@ -749,72 +750,72 @@ export const sampleInputs: { [index: string]: SCSInput } = {
         1,
         1,
         1,
-        1,
-      ],
+        1
+      ]
     },
     config: {
       turn: 1500,
-      trial: 100,
-    },
+      trial: 100
+    }
   },
   半ホイミン倍速: {
     friends: [
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
         doubleSpeed: true,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
         doubleSpeed: true,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
         doubleSpeed: true,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
         doubleSpeed: true,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
         doubleSpeed: true,
-        weakenAtk: 6,
+        weakenAtk: 6
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        doubleSpeed: true,
+        doubleSpeed: true
       },
       {
-        name: 'キラーマシン',
+        name: "キラーマシン",
         lv: 13,
-        doubleSpeed: true,
+        doubleSpeed: true
       },
       {
-        name: 'スモールグール',
+        name: "スモールグール",
+        lv: 30,
+        doubleSpeed: true
+      },
+      {
+        name: "ホイミスライム",
+        lv: 30,
+        doubleSpeed: true
+      },
+      {
+        name: "ホイミスライム",
         lv: 30,
         doubleSpeed: true,
-      },
-      {
-        name: 'ホイミスライム',
-        lv: 30,
-        doubleSpeed: true,
-      },
-      {
-        name: 'ホイミスライム',
-        lv: 30,
-        doubleSpeed: true,
-        isSticked: false,
-      },
+        isSticked: false
+      }
     ],
     field: {
       row: 10,
@@ -919,30 +920,56 @@ export const sampleInputs: { [index: string]: SCSInput } = {
         1,
         1,
         1,
-        1,
-      ],
+        1
+      ]
     },
     config: {
       turn: 1500,
-      trial: 100,
-    },
+      trial: 100
+    }
   },
   ドッグスナイパー: {
     friends: [
       {
-        name: 'ドッグスナイパー',
+        name: "ドッグスナイパー",
         lv: 99,
-        doubleSpeed: true,
-      },
+        doubleSpeed: true
+      }
     ],
     field: {
       row: 5,
       col: 5,
-      data: [1, 1, 1, 1, 1, 1, 1, 1, 9, 1, 1, 1, 0, 1, 1, 1, 10, 1, 1, 1, 1, 1, 1, 1, 1],
+      data: [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        9,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        10,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
     },
     config: {
       turn: 100,
-      trial: 1,
-    },
-  },
+      trial: 1
+    }
+  }
 };

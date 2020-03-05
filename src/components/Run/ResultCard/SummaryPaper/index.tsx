@@ -148,6 +148,7 @@ export default function SummaryPaper() {
           variant="contained"
           color="secondary"
           className={classes.postButton}
+          disabled
         >
           投稿
         </Button>
@@ -156,6 +157,7 @@ export default function SummaryPaper() {
           variant="contained"
           color="secondary"
           className={classes.postButton}
+          disabled
         >
           ツイート
         </Button>

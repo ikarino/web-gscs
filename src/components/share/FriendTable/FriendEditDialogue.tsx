@@ -181,7 +181,7 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
               color="primary"
             />
           }
-          label={isSticked ? "不動" : "可動"}
+          label={isSticked ? "可動" : "不動"}
         />
         <br />
         <FormControl className={classes.formControl}>
@@ -206,7 +206,7 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
         </FormControl>
 
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="friend-atkDope">攻撃力ドーピング</InputLabel>
+          <InputLabel htmlFor="friend-atkDope">攻撃ドーピング</InputLabel>
           <Select
             native
             value={atkDope}
