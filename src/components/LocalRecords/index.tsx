@@ -42,10 +42,12 @@ export default function LocalRecords() {
   const rendered =
     Object.keys(records).length === 0 ? (
       <Paper elevation={4} className={classes.panel}>
-        <img
-          alt="ASKA NOW !"
-          src="https://cache3.nipc.jp/entertainment/news/img/et-et-aska20170121-9-w300_0.jpg"
-        />
+        <a href="https://www.fellows.tokyo/">
+          <img
+            alt="ASKA NOW !"
+            src="https://cache3.nipc.jp/entertainment/news/img/et-et-aska20170121-9-w300_0.jpg"
+          />
+        </a>
         <br />
         保存されているデータがありません。
         <br />
