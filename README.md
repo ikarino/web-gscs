@@ -20,15 +20,14 @@ scs の実行には web worker api を使う。
   - [x] Field
   - [x] Friend
     - [x] テンプレート切替時の Dialogue 未反映問題
-    - [ ] Drag Drop で並び替え
     - [ ] 追加/削除機能
   - [x] Conifg
+    - [x] Probability Config
   - [x] Result
     - [x] SummaryGrid(UI と円グラフの反映速度)
     - [x] BarChartGrid
     - [x] StatisticsGrid
-  - [x] Probability Config
-- [ ] Playground 画面 UI
+- [x] Playground 画面 UI
 - [ ] Records 画面 UI
 - [ ] About 画面 UI
 - [ ] Dashboard 画面 UI
@@ -49,7 +48,6 @@ yarn create react-app web-gscs --typescript
 - react-redux
 - @types/react-redux
 - @reduxjs/toolkit
-- redux-undo
 
 ### react components
 

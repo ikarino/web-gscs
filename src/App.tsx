@@ -21,6 +21,7 @@ import RecordDetails from "./components/RecordDetails";
 import About from "./components/About";
 import Login from "./components/Login";
 import UserPage from "./components/UserPage";
+import LocalRecords from "./components/LocalRecords";
 import ServiceWorkerWrapper from "./components/ServiceWorkerWrapper";
 
 import { fbConfig, rrfConfig } from "./config";
@@ -44,6 +45,7 @@ function App() {
             <Route path="/playground" component={Playground} />
             <Route path="/records" component={Records} />
             <Route path="/record/:id" component={RecordDetails} />
+            <Route path="/local" component={LocalRecords} />
             <Route path="/about" component={About} />
             <Route path="/login" component={Login} />
             <Route path="/user" component={UserPage} />

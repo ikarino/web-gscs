@@ -9,7 +9,6 @@ import FieldCard from "./FieldCard";
 import FriendCard from "./FriendCard";
 import ConfigCard from "./ConfigCard";
 import ResultCard from "./ResultCard";
-import PConfCard from "./PConfCard";
 
 // スタイルを定義
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,24 +1,34 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TreeItem from "@material-ui/lab/TreeItem";
-import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Snackbar from "@material-ui/core/Snackbar";
+import Button from "@material-ui/core/Button";
+
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 import { defaultProbabilityConf } from "../../../scs";
 import { RootState } from "../../../store";
+import scsInputSlice from "../../../slices/scsInputSlice";
 
-const useStyles = makeStyles({
-  root: {
-    height: 240,
-    flexGrow: 1,
-    maxWidth: 400
-  }
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      height: 240,
+      flexGrow: 1,
+      maxWidth: 400
+    },
+    defaultButton: {
+      margin: theme.spacing(1)
+    }
+  })
+);
 
 export default function PConfTree() {
   const classes = useStyles();
@@ -26,6 +36,20 @@ export default function PConfTree() {
     (state: RootState) => state.scsInput.inp.config.pConf
   );
   const pConf = tmp !== undefined ? tmp : defaultProbabilityConf;
+  const dispatch = useDispatch();
+  // snackBar
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const tree = Object.keys(pConf).map(k => {
     const items = Object.keys(pConf[k]).map(kk => (
@@ -38,16 +62,25 @@ export default function PConfTree() {
           key={`item-${k}-${kk}`}
           defaultValue={pConf[k][kk]}
           helperText={`default: ${defaultProbabilityConf[k][kk]}`}
-        />
-        <Button
-          color="primary"
-          onClick={() => {
-            // TODO
-            // dispatch action
+          onChange={e => {
+            const newValue = parseFloat(e.target.value);
+            if (isNaN(newValue)) {
+              setOpen(true);
+              return;
+            }
+            setOpen(false);
+
+            dispatch(
+              scsInputSlice.actions.setPConf({
+                ...pConf,
+                [k]: {
+                  ...pConf[k],
+                  [kk]: newValue
+                }
+              })
+            );
           }}
-        >
-          OK
-        </Button>
+        />
       </TreeItem>
     ));
     return (
@@ -58,12 +91,44 @@ export default function PConfTree() {
   });
 
   return (
-    <TreeView
-      className={classes.root}
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
-    >
-      {tree}
-    </TreeView>
+    <>
+      <Button
+        className={classes.defaultButton}
+        variant="outlined"
+        color="primary"
+        onClick={() =>
+          dispatch(scsInputSlice.actions.setPConf(defaultProbabilityConf))
+        }
+      >
+        set default
+      </Button>
+      <TreeView
+        className={classes.root}
+        defaultCollapseIcon={<ExpandMoreIcon />}
+        defaultExpandIcon={<ChevronRightIcon />}
+      >
+        {tree}
+      </TreeView>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right"
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="不正な値が入力されています"
+        action={
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        }
+      />
+    </>
   );
 }

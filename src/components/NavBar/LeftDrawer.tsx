@@ -18,6 +18,7 @@ import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import HelpIcon from "@material-ui/icons/Help";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import TelegramIcon from "@material-ui/icons/Telegram";
+import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 
 const useStyles = makeStyles({
   list: {
@@ -70,6 +71,12 @@ export default function LeftDrawer({ drawer, setDrawer }: Props) {
               <LibraryBooksIcon />
             </ListItemIcon>
             <ListItemText primary="Records" />
+          </ListItem>
+          <ListItem button key="local" component={Link} to="/local">
+            <ListItemIcon>
+              <LocalLibraryIcon />
+            </ListItemIcon>
+            <ListItemText primary="Local" />
           </ListItem>
           <ListItem button key="about" component={Link} to="/about">
             <ListItemIcon>

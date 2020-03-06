@@ -19,6 +19,7 @@ import { RootState } from "../../../../store";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      height: "100%",
       padding: theme.spacing(1)
     },
     papers: {

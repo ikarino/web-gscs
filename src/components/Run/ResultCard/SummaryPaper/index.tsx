@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -13,12 +14,19 @@ import Typography from "@material-ui/core/Typography";
 import { SCSTrialOutput, summarizeSCSOutputs } from "../../../../scs";
 
 import runScsSlice from "../../../../slices/runScsSlice";
+import { WebGscsRecord } from "../../../../slices/slice.interface";
 import { RootState } from "../../../../store";
 import { useSampleWorker } from "../../../../workers/useSampleWorker";
 import InputChips from "../../../share/InputChips";
+import OutputChips from "../../../share/OutputChips";
 import { mean } from "../../../share/mathFunctions";
+import { saveRecordToLocalStorage } from "../../../../localStorageApi";
 
-import FinishStatePie from "./FinishStatePie";
+// TODO
+// FinishStatePieを捨ててFinishStatePaperに統合したいが、
+// state.runScs.recordがリアルタイムに更新されていない
+import FinishStatePaper from "../../../share/FinishStatePaper";
+import FinishStatePie from "../../../share/FinishStatePaper/FinishStatePie";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%"
     },
     root: {
+      height: "100%",
       padding: theme.spacing(1)
     },
     papers: {
@@ -47,6 +56,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+type LocalStorageType = { [key: string]: WebGscsRecord };
+
 export default function SummaryPaper() {
   // const config = useSelector((state: RootState) => state.scsInput.inp.config);
   const classes = useStyles();
@@ -54,7 +65,9 @@ export default function SummaryPaper() {
   const inp = useSelector((state: RootState) => state.scsInput.inp);
   const progress = useSelector((state: RootState) => state.runScs.progress);
   const outputs = useSelector((state: RootState) => state.runScs.outputs);
+  const record = useSelector((state: RootState) => state.runScs.record);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // web worker hook
   const sampleWorker = useSampleWorker();
@@ -73,6 +86,15 @@ export default function SummaryPaper() {
       );
     }
     dispatch(runScsSlice.actions.finish(summarizeSCSOutputs(outputs)));
+  };
+
+  const save2LocalStorage = () => {
+    const result = saveRecordToLocalStorage(record);
+    if (result) {
+      history.push("/local");
+    }
+    // TODO
+    // show some snackbar when ERROR
   };
 
   const successCount = outputs.filter(o => o.result.finishState === "success")
@@ -106,8 +128,6 @@ export default function SummaryPaper() {
           color="secondary"
         />
       </Paper>
-
-      <InputChips inp={inp} />
 
       <Paper className={classes.papers}>
         <Grid container>
@@ -143,25 +163,30 @@ export default function SummaryPaper() {
         </Grid>
       </Paper>
 
-      <div className={classes.papers}>
+      <InputChips inp={inp} />
+
+      {outputs.length > 0 && !isRunning && <OutputChips record={record} />}
+
+      <Box display="flex" justifyContent="center">
         <Button
-          variant="contained"
-          color="secondary"
+          variant="outlined"
+          color="primary"
           className={classes.postButton}
-          disabled
+          disabled={outputs.length === 0 || isRunning}
         >
           投稿
         </Button>
         　
         <Button
-          variant="contained"
+          variant="outlined"
           color="secondary"
           className={classes.postButton}
-          disabled
+          disabled={outputs.length === 0 || isRunning}
+          onClick={save2LocalStorage}
         >
-          ツイート
+          保存
         </Button>
-      </div>
+      </Box>
     </Paper>
   );
 }

@@ -968,8 +968,8 @@ export const sampleInputs: { [index: string]: SCSInput } = {
       ]
     },
     config: {
-      turn: 100,
-      trial: 1
+      turn: 1500,
+      trial: 100
     }
   }
 };

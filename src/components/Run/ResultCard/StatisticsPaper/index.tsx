@@ -17,6 +17,7 @@ import StatisticalCheckChart from "./LineChart";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      height: "100%",
       padding: theme.spacing(1)
     },
     papers: {

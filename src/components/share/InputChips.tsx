@@ -1,10 +1,9 @@
 import React from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
-import Tooltip from "@material-ui/core/Tooltip";
 
+import MyTip from "./MyTip";
 import { SCSInput, SCSFieldInput } from "../../scs";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -12,10 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       margin: theme.spacing(1),
       padding: theme.spacing(1),
-      backgroundColor: theme.palette.info.light
-    },
-    tip: {
-      margin: "1px"
+      backgroundColor: theme.palette.grey.A100
     }
   })
 );
@@ -57,27 +53,6 @@ const creatableWithExplosion = (field: SCSFieldInput) => {
   return true;
 };
 
-type MyTipProps = {
-  title: string;
-  label: string;
-};
-
-function MyTip({ title, label }: MyTipProps) {
-  const classes = useStyles();
-  return (
-    <Tooltip
-      enterDelay={500}
-      leaveDelay={200}
-      title={title}
-      arrow
-      placement="top"
-      className={classes.tip}
-    >
-      <Chip size="small" label={label} />
-    </Tooltip>
-  );
-}
-
 type Props = {
   inp: SCSInput;
 };
@@ -105,29 +80,41 @@ export default function InputChips({ inp }: Props) {
   return (
     <Paper className={classes.root}>
       {creatableWithExplosion(inp.field) ? (
-        <MyTip title="爆発の指輪で作成可能" label="爆" />
+        <MyTip title="爆発の指輪で作成可能" label="爆" color="secondary" />
       ) : null}
       {friends.filter(f => f.doubleSpeed).length === friends.length ? (
-        <MyTip title="全員倍速" label="倍速" />
+        <MyTip title="全員倍速" label="倍速" color="secondary" />
       ) : null}
       {friends.filter(f =>
         f.doubleSpeed === undefined ? true : !f.doubleSpeed
       ).length === inp.friends.length ? (
-        <MyTip title="全員等速" label="等速" />
+        <MyTip title="全員等速" label="等速" color="secondary" />
       ) : null}
       {numHs > 0 ? (
-        <MyTip title={"ホイミスライムの数"} label={`ホ${numHs}`} />
+        <MyTip
+          title={"ホイミスライムの数"}
+          label={`ホ${numHs}`}
+          color="primary"
+        />
       ) : null}
       {numKm > 0 ? (
-        <MyTip title={"キラーマシンの数"} label={`機${numKm}`} />
+        <MyTip
+          title={"キラーマシンの数"}
+          label={`機${numKm}`}
+          color="primary"
+        />
       ) : null}
-      {lvKinoko > 0 ? <MyTip title={"おばけキノコ有り"} label={`茸`} /> : null}
+      {lvKinoko > 0 ? (
+        <MyTip title={"おばけキノコ有り"} label={`茸`} color="primary" />
+      ) : null}
       {lvKinoko > 0 && lvKinoko < 5 ? (
-        <MyTip title={"おばけキノコ育成"} label={`茸育`} />
+        <MyTip title={"おばけキノコ育成"} label={`茸育`} color="primary" />
       ) : null}
-      {lvKiton > 0 ? <MyTip title={"きとうし有り"} label={`祈`} /> : null}
+      {lvKiton > 0 ? (
+        <MyTip title={"きとうし有り"} label={`祈`} color="primary" />
+      ) : null}
       {lvKiton > 0 && lvKiton < 5 ? (
-        <MyTip title={"きとうし育成"} label={`祈育`} />
+        <MyTip title={"きとうし育成"} label={`祈育`} color="primary" />
       ) : null}
     </Paper>
   );

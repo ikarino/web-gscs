@@ -9,13 +9,14 @@ import {
   actionSetTurn,
   actionSetTrial,
   actionSetFriend,
+  actionDeleteFriend,
   actionSetNumSumoLimit,
   actionSetPConf
 } from "./actionSCSInput";
 
 const initialState: SliceSCSInput = {
-  templateName: "4キラーマ倍速",
-  inp: sampleSCSInputs["4キラーマ倍速"],
+  templateName: "4キラーマ等速",
+  inp: sampleSCSInputs["4キラーマ等速"],
   activePlace: { row: -1, col: -1 }
 };
 
@@ -48,7 +49,15 @@ const scsInputSlice = createSlice({
     setNumSumoLimit: actionSetNumSumoLimit,
     setPConf: actionSetPConf,
     // inp.friends
-    setFriend: actionSetFriend
+    setFriend: actionSetFriend,
+    deleteFriend: actionDeleteFriend,
+    // set whole input
+    setInput: (state, action) => {
+      return {
+        ...state,
+        inp: action.payload
+      };
+    }
   }
 });
 

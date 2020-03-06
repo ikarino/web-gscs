@@ -56,6 +56,10 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
     dispatch(scsInputSlice.actions.setFriend({ friend, order }));
     setOpen(false);
   };
+  const handleDeleteClose = () => {
+    dispatch(scsInputSlice.actions.deleteFriend(order));
+    setOpen(false);
+  };
 
   const nameOptions = [
     "キラーマシン",
@@ -269,6 +273,9 @@ export default function FriendEditDialogue({ open, setOpen, order, f }: Props) {
         </FormControl>
       </DialogContent>
       <DialogActions>
+        <Button onClick={handleDeleteClose} color="secondary">
+          削除
+        </Button>
         <Button onClick={handleClose} color="primary">
           閉じる
         </Button>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -38,6 +39,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     calcButton: {
       justifyContent: "center"
+    },
+    drawer: {
+      width: 250,
+      margin: theme.spacing(2)
     }
   })
 );
@@ -140,11 +145,19 @@ export default function ConfigCard() {
           </Select>
           <FormHelperText>典型的なスモコン形状を読み込みます</FormHelperText>
         </FormControl>
-        <Button color="primary" onClick={() => setDrawer(true)}>
-          確率設定
-        </Button>
+        <Box display="flex" justifyContent="flex-end">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => setDrawer(true)}
+          >
+            確率設定
+          </Button>
+        </Box>
         <Drawer anchor="right" open={drawer} onClose={() => setDrawer(false)}>
-          <PConfTree />
+          <div className={classes.drawer} role="presentation">
+            <PConfTree />
+          </div>
         </Drawer>
       </CardContent>
     </Card>

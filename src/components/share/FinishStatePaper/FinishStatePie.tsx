@@ -14,7 +14,7 @@ export default function FinishStatePie({ success, killed, genocided }: Props) {
   let data: { x: string; y: number }[] = [];
   let colorScale: string[] = [];
   if (sum === 0) {
-    data = [{ x: "未計算", y: 100 }];
+    data = [{ x: "no data", y: 100 }];
     colorScale.push("lightgray");
   } else {
     if (success) {
@@ -42,7 +42,7 @@ export default function FinishStatePie({ success, killed, genocided }: Props) {
         innerRadius={68}
         labelRadius={100}
         style={{ labels: { fontSize: 40, fill: "black" } }}
-        animate={{ duration: 2000 }}
+        animate={{ duration: 500 }}
       />
       <VictoryLabel
         textAnchor="middle"

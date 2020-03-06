@@ -38,6 +38,7 @@ export default function Playground() {
     JSON.parse(JSON.stringify(m)) as Manager
   );
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [dsTurn, setDsTurn] = useState(false);
   useEffect(() => {
     m = new Manager(inp);
     m.init();
@@ -54,10 +55,23 @@ export default function Playground() {
       f => place2index(f.place, m.field.col) === activeIndex
     );
     if (fs.length === 1) {
-      m.actionFriend(fs[0]);
+      // 等速ターン or 倍速ターンかつ倍速キャラの場合
+      if (!dsTurn || (dsTurn && fs[0].doubleSpeed)) {
+        m.actionFriend(fs[0]);
+      }
+
       if (fs[0].order === m.friends.length - 1) {
-        m.turnNow += 1;
-        nextActiveIndex = place2index(m.enemys[0].place, m.field.col);
+        // 行動順が最後のキャラの場合
+        if (dsTurn) {
+          // 倍速ターンの場合は敵ターンに
+          nextActiveIndex = place2index(m.enemys[0].place, m.field.col);
+          m.turnNow += 1;
+        } else {
+          // 等速ターンの場合は倍速ターンに
+          nextActiveIndex = place2index(m.friends[0].place, m.field.col);
+        }
+        // いずれにせよひっくり返す
+        setDsTurn(!dsTurn);
       } else {
         nextActiveIndex = place2index(
           m.friends[fs[0].order + 1].place,

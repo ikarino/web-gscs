@@ -1,6 +1,6 @@
 import { SCSInput, SCSSummarizedOutput, SCSTrialOutput } from "../scs";
 
-type WebGscsRecord = {
+export type WebGscsRecord = {
   scsInput: SCSInput;
   scsOutput: SCSSummarizedOutput;
   webGscsExtra: {
