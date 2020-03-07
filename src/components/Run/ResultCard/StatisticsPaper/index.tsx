@@ -13,6 +13,7 @@ import { RootState } from "../../../../store";
 
 import { mean, sum } from "../../../share/mathFunctions";
 import StatisticalCheckChart from "./LineChart";
+import PaperHeader from "../PaperHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,7 +59,7 @@ export default function StatisticalCheckPaper() {
 
   return (
     <Paper className={classes.root}>
-      <Typography variant="h6">全体データ</Typography>
+      <PaperHeader title="全体推移データ" />
       <Box hidden={selected !== 0}>
         <StatisticalCheckChart mean={exps} />
       </Box>

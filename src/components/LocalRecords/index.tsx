@@ -52,9 +52,12 @@ export default function LocalRecords() {
         保存されているデータがありません。
         <br />
         <Link to="/run">Runページ</Link>
-        でスモコンを計算して保存すると表示されます。
+        で計算結果を保存するとこのページに表示されます。
         <br />
         データが保存されると、この画像は表示されなくなります。
+        <br />
+        <br />
+        ブラウザのLocalStorageを使用しているため、デバイス間でデータは共有されません。
       </Paper>
     ) : (
       cards

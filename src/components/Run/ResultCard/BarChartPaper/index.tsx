@@ -15,6 +15,7 @@ import { VictoryBar, VictoryChart, VictoryTheme } from "victory";
 import { summarizeSCSOutputs } from "../../../../scs";
 
 import { RootState } from "../../../../store";
+import PaperHeader from "../PaperHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,7 +78,7 @@ export default function BarChartPaper() {
 
   return (
     <Paper className={classes.root}>
-      <Typography variant="h6">個別データ</Typography>
+      <PaperHeader title="仲間別データ" />
       <Box hidden={selected !== 0}>
         <MyChart data={exps} />
       </Box>

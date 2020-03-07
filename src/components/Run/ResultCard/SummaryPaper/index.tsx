@@ -14,7 +14,6 @@ import Typography from "@material-ui/core/Typography";
 import { SCSTrialOutput, summarizeSCSOutputs } from "../../../../scs";
 
 import runScsSlice from "../../../../slices/runScsSlice";
-import { WebGscsRecord } from "../../../../slices/slice.interface";
 import { RootState } from "../../../../store";
 import { useSampleWorker } from "../../../../workers/useSampleWorker";
 import InputChips from "../../../share/InputChips";
@@ -25,14 +24,12 @@ import { saveRecordToLocalStorage } from "../../../../localStorageApi";
 // TODO
 // FinishStatePieを捨ててFinishStatePaperに統合したいが、
 // state.runScs.recordがリアルタイムに更新されていない
-import FinishStatePaper from "../../../share/FinishStatePaper";
+// import FinishStatePaper from "../../../share/FinishStatePaper";
 import FinishStatePie from "../../../share/FinishStatePaper/FinishStatePie";
+import PaperHeader from "../PaperHeader";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    header: {
-      backgroundColor: "lightgray"
-    },
     calcButton: {
       width: "100%"
     },
@@ -49,14 +46,11 @@ const useStyles = makeStyles((theme: Theme) =>
     pos: {
       marginBottom: 12
     },
-
     postButton: {
       padding: theme.spacing(1)
     }
   })
 );
-
-type LocalStorageType = { [key: string]: WebGscsRecord };
 
 export default function SummaryPaper() {
   // const config = useSelector((state: RootState) => state.scsInput.inp.config);
@@ -110,6 +104,7 @@ export default function SummaryPaper() {
     (mean(outputs.map(o => o.result.turnPassed)) / inp.config.turn) * 100;
   return (
     <Paper className={classes.root}>
+      <PaperHeader title="Controller" />
       <Paper className={classes.papers}>
         <Box display="flex" justifyContent="center" bgcolor="background.paper">
           <Button

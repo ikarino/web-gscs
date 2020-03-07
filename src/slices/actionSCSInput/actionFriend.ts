@@ -16,7 +16,7 @@ export const actionSetFriend = (
     ...state,
     inp: {
       ...state.inp,
-      friends: state.inp.friends.map((f, order) =>
+      friends: state.inp.friends.map((f: SCSFriendInput, order: number) =>
         order === action.payload.order ? action.payload.friend : f
       )
     }
@@ -67,11 +67,16 @@ export const actionAddFriend = (
   state: SliceSCSInput,
   action: PayloadAction<SCSFriendInput>
 ): SliceSCSInput => {
+  if (state.inp.friends.length === 10) {
+    return state;
+  }
+  const friends = [...state.inp.friends];
+  friends.push(action.payload);
   return {
     ...state,
     inp: {
-      ...state.inp
-      // friends:
+      ...state.inp,
+      friends
     }
   };
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -81,6 +81,7 @@ const useStylesController = makeStyles<Theme, { col: number }>((theme: Theme) =>
 type Props = {
   manager: Manager;
   activeIndex: number;
+  disabled: boolean;
   run: () => void;
   reset: () => void;
 };
@@ -88,10 +89,12 @@ type Props = {
 export default function HPFieldCard({
   manager,
   activeIndex,
+  disabled,
   run,
   reset
 }: Props) {
   const classes = useStylesController({ col: manager.field.col });
+  const [isHp, setIsHp] = useState(true);
 
   const hpTable = manager.field.data.flat().map((d, i) => {
     let cellString = "";
@@ -124,12 +127,45 @@ export default function HPFieldCard({
     );
   });
 
+  const idTable = manager.field.data.flat().map((d, i) => {
+    let cellString = "";
+    let style: string;
+    if (d === 0) {
+      style = `${classes.cellWrapperWhite} ${classes.cellWrapper}`;
+    } else if (d === 1) {
+      style = `${classes.cellWrapperBlack} ${classes.cellWrapper}`;
+    } else if (d < 20) {
+      const f = manager.friends[d - 10];
+      if (place2index(f.place, manager.field.col) === activeIndex) {
+        style = `${classes.cellWrapperGreen} ${classes.cellWrapper}`;
+      } else {
+        style = `${classes.cellWrapperLightGreen} ${classes.cellWrapper}`;
+      }
+      cellString = (d - 10).toString();
+    } else {
+      const e = manager.enemys.filter(e => e.num === d - 20)[0];
+      if (place2index(e.place, manager.field.col) === activeIndex) {
+        style = `${classes.cellWrapperRed} ${classes.cellWrapper}`;
+      } else {
+        style = `${classes.cellWrapperPink} ${classes.cellWrapper}`;
+      }
+      cellString = e.num.toFixed(0);
+    }
+    return (
+      <div className={style} key={`hptable-${i}`}>
+        <div className={classes.cell}>{cellString}</div>
+      </div>
+    );
+  });
+
+  const rendered = isHp ? hpTable : idTable;
+
   return (
     <Card variant="outlined" className={classes.root}>
       <CardHeader title="HP Field" className={classes.header} />
 
       <CardContent>
-        <Paper>{hpTable}</Paper>
+        <Paper>{rendered}</Paper>
 
         <Box
           display="flex"
@@ -146,12 +182,17 @@ export default function HPFieldCard({
             <Button
               size="small"
               onClick={run}
-              disabled={manager.friends.filter(f => f.chp <= 0).length > 0}
+              disabled={
+                disabled || manager.friends.filter(f => f.chp <= 0).length > 0
+              }
             >
               <PlayArrowIcon />
             </Button>
             <Button size="small" onClick={reset}>
               <ReplayIcon />
+            </Button>
+            <Button size="small" onClick={() => setIsHp(!isHp)}>
+              HP⇔ID
             </Button>
           </ButtonGroup>
         </Box>

@@ -33,9 +33,10 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = {
   manager: Manager;
   activeIndex: number;
+  turn: "敵ターン" | "仲間等速ターン" | "仲間倍速ターン";
 };
 
-export default function InfoCard({ manager, activeIndex }: Props) {
+export default function InfoCard({ manager, activeIndex, turn }: Props) {
   const classes = useStyles();
   const fs = manager.friends.filter(
     f => place2index(f.place, manager.field.col) === activeIndex
@@ -77,8 +78,13 @@ export default function InfoCard({ manager, activeIndex }: Props) {
 
       <CardContent>
         <TableContainer component={Paper} className={classes.table}>
-          <Table>
+          <Table size="small">
             <TableBody>
+              <TableRow>
+                <TableCell align="center" colSpan={2}>
+                  <b>{turn}</b>
+                </TableCell>
+              </TableRow>
               <TableRow>
                 <TableCell align="left">経過ターン数</TableCell>
                 <TableCell align="right">{manager.turnNow}</TableCell>
