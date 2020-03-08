@@ -6,9 +6,8 @@ import { useHistory } from "react-router-dom";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -16,6 +15,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { RootState } from "../../store";
+import { loadLocalStorage } from "../../localStorageApi";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,20 +25,16 @@ const useStyles = makeStyles((theme: Theme) =>
       // paddingBottom: theme.spacing(2)
       marginBottom: theme.spacing(2)
     },
-    heading: {
-      marginTop: theme.spacing(2)
-    },
-    secondaryHeading: {
-      fontSize: theme.typography.pxToRem(15),
-      color: theme.palette.text.secondary
+    list: {
+      border: "1px solid black"
     },
     panel: {
       width: "90%",
       margin: "auto",
       padding: theme.spacing(2)
     },
-    infoPanel: {
-      padding: theme.spacing(2)
+    button: {
+      margin: theme.spacing(2)
     }
   })
 );
@@ -53,9 +49,9 @@ export default function UserPage() {
     if (!isLoaded(auth) || isEmpty(auth)) {
       history.push("/");
     }
+    console.log(auth);
   });
 
-  const createdAt = new Date(parseInt(auth.createdAt));
   const content =
     isLoaded(auth) && !isEmpty(auth) ? (
       <Paper>
@@ -67,7 +63,22 @@ export default function UserPage() {
             <ListItemText primary={auth.uid} secondary="ユーザID" />
           </ListItem>
           <ListItem>
-            <ListItemText primary={createdAt.toString()} secondary="登録日" />
+            <ListItemText
+              primary={new Date(parseInt(auth.createdAt)).toString()}
+              secondary="登録日"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary={new Date(parseInt(auth.lastLoginAt)).toString()}
+              secondary="最終ログイン日"
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary={`${Object.keys(loadLocalStorage()).length}件`}
+              secondary="ローカル保存Record数"
+            />
           </ListItem>
         </List>
       </Paper>
@@ -79,11 +90,17 @@ export default function UserPage() {
   return (
     <Container maxWidth="md" className={classes.container}>
       <Paper elevation={4} className={classes.panel}>
-        <Typography variant="h5">Awesome USER Page !</Typography>
         {content}
-        <Button onClick={logOut} color="primary">
-          log out
-        </Button>
+        <Box display="flex" justifyContent="flex-end">
+          <Button
+            onClick={logOut}
+            color="primary"
+            variant="outlined"
+            className={classes.button}
+          >
+            log out
+          </Button>
+        </Box>
       </Paper>
     </Container>
   );

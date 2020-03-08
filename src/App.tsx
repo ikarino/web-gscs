@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 
 import store from "./store";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { createFirestoreInstance } from "redux-firestore";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -30,6 +31,7 @@ import { fbConfig, rrfConfig } from "./config";
 import customTheme from "./customTheme";
 
 firebase.initializeApp(fbConfig);
+firebase.firestore();
 
 function App() {
   return (
@@ -39,6 +41,7 @@ function App() {
           firebase={firebase}
           config={rrfConfig}
           dispatch={store.dispatch}
+          createFirestoreInstance={createFirestoreInstance}
         >
           <BrowserRouter>
             <CssBaseline />

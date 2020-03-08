@@ -4,7 +4,8 @@ import {
   initialState,
   actionProgess,
   actionStart,
-  actionFinish
+  actionFinish,
+  actionSetWebGscsExtra
 } from "./actionRunScs";
 
 const runScsSlice = createSlice({
@@ -13,7 +14,8 @@ const runScsSlice = createSlice({
   reducers: {
     progress: actionProgess,
     start: actionStart,
-    finish: actionFinish
+    finish: actionFinish,
+    setWebGscsExtra: actionSetWebGscsExtra
   }
 });
 

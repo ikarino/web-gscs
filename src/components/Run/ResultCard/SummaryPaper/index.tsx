@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { isLoaded, isEmpty } from "react-redux-firebase";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -10,6 +11,10 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+
+import CloseIcon from "@material-ui/icons/Close";
 
 import { SCSTrialOutput, summarizeSCSOutputs } from "../../../../scs";
 
@@ -27,6 +32,7 @@ import { saveRecordToLocalStorage } from "../../../../localStorageApi";
 // import FinishStatePaper from "../../../share/FinishStatePaper";
 import FinishStatePie from "../../../share/FinishStatePaper/FinishStatePie";
 import PaperHeader from "../PaperHeader";
+import ConfirmDialog from "./ConfirmDialog";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,8 +66,11 @@ export default function SummaryPaper() {
   const progress = useSelector((state: RootState) => state.runScs.progress);
   const outputs = useSelector((state: RootState) => state.runScs.outputs);
   const record = useSelector((state: RootState) => state.runScs.record);
+  const auth = useSelector((state: RootState) => state.firebase.auth);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [snackBar, setSnackBar] = useState({ open: false, message: "" });
+  const [open, setOpen] = useState(false);
 
   // web worker hook
   const sampleWorker = useSampleWorker();
@@ -86,9 +95,12 @@ export default function SummaryPaper() {
     const result = saveRecordToLocalStorage(record);
     if (result) {
       history.push("/local");
+    } else {
+      setSnackBar({
+        open: true,
+        message: `保存に失敗しました`
+      });
     }
-    // TODO
-    // show some snackbar when ERROR
   };
 
   const successCount = outputs.filter(o => o.result.finishState === "success")
@@ -102,6 +114,7 @@ export default function SummaryPaper() {
   const mExp = mean(outputs.map(o => o.exp.perTurn));
   const mTurn =
     (mean(outputs.map(o => o.result.turnPassed)) / inp.config.turn) * 100;
+
   return (
     <Paper className={classes.root}>
       <PaperHeader title="Controller" />
@@ -167,7 +180,12 @@ export default function SummaryPaper() {
           variant="outlined"
           color="primary"
           className={classes.postButton}
-          disabled={outputs.length === 0 || isRunning}
+          disabled={
+            isLoaded(auth) &&
+            !isEmpty(auth) &&
+            (outputs.length === 0 || isRunning)
+          }
+          onClick={() => setOpen(true)}
         >
           投稿
         </Button>
@@ -182,6 +200,26 @@ export default function SummaryPaper() {
           保存
         </Button>
       </Box>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackBar.open}
+        autoHideDuration={6000}
+        onClose={() => setSnackBar({ open: false, message: "" })}
+        message={snackBar.message}
+        action={
+          <>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={() => setSnackBar({ open: false, message: "" })}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </>
+        }
+      />
+      <ConfirmDialog open={open} setOpen={setOpen} />
     </Paper>
   );
 }

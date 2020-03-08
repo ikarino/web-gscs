@@ -8,6 +8,7 @@ import {
 import { ThunkAction } from "redux-thunk";
 
 import { firebaseReducer, actionTypes } from "react-redux-firebase";
+import { firestoreReducer } from "redux-firestore";
 
 import counterSlice from "./slices/counterSlice";
 import scsInputSlice from "./slices/scsInputSlice";
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   // scsInput: undoable(scsInputSlice.reducer, { limit: 10 }),
   scsInput: scsInputSlice.reducer,
   runScs: runScsSlice.reducer,
-  firebase: firebaseReducer
+  firebase: firebaseReducer,
+  firestore: firestoreReducer
 });
 
 const store = configureStore({

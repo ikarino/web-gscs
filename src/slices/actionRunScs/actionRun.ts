@@ -1,8 +1,10 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 
+import "firebase/firestore";
+
 import { SCSInput, SCSSummarizedOutput, SCSTrialOutput } from "../../scs";
 
-import { SliceRunScs } from "../slice.interface";
+import { SliceRunScs, WebGscsExtra } from "../slice.interface";
 
 export const actionProgess = (
   state: SliceRunScs,
@@ -41,6 +43,19 @@ export const actionFinish = (
       ...state.record,
       scsOutput: action.payload
     },
-    isRunning: false //here
+    isRunning: false
+  };
+};
+
+export const actionSetWebGscsExtra = (
+  state: SliceRunScs,
+  action: PayloadAction<WebGscsExtra>
+): SliceRunScs => {
+  return {
+    ...state,
+    record: {
+      ...state.record,
+      webGscsExtra: action.payload
+    }
   };
 };

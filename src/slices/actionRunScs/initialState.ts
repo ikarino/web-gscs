@@ -28,9 +28,9 @@ export const initialState: SliceRunScs = {
     },
     webGscsExtra: {
       comment: "",
-      // createdAt:  TODO
-      // userName: TODO
-      // userId: TODO
+      createdAt: { seconds: 0, nanoseconds: 0 },
+      userName: "",
+      userId: "",
       allDoubleSpeed: false,
       allSingleSpeed: false,
       creatableWithExplosion: false,

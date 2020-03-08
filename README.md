@@ -15,12 +15,12 @@ scs の実行には web worker api を使う。
 
 - [x] worker api
 - [x] inbound links
-- [x] undo 機能
-- [ ] Run 画面 UI
+- [x] LocalStorage 保存機能
+- [x] Run 画面 UI
   - [x] Field
   - [x] Friend
     - [x] テンプレート切替時の Dialogue 未反映問題
-    - [ ] 追加/削除機能
+    - [x] 追加/削除機能
   - [x] Conifg
     - [x] Probability Config
   - [x] Result
@@ -32,6 +32,9 @@ scs の実行には web worker api を使う。
 - [ ] About 画面 UI
 - [ ] Dashboard 画面 UI
 - [x] firebase auth 統合
+- [ ] migration
+  - [x] Record 抽出
+  - [ ] Record 再登録
 - [ ] firestore 統合
 
 ## Dependencies memo
