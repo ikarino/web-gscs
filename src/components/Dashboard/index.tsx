@@ -3,6 +3,7 @@ import React from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
+import { useFirestore } from "react-redux-firebase";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +20,11 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
+
+function RecordLogs() {
+  const firestore = useFirestore();
+  // firestore.collection("recordLogs").orderBy("createdAt", "desc").limits(5)
+}
 
 export default function Dashboard() {
   const classes = useStyles();

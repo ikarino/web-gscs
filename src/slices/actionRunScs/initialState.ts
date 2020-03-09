@@ -28,18 +28,9 @@ export const initialState: SliceRunScs = {
     },
     webGscsExtra: {
       comment: "",
-      createdAt: { seconds: 0, nanoseconds: 0 },
+      createdAt: 0,
       userName: "",
-      userId: "",
-      allDoubleSpeed: false,
-      allSingleSpeed: false,
-      creatableWithExplosion: false,
-      lvKinoko: 0,
-      lvKiton: 0,
-      numHoimiSlime: 0,
-      numKillerMachine: 0,
-      withKinoko: false,
-      withKiton: false
+      userId: ""
     }
   },
   progress: 0,

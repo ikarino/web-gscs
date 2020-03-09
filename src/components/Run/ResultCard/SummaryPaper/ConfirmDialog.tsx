@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { useFirebase, useFirestore } from "react-redux-firebase";
+import { useFirestore } from "react-redux-firebase";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -27,32 +27,40 @@ export default function ConfirmDialog({ open, setOpen }: Props) {
   const record = useSelector((state: RootState) => state.runScs.record);
   const auth = useSelector((state: RootState) => state.firebase.auth);
   const [snackBar, setSnackBar] = useState({ open: false, message: "" });
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState("俺のスモコン");
   const dispatch = useDispatch();
-  const firebase = useFirebase();
   const firestore = useFirestore();
 
   const handleClose = () => {
     setOpen(false);
   };
-  const postToFirestore = () => {
+
+  useEffect(() => {
     dispatch(
       runScsSlice.actions.setWebGscsExtra({
-        // TODO !
-        ...record.webGscsExtra,
         comment,
         userName: auth.displayName ? auth.displayName : "",
-        userId: auth.uid
-        // createdAt: firebase.firestore.FieldValue.serverTimestamp() fuck !
+        userId: auth.uid,
+        createdAt: Date.now()
       })
     );
+  }, [auth, comment]);
+
+  const postToFirestore = () => {
     firestore
       .collection("records2")
       .add(record)
-      .then(() => {
+      .then(doc => {
         setSnackBar({
           open: true,
           message: "投稿に成功しました"
+        });
+        firestore.collection("recordLogs").add({
+          comment,
+          createdAt: record.webGscsExtra.createdAt,
+          recordid: doc.id,
+          userid: auth.uid,
+          username: auth.displayName
         });
       })
       .catch(e => {
@@ -62,6 +70,7 @@ export default function ConfirmDialog({ open, setOpen }: Props) {
         });
       });
     setOpen(false);
+    setComment("俺のスモコン");
   };
 
   return (
@@ -77,7 +86,7 @@ export default function ConfirmDialog({ open, setOpen }: Props) {
           <TextField
             autoFocus
             margin="dense"
-            defaultValue="俺のスモコン"
+            defaultValue={comment}
             fullWidth
             onChange={e => setComment(e.target.value)}
           />
