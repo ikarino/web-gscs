@@ -11,7 +11,8 @@ import {
   actionSetFriend,
   actionDeleteFriend,
   actionSetNumSumoLimit,
-  actionSetPConf
+  actionSetPConf,
+  actionAddFriend
 } from "./actionSCSInput";
 
 const initialState: SliceSCSInput = {
@@ -51,6 +52,7 @@ const scsInputSlice = createSlice({
     // inp.friends
     setFriend: actionSetFriend,
     deleteFriend: actionDeleteFriend,
+    addFriend: actionAddFriend,
     // set whole input
     setInput: (state, action) => {
       return {

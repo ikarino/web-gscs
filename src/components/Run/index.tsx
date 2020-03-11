@@ -35,17 +35,17 @@ function Run() {
     <>
       <Container maxWidth="md" className={classes.container}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={4}>
             <Paper className={classes.cardGrid}>
               <FieldCard />
             </Paper>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={4}>
             <Paper className={classes.cardGrid}>
               <FriendCard />
             </Paper>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={4}>
             <Paper className={classes.cardGrid}>
               <ConfigCard />
             </Paper>

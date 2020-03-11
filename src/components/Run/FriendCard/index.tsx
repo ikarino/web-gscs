@@ -8,12 +8,12 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
-import FriendEditDialogue from "../share/FriendTable/FriendEditDialogue";
-import FriendTable from "../share/FriendTable";
+import FriendAddDialog from "./FriendAddDialog";
+import FriendTable from "../../share/FriendTable";
 // import FriendTable from "../share/FriendTable2";
 
-import { RootState } from "../../store";
-import { SCSFriendInput } from "../../scs";
+import { RootState } from "../../../store";
+import { SCSFriendInput } from "../../../scs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,7 +39,6 @@ function FriendCard() {
   const friends = useSelector((state: RootState) => state.scsInput.inp.friends);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  console.log(friends.length === 10);
   return (
     <Card variant="outlined" className={classes.root}>
       <CardHeader title="Friend" className={classes.header} />
@@ -51,12 +50,13 @@ function FriendCard() {
             size="small"
             className={classes.addButton}
             disabled={friends.length === 10}
+            onClick={() => setOpen(true)}
           >
             仲間追加
           </Button>
         </Box>
       </CardContent>
-      <FriendEditDialogue
+      <FriendAddDialog
         open={open}
         setOpen={setOpen}
         f={initialFriendInput}

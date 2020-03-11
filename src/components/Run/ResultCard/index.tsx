@@ -29,13 +29,13 @@ export default function ResultCard() {
       <CardHeader title="Result" className={classes.header} />
       <CardContent>
         <Grid container spacing={1}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={4}>
             <SummaryPaper />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={4}>
             <BarChartPaper />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={4}>
             <StatisticsPaper />
           </Grid>
         </Grid>

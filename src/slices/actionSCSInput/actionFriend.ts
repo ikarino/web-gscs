@@ -42,7 +42,6 @@ export const actionDeleteFriend = (
   // friendsは削除するだけ
   let friends = [...state.inp.friends];
   friends.splice(action.payload, 1);
-  console.log(friends);
   // field.dataは削除して番号を詰める
   let fieldData = [...state.inp.field.data];
   fieldData.splice(fieldData.indexOf(action.payload + 10), 1, 0);
@@ -70,13 +69,35 @@ export const actionAddFriend = (
   if (state.inp.friends.length === 10) {
     return state;
   }
+  const field = state.inp.field;
+  let fieldIndex = 0;
+  for (let i = 0; i < field.col * field.row; i++) {
+    const col = i % field.col;
+    const row = Math.floor(i / field.col);
+    if (col === 0 || col === field.col - 1 || row === 0 || row === field.row) {
+      continue;
+    }
+    if (field.data[i] < 10) {
+      fieldIndex = i;
+      break;
+    }
+  }
+  if (fieldIndex === 0) return state;
+
+  const data = field.data.slice();
+  data[fieldIndex] = state.inp.friends.length + 10;
   const friends = [...state.inp.friends];
   friends.push(action.payload);
+
   return {
     ...state,
     inp: {
       ...state.inp,
-      friends
+      friends,
+      field: {
+        ...state.inp.field,
+        data
+      }
     }
   };
 };
