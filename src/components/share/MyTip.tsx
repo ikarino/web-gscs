@@ -22,7 +22,7 @@ export default function MyTip({ title, label, color }: MyTipProps) {
   const classes = useStyles();
   return (
     <Tooltip
-      enterDelay={500}
+      enterDelay={200}
       leaveDelay={200}
       title={title}
       arrow
