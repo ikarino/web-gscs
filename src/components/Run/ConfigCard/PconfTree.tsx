@@ -69,7 +69,10 @@ export default function PConfTree() {
               return;
             }
             setOpen(false);
-
+            const newPConf = JSON.parse(JSON.stringify(pConf));
+            newPConf[k][kk] = newValue;
+            dispatch(scsInputSlice.actions.setPConf(newPConf));
+            /*
             dispatch(
               scsInputSlice.actions.setPConf({
                 ...pConf,
@@ -79,6 +82,7 @@ export default function PConfTree() {
                 }
               })
             );
+            */
           }}
         />
       </TreeItem>
