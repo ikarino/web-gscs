@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "lightBlue"
     },
     logo: {
-      width: "60%"
+      width: "60%",
+      hight: "auto"
     },
     scs: {
       textAlign: "center",
