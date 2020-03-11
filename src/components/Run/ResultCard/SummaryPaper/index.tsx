@@ -16,7 +16,11 @@ import IconButton from "@material-ui/core/IconButton";
 
 import CloseIcon from "@material-ui/icons/Close";
 
-import { SCSTrialOutput, summarizeSCSOutputs } from "../../../../scs";
+import {
+  SCSTrialOutput,
+  summarizeSCSOutputs,
+  defaultProbabilityConf
+} from "../../../../scs";
 
 import runScsSlice from "../../../../slices/runScsSlice";
 import { RootState } from "../../../../store";
@@ -102,7 +106,6 @@ export default function SummaryPaper() {
       });
     }
   };
-
   const successCount = outputs.filter(o => o.result.finishState === "success")
     .length;
   const killedCount = outputs.filter(o => o.result.finishState === "killed")
@@ -181,9 +184,13 @@ export default function SummaryPaper() {
           color="primary"
           className={classes.postButton}
           disabled={
-            isLoaded(auth) &&
-            !isEmpty(auth) &&
-            (outputs.length === 0 || isRunning)
+            !isLoaded(auth) ||
+            isEmpty(auth) ||
+            outputs.length === 0 ||
+            isRunning ||
+            (record.scsInput.config.pConf !== undefined &&
+              JSON.stringify(defaultProbabilityConf) !==
+                JSON.stringify(record.scsInput.config.pConf))
           }
           onClick={() => setOpen(true)}
         >
