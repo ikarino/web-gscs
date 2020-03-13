@@ -150,7 +150,7 @@ export default function Playground() {
   return (
     <Container maxWidth="md" className={classes.container}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={4}>
           <Paper className={classes.cardGrid}>
             <HPFieldCard
               manager={manager}
@@ -164,7 +164,7 @@ export default function Playground() {
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} sm={4}>
           <Paper className={classes.cardGrid}>
             <InfoCard manager={manager} activeIndex={activeIndex} turn={turn} />
           </Paper>

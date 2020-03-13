@@ -35,7 +35,7 @@ const initialFriendInput: SCSFriendInput = {
   lv: 13
 };
 
-function FriendCard() {
+export default function FriendCard() {
   const friends = useSelector((state: RootState) => state.scsInput.inp.friends);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -65,5 +65,3 @@ function FriendCard() {
     </Card>
   );
 }
-
-export default FriendCard;

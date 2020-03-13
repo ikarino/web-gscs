@@ -25,6 +25,7 @@ import About from "./components/About";
 import Login from "./components/Login";
 import UserPage from "./components/UserPage";
 import LocalRecords from "./components/LocalRecords";
+import NoMatch from "./components/NoMatch";
 import ServiceWorkerWrapper from "./components/ServiceWorkerWrapper";
 
 import { fbConfig, rrfConfig } from "./config";
@@ -56,7 +57,7 @@ function App() {
               <Route path="/about" component={About} />
               <Route path="/login" component={Login} />
               <Route path="/user" component={UserPage} />
-              <Route component={Records} />
+              <Route component={NoMatch} />
             </Switch>
             <ServiceWorkerWrapper />
           </BrowserRouter>

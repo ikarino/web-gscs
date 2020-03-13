@@ -55,13 +55,24 @@ export default function ConfirmDialog({ open, setOpen }: Props) {
           open: true,
           message: "投稿に成功しました"
         });
-        firestore.collection("recordLogs").add({
-          comment,
-          createdAt: record.webGscsExtra.createdAt,
-          recordid: doc.id,
-          userid: auth.uid,
-          username: auth.displayName
-        });
+        firestore
+          .collection("recordLogs")
+          .add({
+            comment,
+            createdAt: record.webGscsExtra.createdAt,
+            recordId: doc.id,
+            userId: auth.uid,
+            userName: auth.displayName,
+            photoURL: auth.photoURL
+          })
+          .then(doc => {
+            console.log("success !");
+            console.log(doc.id);
+          })
+          .catch(e => {
+            console.log("Error !");
+            console.log(e);
+          });
       })
       .catch(e => {
         setSnackBar({

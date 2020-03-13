@@ -44,7 +44,7 @@ const useStylesController = makeStyles<Theme, { col: number }>((theme: Theme) =>
         // TODO
         fontSize: `calc((100vw-${theme.spacing(4)}) * ${1 / props.col})`
       },
-      [theme.breakpoints.up("md")]: {
+      [theme.breakpoints.up("sm")]: {
         fontSize: "10px"
       }
     }),
