@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(1)
     },
     exp: {
-      marginTop: theme.spacing(4)
+      marginTop: theme.spacing(2)
     },
     pos: {
       marginBottom: 12

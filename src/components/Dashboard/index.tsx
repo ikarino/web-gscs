@@ -4,6 +4,7 @@ import { useFirestore } from "react-redux-firebase";
 import { Link } from "react-router-dom";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -58,8 +59,7 @@ export default function Dashboard() {
       .collection("recordLogs")
       .orderBy("createdAt", "desc")
       .limit(5)
-      .get()
-      .then(snapshot => {
+      .onSnapshot(snapshot => {
         let datas: TypeRecordLog[] = [];
         snapshot.forEach(doc => {
           datas.push({
@@ -106,7 +106,9 @@ export default function Dashboard() {
 
   const rendered =
     recordLogs.length === 0 ? (
-      <CircularProgress size={120} />
+      <Box display="flex" justifyContent="center">
+        <CircularProgress size={120} />
+      </Box>
     ) : (
       <List>{listItems}</List>
     );
@@ -114,7 +116,7 @@ export default function Dashboard() {
   return (
     <Container maxWidth="md" className={classes.container}>
       <Paper elevation={4} className={classes.panel}>
-        <Typography variant="h6">最近の投稿</Typography>
+        <Typography variant="h6">最新の投稿</Typography>
         {rendered}
       </Paper>
     </Container>

@@ -37,9 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
       textAlign: "right"
     },
-    calcButton: {
-      justifyContent: "center"
-    },
     drawer: {
       width: 250,
       margin: theme.spacing(2)
@@ -85,7 +82,7 @@ export default function ConfigCard() {
             <MenuItem value={1500}>1500</MenuItem>
             <MenuItem value={1800}>1800</MenuItem>
           </Select>
-          <FormHelperText>一度の試行で計算するターン数です。</FormHelperText>
+          <FormHelperText>一度の試行で計算するターン数です</FormHelperText>
         </FormControl>
         <FormControl className={classes.formControl}>
           <InputLabel id="trial-select-labell">試行回数</InputLabel>

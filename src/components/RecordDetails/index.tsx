@@ -41,13 +41,9 @@ export default function RecordDetails(props: Props) {
     firestore
       .collection("records2")
       .doc(props.match.params.id)
-      .get()
-      .then(doc => {
-        console.log(doc.id);
-        console.log(doc.data());
+      .onSnapshot(doc => {
         setRecord(doc.data() as WebGscsRecord);
-      })
-      .catch(e => console.log(e));
+      });
   }, []);
 
   const rendered = record ? (

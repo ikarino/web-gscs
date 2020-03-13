@@ -77,6 +77,16 @@ function FieldCard() {
             >
               <ZoomInIcon />
             </Button>
+          </ButtonGroup>
+        </Box>
+        <Box display="flex" justifyContent="center">
+          <ButtonGroup
+            color="primary"
+            size="small"
+            aria-label="outlined primary button group"
+            className={classes.buttonGroup}
+            component={Paper}
+          >
             <Button
               size="small"
               onClick={() => dispatch(scsInputSlice.actions.moveField("left"))}
