@@ -16,7 +16,7 @@ scs の実行には web worker api を使う。
 - [x] worker api
 - [x] inbound links
 - [x] LocalStorage 保存機能
-- [x] Run 画面 UI
+- [x] Run
   - [x] Field
   - [x] Friend
     - [x] テンプレート切替時の Dialogue 未反映問題
@@ -27,17 +27,23 @@ scs の実行には web worker api を使う。
     - [x] SummaryGrid(UI と円グラフの反映速度)
     - [x] BarChartGrid
     - [x] StatisticsGrid
-- [x] Playground 画面 UI
-- [ ] Records 画面 UI
-- [ ] About 画面 UI
-- [ ] Dashboard 画面 UI
+- [x] Playground
+- [x] ♥Records
+- [ ] ♥Record Details
+  - [x] 基本情報の表示
+  - [x] ロード機能
+  - [ ] 結果/投稿者情報
+- [x] About
+- [ ] ♥Dashboard
+  - [x] 最近の投稿
+  - [ ] web-gscs 更新情報
 - [x] firebase auth 統合
 - [ ] migration
   - [x] Record 抽出
   - [ ] Record 再登録
-- [ ] firestore 統合
+- [x] firestore 統合
 
-## Dependencies memo
+## Dependencies
 
 ```
 yarn create react-app web-gscs --typescript

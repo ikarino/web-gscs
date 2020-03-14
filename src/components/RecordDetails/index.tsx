@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
 
-import { useSelector } from "react-redux";
 import { useFirestore } from "react-redux-firebase";
 import { RouteComponentProps } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Paper from "@material-ui/core/Paper";
+import Fab from "@material-ui/core/Fab";
+import EditIcon from "@material-ui/icons/Edit";
 
 import FriendCard from "./FriendCard";
 import FieldCard from "./FieldCard";
+import ConfigCard from "./ConfigCard";
+import ResultCard from "./ResultCard";
 import { WebGscsRecord } from "../../slices/slice.interface";
+import scsInputSlice from "../../slices/scsInputSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,7 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "auto",
       padding: theme.spacing(2)
     },
-    cardGrid: { height: "100%" }
+    cardGrid: { height: "100%" },
+    fab: {
+      position: "absolute",
+      bottom: theme.spacing(2),
+      right: theme.spacing(2)
+    }
   })
 );
 
@@ -36,6 +46,13 @@ export default function RecordDetails(props: Props) {
   const classes = useStyles();
   const [record, setRecord] = useState<WebGscsRecord | undefined>(undefined);
   const firestore = useFirestore();
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const loadInput = () => {
+    dispatch(scsInputSlice.actions.setInput(record?.scsInput));
+    history.push("/run");
+  };
 
   useEffect(() => {
     firestore
@@ -58,6 +75,16 @@ export default function RecordDetails(props: Props) {
           <FriendCard friends={record.scsInput.friends} />
         </Paper>
       </Grid>
+      <Grid item xs={12} sm={4}>
+        <Paper className={classes.cardGrid}>
+          <ConfigCard config={record.scsInput.config} />
+        </Paper>
+      </Grid>
+      <Grid item xs={12} sm={4}>
+        <Paper className={classes.cardGrid}>
+          <ResultCard output={record.scsOutput} extra={record.webGscsExtra} />
+        </Paper>
+      </Grid>
     </Grid>
   ) : (
     <Box display="flex" justifyContent="center">
@@ -67,6 +94,14 @@ export default function RecordDetails(props: Props) {
   return (
     <Container maxWidth="md" className={classes.container}>
       {rendered}
+      <Fab
+        color="secondary"
+        aria-label="edit"
+        className={classes.fab}
+        onClick={loadInput}
+      >
+        <EditIcon />
+      </Fab>
     </Container>
   );
 }

@@ -31,7 +31,7 @@ export default function LocalRecords() {
   const cards = Object.keys(records).map(key => {
     const record = records[key];
     return (
-      <Grid item xs={12} md={4} key={key}>
+      <Grid item xs={12} sm={4} key={key}>
         <Paper className={classes.cardGrid}>
           <RecordCard time={key} record={record} />
         </Paper>

@@ -25,3 +25,8 @@ export const std = (arr: number[]): number => {
       }) / arr.length;
   return Math.sqrt(variance);
 };
+
+export const epochTimeToString = (createdAt: number): string => {
+  const date = new Date(createdAt);
+  return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`;
+};

@@ -172,7 +172,7 @@ export default function About() {
           <a href="https://twitter.com/neko3mpota/status/970271526703349760/photo/1">
             法則
           </a>
-          による。
+          を実装しています。
         </Typography>
 
         <Typography className={classes.heading}>開発・連絡</Typography>
