@@ -55,11 +55,6 @@ function Run() {
               <ResultCard />
             </Paper>
           </Grid>
-          {/*           <Grid item xs={12}>
-            <Paper className={classes.cardGrid}>
-              <PConfCard />
-            </Paper>
-          </Grid> */}
         </Grid>
       </Container>
     </>

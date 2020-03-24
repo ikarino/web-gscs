@@ -19,7 +19,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import {
   SCSTrialOutput,
   summarizeSCSOutputs,
-  defaultProbabilityConf
+  defaultProbabilityConf,
+  OverWriter
 } from "../../../../scs";
 
 import runScsSlice from "../../../../slices/runScsSlice";
@@ -61,6 +62,20 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
+
+const isDifferentFromDefaultProbabilityConf = (pconf: OverWriter): boolean => {
+  for (const k of Object.keys(defaultProbabilityConf)) {
+    for (const kk of Object.keys(defaultProbabilityConf[k])) {
+      if (pconf[k][kk] !== defaultProbabilityConf[k][kk]) {
+        console.log(
+          `  mismatched: ${k}/${kk} ${defaultProbabilityConf[k][kk]} vs ${pconf[k][kk]}`
+        );
+        return true;
+      }
+    }
+  }
+  return false;
+};
 
 export default function SummaryPaper() {
   // const config = useSelector((state: RootState) => state.scsInput.inp.config);
@@ -117,6 +132,25 @@ export default function SummaryPaper() {
   const mExp = mean(outputs.map(o => o.exp.perTurn));
   const mTurn =
     (mean(outputs.map(o => o.result.turnPassed)) / inp.config.turn) * 100;
+
+  console.log("=====================");
+  console.log("enabled/disabled info");
+  if (!isLoaded(auth)) {
+    console.log("  beacause auth state is not loaded");
+  } else if (isEmpty(auth)) {
+    console.log("  beacause auth state is empty");
+  } else if (outputs.length === 0) {
+    console.log("  beacause there is no outputs");
+  } else if (isRunning) {
+    console.log("  beacause now running");
+  } else if (
+    record.scsInput.config.pConf !== undefined &&
+    isDifferentFromDefaultProbabilityConf(record.scsInput.config.pConf)
+  ) {
+    console.log("  beacause pConf is not original");
+  } else {
+    console.log("  eneabled");
+  }
 
   return (
     <Paper className={classes.root}>
@@ -189,8 +223,9 @@ export default function SummaryPaper() {
             outputs.length === 0 ||
             isRunning ||
             (record.scsInput.config.pConf !== undefined &&
-              JSON.stringify(defaultProbabilityConf) !==
-                JSON.stringify(record.scsInput.config.pConf))
+              isDifferentFromDefaultProbabilityConf(
+                record.scsInput.config.pConf
+              ))
           }
           onClick={() => setOpen(true)}
         >
