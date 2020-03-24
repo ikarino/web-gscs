@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { isLoaded, isEmpty } from "react-redux-firebase";
 
@@ -15,7 +15,6 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import LeftDrawer from "./LeftDrawer";
-
 import { RootState } from "../../store";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -36,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function NavBar() {
   const classes = useStyles();
   const auth = useSelector((state: RootState) => state.firebase.auth);
+  const history = useHistory();
   // drawer
   const [drawer, setDrawer] = useState(false);
 
@@ -71,7 +71,7 @@ function NavBar() {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          web-gscs
+          web-gscs{history.location.pathname}
         </Typography>
         {leftComponent}
       </Toolbar>
