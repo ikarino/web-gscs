@@ -69,6 +69,7 @@ export default function Playground() {
       const isLast = f.order === m.friends.length - 1;
 
       m.actionFriend(f);
+      f.naturalRecovery();
       if (turn === "仲間等速ターン") {
         if (isLast) {
           setTurn("仲間倍速ターン");
@@ -96,8 +97,12 @@ export default function Playground() {
         if (isLast) {
           setTurn("敵ターン");
           setNumEnemy(m.enemys.length);
-          nextActiveIndex = place2index(m.enemys[0].place, m.field.col);
           m.turnNow += 1;
+          if (m.enemys.length === 0) {
+            setManager(JSON.parse(JSON.stringify(m)) as Manager);
+            return;
+          }
+          nextActiveIndex = place2index(m.enemys[0].place, m.field.col);
         } else {
           let flag = true;
           for (let i = f.order + 1; i < m.friends.length; i++) {
@@ -110,8 +115,12 @@ export default function Playground() {
           if (flag) {
             setTurn("敵ターン");
             setNumEnemy(m.enemys.length);
-            nextActiveIndex = place2index(m.enemys[0].place, m.field.col);
             m.turnNow += 1;
+            if (m.enemys.length === 0) {
+              setManager(JSON.parse(JSON.stringify(m)) as Manager);
+              return;
+            }
+            nextActiveIndex = place2index(m.enemys[0].place, m.field.col);
           }
         }
       }

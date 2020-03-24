@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "lightgray"
     },
     table: {
-      margin: theme.spacing(1)
+      marginBottom: theme.spacing(1)
     }
   })
 );
@@ -99,7 +99,7 @@ export default function InfoCard({ manager, activeIndex, turn }: Props) {
           </Table>
         </TableContainer>
 
-        <TableContainer component={Paper} className={classes.table}>
+        <TableContainer component={Paper}>
           <Table size="small">
             <TableHead>
               <TableRow>
