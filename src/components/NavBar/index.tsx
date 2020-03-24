@@ -58,6 +58,14 @@ function NavBar() {
       </Button>
     );
 
+  const pathname = history.location.pathname;
+  const breadcrumb =
+    pathname === "/"
+      ? ""
+      : pathname.includes("/record/")
+      ? "/record"
+      : pathname;
+
   return (
     <AppBar position="static" className={classes.root}>
       <Toolbar>
@@ -71,7 +79,7 @@ function NavBar() {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          web-gscs{history.location.pathname}
+          web-gscs{breadcrumb}
         </Typography>
         {leftComponent}
       </Toolbar>
