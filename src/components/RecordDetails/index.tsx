@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cardGrid: { height: "100%" },
     fab: {
-      position: "absolute",
+      position: "fixed",
       bottom: theme.spacing(2),
       right: theme.spacing(2)
     }
@@ -67,6 +67,11 @@ export default function RecordDetails(props: Props) {
     <Grid container spacing={3}>
       <Grid item xs={12} sm={4}>
         <Paper className={classes.cardGrid}>
+          <ResultCard output={record.scsOutput} extra={record.webGscsExtra} />
+        </Paper>
+      </Grid>
+      <Grid item xs={12} sm={4}>
+        <Paper className={classes.cardGrid}>
           <FieldCard field={record.scsInput.field} />
         </Paper>
       </Grid>
@@ -78,11 +83,6 @@ export default function RecordDetails(props: Props) {
       <Grid item xs={12} sm={4}>
         <Paper className={classes.cardGrid}>
           <ConfigCard config={record.scsInput.config} />
-        </Paper>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <Paper className={classes.cardGrid}>
-          <ResultCard output={record.scsOutput} extra={record.webGscsExtra} />
         </Paper>
       </Grid>
     </Grid>
