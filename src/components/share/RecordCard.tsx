@@ -1,8 +1,5 @@
 import React from "react";
 
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -48,7 +45,7 @@ export default function RecordCard({ time, record, buttons }: Props) {
   const inp = record.scsInput;
 
   const cardActions = buttons.map(b => (
-    <Button variant="outlined" color={b.color} onClick={b.func}>
+    <Button variant="outlined" color={b.color} onClick={b.func} key={b.content}>
       {b.content}
     </Button>
   ));

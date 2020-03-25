@@ -33,7 +33,7 @@ type Props = {
 
 export default function ConfigCard({ config }: Props) {
   const classes = useStyles();
-  console.log(config.numSumoLimit);
+
   const numSumoLimit = config.numSumoLimit ? config.numSumoLimit : 9;
   return (
     <Card variant="outlined" className={classes.root}>
