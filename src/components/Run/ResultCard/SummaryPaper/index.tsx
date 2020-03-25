@@ -133,7 +133,7 @@ export default function SummaryPaper() {
   const mTurn =
     (mean(outputs.map(o => o.result.turnPassed)) / inp.config.turn) * 100;
 
-  console.log("=====================");
+  /*   console.log("=====================");
   console.log("enabled/disabled info");
   if (!isLoaded(auth)) {
     console.log("  beacause auth state is not loaded");
@@ -150,7 +150,7 @@ export default function SummaryPaper() {
     console.log("  beacause pConf is not original");
   } else {
     console.log("  eneabled");
-  }
+  } */
 
   return (
     <Paper className={classes.root}>

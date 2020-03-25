@@ -10,9 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 
-import scsInputSlice from "../../slices/scsInputSlice";
 import { WebGscsRecord } from "../../slices/slice.interface";
-import { deleteFromLocalStorage } from "../../localStorageApi";
 import OutputChips from "./OutputChips";
 import InputChips from "./InputChips";
 import FieldContainer from "./FieldContainer";
@@ -32,26 +30,28 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+export type ActionButtonType = {
+  content: string;
+  func: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  color: "inherit" | "primary" | "secondary" | "default" | undefined;
+};
+
 type Props = {
   time: string;
   record: WebGscsRecord;
+  buttons: ActionButtonType[];
 };
 
-export default function RecordCard({ time, record }: Props) {
-  const history = useHistory();
-  const dispatch = useDispatch();
+export default function RecordCard({ time, record, buttons }: Props) {
   const classes = useStyles();
   const title = new Date(parseInt(time)).toString();
   const inp = record.scsInput;
 
-  const deleteRecord = () => {
-    deleteFromLocalStorage(time);
-    history.push("/local");
-  };
-  const loadInput = () => {
-    dispatch(scsInputSlice.actions.setInput(inp));
-    history.push("/run");
-  };
+  const cardActions = buttons.map(b => (
+    <Button variant="outlined" color={b.color} onClick={b.func}>
+      {b.content}
+    </Button>
+  ));
 
   return (
     <Card variant="outlined" className={classes.root}>
@@ -63,14 +63,7 @@ export default function RecordCard({ time, record }: Props) {
         <InputChips inp={inp} />
         <OutputChips record={record} />
       </CardContent>
-      <CardActions>
-        <Button variant="outlined" color="secondary" onClick={deleteRecord}>
-          削除
-        </Button>
-        <Button variant="outlined" color="primary" onClick={loadInput}>
-          ロード
-        </Button>
-      </CardActions>
+      <CardActions>{cardActions}</CardActions>
     </Card>
   );
 }

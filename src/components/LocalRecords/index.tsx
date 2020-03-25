@@ -1,14 +1,19 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import RecordCard from "../share/RecordCard";
+import RecordCard, { ActionButtonType } from "../share/RecordCard";
 
-import { loadLocalStorage } from "../../localStorageApi";
+import scsInputSlice from "../../slices/scsInputSlice";
+import {
+  loadLocalStorage,
+  deleteFromLocalStorage
+} from "../../localStorageApi";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,14 +31,33 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function LocalRecords() {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
   const records = loadLocalStorage();
 
   const cards = Object.keys(records).map(key => {
     const record = records[key];
+    const buttons: ActionButtonType[] = [
+      {
+        content: "削除",
+        func: () => {
+          deleteFromLocalStorage(key);
+        },
+        color: "secondary"
+      },
+      {
+        content: "ロード",
+        func: () => {
+          dispatch(scsInputSlice.actions.setInput(record.scsInput));
+          history.push("/run");
+        },
+        color: "primary"
+      }
+    ];
     return (
       <Grid item xs={12} sm={4} key={key}>
         <Paper className={classes.cardGrid}>
-          <RecordCard time={key} record={record} />
+          <RecordCard time={key} record={record} buttons={buttons} />
         </Paper>
       </Grid>
     );
