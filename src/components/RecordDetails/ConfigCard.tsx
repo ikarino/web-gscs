@@ -33,7 +33,8 @@ type Props = {
 
 export default function ConfigCard({ config }: Props) {
   const classes = useStyles();
-
+  console.log(config.numSumoLimit);
+  const numSumoLimit = config.numSumoLimit ? config.numSumoLimit : 9;
   return (
     <Card variant="outlined" className={classes.root}>
       <CardHeader title="Config" className={classes.header} />
@@ -67,12 +68,10 @@ export default function ConfigCard({ config }: Props) {
           <Select
             labelId="numSumoLimit-select-label"
             id="numSumoLimit-select"
-            value={config.numSumoLimit}
+            value={numSumoLimit}
             disabled={true}
           >
-            <MenuItem value={config.numSumoLimit}>
-              {config.numSumoLimit}
-            </MenuItem>
+            <MenuItem value={numSumoLimit}>{numSumoLimit}</MenuItem>
           </Select>
         </FormControl>
       </CardContent>
