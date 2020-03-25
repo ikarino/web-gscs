@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import { useFirestore } from "react-redux-firebase";
+import axios from "axios";
+
 import { Link } from "react-router-dom";
+import { useFirestore } from "react-redux-firebase";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -27,7 +29,8 @@ const useStyles = makeStyles((theme: Theme) =>
     panel: {
       width: "90%",
       margin: "auto",
-      padding: theme.spacing(2)
+      padding: theme.spacing(2),
+      marginBottom: theme.spacing(1)
     },
     timeString: {
       marginLeft: theme.spacing(2)
@@ -49,11 +52,19 @@ type TypeRecordLog = {
   photoURL: string;
 };
 
+type Commit = {
+  sha: string;
+  date: string;
+  message: string;
+};
+
 export default function Dashboard() {
   const classes = useStyles();
   const firestore = useFirestore();
   const initialState: TypeRecordLog[] = [];
   const [recordLogs, setRecordLogs] = useState(initialState);
+  const [commits, setCommits] = useState<Commit[]>([]);
+
   useEffect(() => {
     firestore
       .collection("recordLogs")
@@ -73,6 +84,24 @@ export default function Dashboard() {
         });
         setRecordLogs(datas);
       });
+  }, []);
+
+  useEffect(() => {
+    const f = async () => {
+      const response = await axios(
+        "https://api.github.com/repos/ikarino/web-gscs/commits?sha=typescript"
+      );
+      setCommits(
+        response.data.map((d: any) => {
+          return {
+            sha: d["sha"],
+            date: d["commit"]["committer"]["date"],
+            message: d["commit"]["message"]
+          };
+        })
+      );
+    };
+    f();
   }, []);
 
   const listItems = recordLogs.map(recordLog => (
@@ -113,11 +142,27 @@ export default function Dashboard() {
       <List>{listItems}</List>
     );
 
+  const updatesList = commits.slice(0, 5).map(commit => (
+    <ListItem>
+      <ListItemText
+        primary={
+          <Typography component="span" variant="body1" color="textPrimary">
+            {commit.date}
+          </Typography>
+        }
+        secondary={commit.message}
+      />
+    </ListItem>
+  ));
   return (
     <Container maxWidth="md" className={classes.container}>
       <Paper elevation={4} className={classes.panel}>
         <Typography variant="h6">最新の投稿</Typography>
         {rendered}
+      </Paper>
+      <Paper elevation={4} className={classes.panel}>
+        <Typography variant="h6">更新情報</Typography>
+        <List>{updatesList}</List>
       </Paper>
     </Container>
   );
