@@ -30,7 +30,10 @@ export default function OutputChips({ record }: Props) {
 
   // TODO 倍速/等速
   const lossAction =
-    out.loss.action.mean.filter(l => l / inp.config.turn > 0.5).length > 0;
+    out.loss.action.mean.filter((l, i) => {
+      const speed = inp.friends[i].doubleSpeed ? 2 : 1;
+      return l / speed / inp.config.turn > 0.5;
+    }).length > 0;
 
   return (
     <Paper className={classes.root}>

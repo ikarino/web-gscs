@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
     pos: {
       marginBottom: 12
     },
-
     postButton: {
       padding: theme.spacing(1)
     }
