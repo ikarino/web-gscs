@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
     table: {
       margin: theme.spacing(1)
+    },
+    field: {
+      margin: theme.spacing(1)
     }
   })
 );
@@ -36,11 +39,29 @@ type Props = {
   time: string;
   record: WebGscsRecord;
   buttons: ActionButtonType[];
+  showAuthor?: boolean;
 };
 
-export default function RecordCard({ time, record, buttons }: Props) {
+export default function RecordCard({
+  time,
+  record,
+  buttons,
+  showAuthor
+}: Props) {
   const classes = useStyles();
-  const title = new Date(parseInt(time)).toString();
+  const date = new Date(parseInt(time));
+  let title = (
+    <React.Fragment>
+      {showAuthor && (
+        <b>
+          {record.webGscsExtra.userName}さんの投稿
+          <br />
+        </b>
+      )}
+      @{date.getFullYear()}/{1 + date.getMonth()}/{date.getDate()}
+    </React.Fragment>
+  );
+
   const inp = record.scsInput;
 
   const cardActions = buttons.map(b => (
@@ -54,7 +75,9 @@ export default function RecordCard({ time, record, buttons }: Props) {
       <CardHeader title={title} />
 
       <CardContent>
-        <NameFieldContainer inp={inp} />
+        <div className={classes.field}>
+          <NameFieldContainer inp={inp} />
+        </div>
 
         <FinishStatePaper record={record} />
         <InputChips inp={inp} />

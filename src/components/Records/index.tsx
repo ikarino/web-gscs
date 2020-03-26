@@ -37,38 +37,41 @@ export default function Records() {
 
   const rendered =
     records &&
-    Object.keys(records).map((key: string) => {
-      const record = records[key];
-      const buttons: ActionButtonType[] = [
-        {
-          content: "詳細",
-          func: () => {
-            history.push(`/record/${key}`);
+    Object.keys(records)
+      .reverse()
+      .map((key: string) => {
+        const record = records[key];
+        const buttons: ActionButtonType[] = [
+          {
+            content: "詳細",
+            func: () => {
+              history.push(`/record/${key}`);
+            },
+            color: "secondary"
           },
-          color: "secondary"
-        },
-        {
-          content: "ロード",
-          func: () => {
-            dispatch(scsInputSlice.actions.setInput(record.scsInput));
-            history.push("/run");
-          },
-          color: "primary"
-        }
-      ];
+          {
+            content: "ロード",
+            func: () => {
+              dispatch(scsInputSlice.actions.setInput(record.scsInput));
+              history.push("/run");
+            },
+            color: "primary"
+          }
+        ];
 
-      return (
-        <Grid item xs={12} sm={6} md={4} key={key}>
-          <Paper className={classes.cardGrid}>
-            <RecordCard
-              time={record.webGscsExtra.createdAt.toString()}
-              record={record}
-              buttons={buttons}
-            />
-          </Paper>
-        </Grid>
-      );
-    });
+        return (
+          <Grid item xs={12} sm={6} md={4} key={key}>
+            <Paper className={classes.cardGrid}>
+              <RecordCard
+                time={record.webGscsExtra.createdAt.toString()}
+                record={record}
+                showAuthor={true}
+                buttons={buttons}
+              />
+            </Paper>
+          </Grid>
+        );
+      });
 
   return (
     <Container maxWidth="md" className={classes.container}>

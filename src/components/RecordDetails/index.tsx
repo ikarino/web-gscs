@@ -16,7 +16,6 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import FriendCard from "./FriendCard";
 import FieldCard from "./FieldCard";
-import ConfigCard from "./ConfigCard";
 import ResultCard from "./ResultCard";
 import { WebGscsRecord } from "../../slices/slice.interface";
 import scsInputSlice from "../../slices/scsInputSlice";
@@ -67,7 +66,7 @@ export default function RecordDetails(props: Props) {
     <Grid container spacing={3}>
       <Grid item xs={12} sm={4}>
         <Paper className={classes.cardGrid}>
-          <ResultCard output={record.scsOutput} extra={record.webGscsExtra} />
+          <ResultCard record={record} />
         </Paper>
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -78,11 +77,6 @@ export default function RecordDetails(props: Props) {
       <Grid item xs={12} sm={4}>
         <Paper className={classes.cardGrid}>
           <FriendCard friends={record.scsInput.friends} />
-        </Paper>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <Paper className={classes.cardGrid}>
-          <ConfigCard config={record.scsInput.config} />
         </Paper>
       </Grid>
     </Grid>

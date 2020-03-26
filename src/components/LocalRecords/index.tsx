@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(2)
     },
     cardGrid: { height: "100%" },
+
     panel: {
       width: "90%",
       margin: "auto",
