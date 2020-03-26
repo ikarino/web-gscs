@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
@@ -6,10 +6,13 @@ import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
 
 import FieldContainer from "../share/FieldContainer";
+import NameFieldContainer from "../share/NameFieldContainer";
 
-import { SCSFieldInput } from "../../scs";
+import { SCSInput } from "../../scs";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,20 +32,37 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type Props = {
-  field: SCSFieldInput;
+  inp: SCSInput;
 };
 
-function FieldCard({ field }: Props) {
+function FieldCard({ inp }: Props) {
   const classes = useStyles();
+  const field = inp.field;
+
+  const [isName, setIsName] = useState(true);
+
+  const rendered = isName ? (
+    <NameFieldContainer inp={inp} />
+  ) : (
+    <FieldContainer field={field} fixed={true} />
+  );
+
   return (
     <Card variant="outlined" className={classes.root}>
       <CardHeader title="Field" className={classes.header} />
 
       <CardContent>
-        <Paper>
-          <FieldContainer field={field} fixed={true} />
-        </Paper>
+        <Paper>{rendered}</Paper>
       </CardContent>
+      <CardActions>
+        <Button
+          color="primary"
+          onClick={() => setIsName(!isName)}
+          variant="outlined"
+        >
+          ID ⇔ 名前
+        </Button>
+      </CardActions>
     </Card>
   );
 }

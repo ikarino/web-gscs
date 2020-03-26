@@ -72,7 +72,7 @@ export default function RecordDetails(props: Props) {
       </Grid>
       <Grid item xs={12} sm={4}>
         <Paper className={classes.cardGrid}>
-          <FieldCard field={record.scsInput.field} />
+          <FieldCard inp={record.scsInput} />
         </Paper>
       </Grid>
       <Grid item xs={12} sm={4}>
