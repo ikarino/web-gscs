@@ -1,15 +1,19 @@
 import React from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import TableHead from "@material-ui/core/TableHead";
+
+import { TwitterShareButton, TwitterIcon } from "react-share";
 
 import { WebGscsRecord } from "../../slices/slice.interface";
 import { sum } from "../share/mathFunctions";
@@ -99,6 +103,11 @@ export default function ResultCard({ record }: Props) {
             </TableBody>
           </Table>
         </TableContainer>
+        <CardActions>
+          <TwitterShareButton url={window.location.href} title={`俺のスモコン`}>
+            <TwitterIcon size={32} round />
+          </TwitterShareButton>
+        </CardActions>
       </CardContent>
     </Card>
   );
