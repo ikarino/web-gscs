@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
@@ -33,7 +33,7 @@ export default function LocalRecords() {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const records = loadLocalStorage();
+  const [records, setRecords] = useState(loadLocalStorage());
 
   const cards = Object.keys(records).map(key => {
     const record = records[key];
@@ -42,6 +42,7 @@ export default function LocalRecords() {
         content: "削除",
         func: () => {
           deleteFromLocalStorage(key);
+          setRecords(loadLocalStorage());
         },
         color: "secondary"
       },

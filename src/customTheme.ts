@@ -26,6 +26,11 @@ const customTheme = createMuiTheme({
       title: {
         fontSize: "12pt"
       }
+    },
+    MuiCard: {
+      root: {
+        backgroundColor: "whitesmoke"
+      }
     }
   }
 });

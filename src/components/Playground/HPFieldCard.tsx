@@ -40,11 +40,12 @@ const useStylesController = makeStyles<Theme, { col: number }>((theme: Theme) =>
       paddingBottom: `${100 / props.col}%`,
       overflow: "hidden",
       border: "1px solid black",
-      [theme.breakpoints.up("xs")]: {
+      [theme.breakpoints.down("sm")]: {
         // TODO
-        fontSize: `calc((100vw-${theme.spacing(4)}) * ${1 / props.col})`
+        fontSize: "15px"
+        // fontSize: `calc((100vw-${theme.spacing(4)}) * ${1 / props.col})`
       },
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.down("md")]: {
         fontSize: "10px"
       }
     }),
