@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import { WebGscsRecord } from "../../slices/slice.interface";
 import OutputChips from "./OutputChips";
 import InputChips from "./InputChips";
-import FieldContainer from "./FieldContainer";
+import NameFieldContainer from "./NameFieldContainer";
 import FinishStatePaper from "./FinishStatePaper";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -56,7 +56,7 @@ export default function RecordCard({ time, record, buttons }: Props) {
       <CardHeader title={title} className={classes.header} />
 
       <CardContent>
-        <FieldContainer field={inp.field} fixed={true} />
+        <NameFieldContainer inp={inp} />
 
         <FinishStatePaper record={record} />
         <InputChips inp={inp} />

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -19,6 +19,7 @@ import ZoomOutIcon from "@material-ui/icons/ZoomOut";
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
 
 import FieldContainer from "../share/FieldContainer";
+import NameFieldContainer from "../share/NameFieldContainer";
 import { RootState } from "../../store";
 import scsInputSlice from "../../slices/scsInputSlice";
 
@@ -40,18 +41,25 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function FieldCard() {
-  const field = useSelector((state: RootState) => state.scsInput.inp.field);
-  const dispatch = useDispatch();
-
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const inp = useSelector((state: RootState) => state.scsInput.inp);
+  const field = inp.field;
+
+  const [isName, setIsName] = useState(false);
+
+  const rendered = isName ? (
+    <NameFieldContainer inp={inp} />
+  ) : (
+    <FieldContainer field={field} fixed={false} />
+  );
+
   return (
     <Card variant="outlined" className={classes.root}>
       <CardHeader title="Field" className={classes.header} />
 
       <CardContent>
-        <Paper>
-          <FieldContainer field={field} fixed={false} />
-        </Paper>
+        <Paper>{rendered}</Paper>
 
         <Box display="flex" justifyContent="center">
           <ButtonGroup
@@ -76,6 +84,9 @@ function FieldCard() {
               }
             >
               <ZoomInIcon />
+            </Button>
+            <Button size="small" onClick={() => setIsName(!isName)}>
+              ID ⇔ 名前
             </Button>
           </ButtonGroup>
         </Box>

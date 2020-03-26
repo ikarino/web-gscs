@@ -12,7 +12,7 @@ export const actionMoveField = (
     case "up":
       for (let irow = 0; irow < row; irow++) {
         const index = row * 1 + irow;
-        if (data[index] > 0) {
+        if (data[index] > 1) {
           return state;
         }
       }
@@ -30,7 +30,7 @@ export const actionMoveField = (
     case "down":
       for (let irow = 0; irow < row; irow++) {
         const index = row * (col - 2) + irow;
-        if (data[index] > 0) {
+        if (data[index] > 1) {
           return state;
         }
       }
@@ -48,7 +48,7 @@ export const actionMoveField = (
     case "left":
       for (let icol = 0; icol < col; icol++) {
         const index = row * icol + 1;
-        if (data[index] > 0) {
+        if (data[index] > 1) {
           return state;
         }
       }
@@ -67,7 +67,7 @@ export const actionMoveField = (
     case "right":
       for (let icol = 0; icol < col; icol++) {
         const index = row * icol + col - 2;
-        if (data[index] > 0) {
+        if (data[index] > 1) {
           return state;
         }
       }
@@ -108,13 +108,13 @@ export const actionChangeFieldSize = (
     // 1. check
     for (let icol = 1; icol < col - 1; icol++) {
       const index = row * (col - 2) + icol;
-      if (data[index] > 0) {
+      if (data[index] > 1) {
         return state;
       }
     }
     for (let irow = 1; irow < row - 1; irow++) {
       const index = irow * row + col - 2;
-      if (data[index] > 0) {
+      if (data[index] > 1) {
         return state;
       }
     }
