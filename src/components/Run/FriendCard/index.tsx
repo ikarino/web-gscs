@@ -20,9 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: "100%"
     },
-    header: {
-      backgroundColor: "lightgray"
-    },
+
     addButton: {
       width: "100%",
       marginTop: theme.spacing(1)
@@ -41,7 +39,7 @@ export default function FriendCard() {
   const [open, setOpen] = useState(false);
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader title="Friend" className={classes.header} />
+      <CardHeader title="Friend" />
       <CardContent>
         <FriendTable friends={friends} editable={true} />
         <Box display="flex" justifyContent="center">

@@ -21,9 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: "100%"
     },
-    header: {
-      backgroundColor: "lightgray"
-    },
+
     table: {
       marginBottom: theme.spacing(1)
     }
@@ -74,7 +72,7 @@ export default function InfoCard({ manager, activeIndex, turn }: Props) {
 
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader title="Info" className={classes.header} />
+      <CardHeader title="Info" />
 
       <CardContent>
         <TableContainer component={Paper} className={classes.table}>

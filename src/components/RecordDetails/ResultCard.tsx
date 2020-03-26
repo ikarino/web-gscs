@@ -12,9 +12,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: "100%"
-    },
-    header: {
-      backgroundColor: "lightgray"
     }
   })
 );
@@ -29,7 +26,7 @@ export default function ResultCard({ output, extra }: Props) {
 
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader title="Result" className={classes.header} />
+      <CardHeader title="Result" />
       <CardContent>計算結果、投稿者情報関係、シェアボタン等</CardContent>
     </Card>
   );

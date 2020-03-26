@@ -21,7 +21,8 @@ const customTheme = createMuiTheme({
         paddingLeft: 16,
         paddingRight: 8,
         paddingTop: 8,
-        paddingBottom: 8
+        paddingBottom: 8,
+        backgroundColor: "lightgray"
       },
       title: {
         fontSize: "12pt"

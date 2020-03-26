@@ -12,9 +12,6 @@ import StatisticsPaper from "./StatisticsPaper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    header: {
-      backgroundColor: "lightgray"
-    },
     buttonGroup: {
       paddingTop: "5px"
     }
@@ -26,7 +23,7 @@ export default function ResultCard() {
 
   return (
     <Card variant="outlined">
-      <CardHeader title="Result" className={classes.header} />
+      <CardHeader title="Result" />
       <CardContent>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4}>

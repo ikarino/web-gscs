@@ -14,9 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: "100%"
-    },
-    header: {
-      backgroundColor: "lightgray"
     }
   })
 );
@@ -30,7 +27,7 @@ export default function FriendCard({ friends }: Props) {
 
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader title="Friend" className={classes.header} />
+      <CardHeader title="Friend" />
       <CardContent>
         <FriendTable friends={friends} editable={false} />
       </CardContent>

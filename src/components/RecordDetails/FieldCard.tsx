@@ -19,9 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: "100%"
     },
-    header: {
-      backgroundColor: "lightgray"
-    },
+
     buttonGroup: {
       marginTop: theme.spacing(2)
     },
@@ -49,7 +47,7 @@ function FieldCard({ inp }: Props) {
 
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader title="Field" className={classes.header} />
+      <CardHeader title="Field" />
 
       <CardContent>
         <Paper>{rendered}</Paper>

@@ -21,9 +21,7 @@ const useStylesController = makeStyles<Theme, { col: number }>((theme: Theme) =>
     root: {
       height: "100%"
     },
-    header: {
-      backgroundColor: "lightgray"
-    },
+
     buttonBox: {
       clear: "left"
     },
@@ -163,7 +161,7 @@ export default function HPFieldCard({
 
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader title="HP Field" className={classes.header} />
+      <CardHeader title="HP Field" />
 
       <CardContent>
         <Paper>{rendered}</Paper>

@@ -25,9 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: "100%"
     },
-    header: {
-      backgroundColor: "lightgray"
-    },
+
     buttonGroup: {
       paddingTop: theme.spacing(1)
     },
@@ -66,7 +64,7 @@ export default function ConfigCard() {
 
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader title="Config" className={classes.header} />
+      <CardHeader title="Config" />
       <CardContent>
         <FormControl className={classes.formControl}>
           <InputLabel id="turn-select-label">ターン数</InputLabel>

@@ -16,9 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: "100%"
     },
-    header: {
-      backgroundColor: "lightgray"
-    },
+
     formControl: {
       margin: theme.spacing(1),
       width: "100%",
@@ -37,7 +35,7 @@ export default function ConfigCard({ config }: Props) {
   const numSumoLimit = config.numSumoLimit ? config.numSumoLimit : 9;
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader title="Config" className={classes.header} />
+      <CardHeader title="Config" />
       <CardContent>
         <FormControl className={classes.formControl}>
           <InputLabel id="turn-select-label">ターン数</InputLabel>

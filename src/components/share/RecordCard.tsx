@@ -19,9 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       height: "100%"
     },
-    header: {
-      backgroundColor: "lightgray"
-    },
+
     table: {
       margin: theme.spacing(1)
     }
@@ -53,7 +51,7 @@ export default function RecordCard({ time, record, buttons }: Props) {
 
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader title={title} className={classes.header} />
+      <CardHeader title={title} />
 
       <CardContent>
         <NameFieldContainer inp={inp} />
