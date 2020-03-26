@@ -23,14 +23,14 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       maxWidth: 600,
       paddingTop: theme.spacing(2),
-      // paddingBottom: theme.spacing(2)
+      // paddingBottom: theme.spacing(2),
       marginBottom: theme.spacing(2)
     },
     panel: {
       width: "90%",
       margin: "auto",
       padding: theme.spacing(2),
-      marginBottom: theme.spacing(1)
+      marginBottom: theme.spacing(2)
     },
     timeString: {
       marginLeft: theme.spacing(2)

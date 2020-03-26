@@ -87,7 +87,7 @@ export default function About() {
           計算結果は個人用に保存したり、シェアするために投稿することができます。
           <br />
           <br />
-          入力条件は大きく分けて4つあります。
+          入力条件は大きく分けて3つあります。
         </Typography>
         <ul>
           <li>
@@ -107,7 +107,7 @@ export default function About() {
           計算結果は進捗に合わせてパネル内で更新表示されていきます。
           <br />
           <br />
-          計算が終わると、<b>投稿</b>または<b>保存</b>ができるようになります。
+          計算が終わると、<b>保存</b>または<b>投稿</b>ができるようになります。
           <br />
           <br />
           <b>保存</b>されたデータは<span className={classes.code}>Local</span>
@@ -117,9 +117,9 @@ export default function About() {
           <br />
           <b>投稿</b>されたデータは公開され、
           <span className={classes.code}>Records</span>
-          から閲覧できるようになります。
+          から閲覧できるようになります。データが消去されることはありません。
           <br />
-          投稿にはいくつか条件があります。
+          投稿には以下の条件があります。
         </Typography>
         <ul>
           <li>ログインしていること</li>
@@ -160,7 +160,8 @@ export default function About() {
 
         <Typography className={classes.heading2}>確率</Typography>
         <Typography variant="body1" className={classes.body}>
-          <a href="http://">トルネコ3異世界wiki</a>等の値を参考にしています。
+          <a href="https://w.atwiki.jp/toruneko3/">トルネコ3異世界wiki</a>
+          等の値を参考にしています。
           <br />
           デフォルト値は<span className={classes.code}>Run</span>の
           <b>Configパネル</b>から確認してください。
