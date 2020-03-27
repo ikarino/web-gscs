@@ -2,18 +2,18 @@ import React from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
-import TableHead from "@material-ui/core/TableHead";
+import TwitterIcon from "@material-ui/icons/Twitter";
 
-import { TwitterShareButton, TwitterIcon } from "react-share";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 import { WebGscsRecord } from "../../slices/slice.interface";
 import { sum } from "../share/mathFunctions";
@@ -22,6 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       height: "100%"
+    },
+    tweetButton: {
+      backgroundColor: "#00acee",
+      color: "white",
+      marginTop: theme.spacing(1),
+      textTransform: "none"
     }
   })
 );
@@ -50,7 +56,7 @@ export default function ResultCard({ record }: Props) {
     <Card variant="outlined" className={classes.root}>
       <CardHeader title="Result" />
       <CardContent>
-        <TableContainer>
+        <TableContainer component={Paper}>
           <Table size="small">
             <TableBody>
               <TableRow>
@@ -103,11 +109,16 @@ export default function ResultCard({ record }: Props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <CardActions>
-          <TwitterShareButton url={window.location.href} title={`俺のスモコン`}>
-            <TwitterIcon size={32} round />
-          </TwitterShareButton>
-        </CardActions>
+
+        <Button
+          size="small"
+          href={`https://twitter.com/intent/tweet?text=俺のスモコン&url=${window.location.href}&hashtags=トルネコ3,スモコン,web-gscs`}
+          target="_blank"
+          className={classes.tweetButton}
+        >
+          <TwitterIcon fontSize="small" />
+          ツイート
+        </Button>
       </CardContent>
     </Card>
   );
