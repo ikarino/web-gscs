@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";

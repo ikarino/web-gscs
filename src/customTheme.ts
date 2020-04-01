@@ -32,6 +32,14 @@ const customTheme = createMuiTheme({
       root: {
         backgroundColor: "whitesmoke"
       }
+    },
+    MuiInputLabel: {
+      root: {}
+    },
+    MuiFormHelperText: {
+      root: {
+        fontSize: "6pt"
+      }
     }
   }
 });

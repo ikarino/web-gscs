@@ -1,9 +1,5 @@
 import * as React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../../store";
-import { changeField } from "../../../slices/scsInputSlice";
-
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 import rectImage from "../../../assets/z.png";

@@ -60,7 +60,7 @@ export default function RecordDetails(props: Props) {
       .onSnapshot(doc => {
         setRecord(doc.data() as WebGscsRecord);
       });
-  }, []);
+  }, [props.match.params.id, firestore]);
 
   const rendered = record ? (
     <Grid container spacing={3}>

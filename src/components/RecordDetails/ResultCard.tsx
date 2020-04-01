@@ -13,7 +13,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import TwitterIcon from "@material-ui/icons/Twitter";
 
-import CopyToClipboard from "react-copy-to-clipboard";
+// import CopyToClipboard from "react-copy-to-clipboard";
 
 import { WebGscsRecord } from "../../slices/slice.interface";
 import { sum } from "../share/mathFunctions";

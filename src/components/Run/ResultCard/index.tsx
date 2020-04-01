@@ -1,6 +1,5 @@
 import React from "react";
 
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -10,17 +9,7 @@ import SummaryPaper from "./SummaryPaper";
 import BarChartPaper from "./BarChartPaper";
 import StatisticsPaper from "./StatisticsPaper";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    buttonGroup: {
-      paddingTop: "5px"
-    }
-  })
-);
-
 export default function ResultCard() {
-  const classes = useStyles();
-
   return (
     <Card variant="outlined">
       <CardHeader title="Result" />

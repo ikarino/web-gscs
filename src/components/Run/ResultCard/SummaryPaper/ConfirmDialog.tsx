@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useFirestore } from "react-redux-firebase";
@@ -29,6 +29,7 @@ export default function ConfirmDialog({ open, setOpen }: Props) {
   const [snackBar, setSnackBar] = useState({ open: false, message: "" });
   const [comment, setComment] = useState("俺のスモコン");
   const dispatch = useDispatch();
+  const stableDispatch = useCallback(dispatch, []);
   const firestore = useFirestore();
 
   const handleClose = () => {
@@ -36,7 +37,7 @@ export default function ConfirmDialog({ open, setOpen }: Props) {
   };
 
   useEffect(() => {
-    dispatch(
+    stableDispatch(
       runScsSlice.actions.setWebGscsExtra({
         comment,
         userName: auth.displayName ? auth.displayName : "",
@@ -44,7 +45,7 @@ export default function ConfirmDialog({ open, setOpen }: Props) {
         createdAt: Date.now()
       })
     );
-  }, [auth, comment]);
+  }, [auth, comment, stableDispatch]);
 
   const postToFirestore = () => {
     firestore

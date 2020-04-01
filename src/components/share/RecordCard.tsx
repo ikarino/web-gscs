@@ -1,7 +1,6 @@
 import React from "react";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";

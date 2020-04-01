@@ -84,7 +84,7 @@ export default function Dashboard() {
         });
         setRecordLogs(datas);
       });
-  }, []);
+  }, [firestore]);
 
   useEffect(() => {
     const f = async () => {
