@@ -52,10 +52,14 @@ export default function RecordCard({
   let title = (
     <React.Fragment>
       {showAuthor && (
-        <b>
-          {record.webGscsExtra.userName}さんの投稿
+        <>
+          <b>
+            {record.webGscsExtra.userName}さんの投稿
+            <br />
+          </b>
+          {record.webGscsExtra.comment}
           <br />
-        </b>
+        </>
       )}
       @{date.getFullYear()}/{1 + date.getMonth()}/{date.getDate()}
     </React.Fragment>
