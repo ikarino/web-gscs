@@ -11,6 +11,7 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
 import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -32,18 +33,22 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%"
     },
     controller: {
+      width: "80%",
+      padding: theme.spacing(1),
+      backgroundColor: "gray",
+      maxWidth: "200pt",
       position: "fixed",
       bottom: theme.spacing(2),
       left: "50%",
       transform: "translateX(-50%)"
     },
     formControl: {
-      minWidth: "120px",
       padding: 0,
       margin: 0
     },
-    orderBox: {
-      width: "100%"
+    orderBox: {},
+    buttonSet: {
+      margin: theme.spacing(0.5)
     }
   })
 );
@@ -190,81 +195,106 @@ export default function Records() {
           {rendered}
         </Grid>
       </Container>
-      <Card className={classes.controller}>
+      <Card className={classes.controller} component={Paper} elevation={5}>
+        <Box
+          display="flex"
+          justifyContent="center"
+          className={classes.orderBox}
+        >
+          <ButtonGroup size="small" aria-label="speed button group">
+            <Button size="small" variant="outlined">
+              経験値順
+            </Button>
+            <Button size="small" variant="outlined">
+              投稿日順
+            </Button>
+          </ButtonGroup>
+          <Button size="small">
+            <ImportExportIcon />
+          </Button>
+        </Box>
         <Grid container>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Box
-              display="flex"
+              className={classes.buttonSet}
               justifyContent="center"
-              className={classes.orderBox}
+              display="flex"
             >
-              <Button>経験値順</Button>
-              <Button>投稿日順</Button>
-              <Button>
-                <ImportExportIcon />
-              </Button>
+              <ButtonGroup size="small" aria-label="speed button group">
+                <Button>倍速</Button>
+                <Button>等速</Button>
+              </ButtonGroup>
+            </Box>
+            <Box
+              className={classes.buttonSet}
+              justifyContent="center"
+              display="flex"
+            >
+              <ButtonGroup size="small" aria-label="kinoko button group">
+                <Button>茸有</Button>
+                <Button>茸育</Button>
+              </ButtonGroup>
+            </Box>
+            <Box
+              className={classes.buttonSet}
+              justifyContent="center"
+              display="flex"
+            >
+              <ButtonGroup size="small" aria-label="kiton button group">
+                <Button>祈有</Button>
+                <Button>祈育</Button>
+              </ButtonGroup>
             </Box>
           </Grid>
           <Grid item xs={6}>
-            <Box>
-              <Button variant="outlined">倍速</Button>
-              <Button variant="outlined">等速</Button>
+            <Box justifyContent="center" display="flex">
+              <FormControl className={classes.formControl}>
+                <InputLabel id="numKillerma-label">キラーマ数</InputLabel>
+                <Select
+                  labelId="numKillerma-label"
+                  id="numKillerma"
+                  value={control.numKillerma}
+                  onChange={() => {}}
+                >
+                  <MenuItem value={-1}>指定なし</MenuItem>
+                  <MenuItem value={0}>0</MenuItem>
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                  <MenuItem value={6}>6</MenuItem>
+                  <MenuItem value={7}>7</MenuItem>
+                  <MenuItem value={8}>8</MenuItem>
+                  <MenuItem value={9}>9</MenuItem>
+                  <MenuItem value={10}>10</MenuItem>
+                </Select>
+              </FormControl>
             </Box>
-            <Box>
-              <Button variant="outlined">茸有</Button>
-              <Button variant="outlined">茸育</Button>
+            <Box justifyContent="center" display="flex">
+              <FormControl className={classes.formControl}>
+                <InputLabel id="numHoimin-label">ホイミン数</InputLabel>
+                <Select
+                  labelId="numHoimin-label"
+                  id="numHoimin"
+                  value={control.numHoimin}
+                  onChange={() => {}}
+                >
+                  <MenuItem value={-1}>指定なし</MenuItem>
+                  <MenuItem value={0}>0</MenuItem>
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                  <MenuItem value={4}>4</MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                  <MenuItem value={6}>6</MenuItem>
+                  <MenuItem value={7}>7</MenuItem>
+                  <MenuItem value={8}>8</MenuItem>
+                  <MenuItem value={9}>9</MenuItem>
+                  <MenuItem value={10}>10</MenuItem>
+                </Select>
+              </FormControl>
             </Box>
-            <Box>
-              <Button variant="outlined">祈有</Button>
-              <Button variant="outlined">祈育</Button>
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="numKillerma-label">キラーマ数</InputLabel>
-              <Select
-                labelId="numKillerma-label"
-                id="numKillerma"
-                value={control.numKillerma}
-                onChange={() => {}}
-              >
-                <MenuItem value={-1}>指定なし</MenuItem>
-                <MenuItem value={0}>0</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-                <MenuItem value={6}>6</MenuItem>
-                <MenuItem value={7}>7</MenuItem>
-                <MenuItem value={8}>8</MenuItem>
-                <MenuItem value={9}>9</MenuItem>
-                <MenuItem value={10}>10</MenuItem>
-              </Select>
-            </FormControl>
-            <br />
-            <FormControl className={classes.formControl}>
-              <InputLabel id="numHoimin-label">ホイミン数</InputLabel>
-              <Select
-                labelId="numHoimin-label"
-                id="numHoimin"
-                value={control.numHoimin}
-                onChange={() => {}}
-              >
-                <MenuItem value={-1}>指定なし</MenuItem>
-                <MenuItem value={0}>0</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-                <MenuItem value={6}>6</MenuItem>
-                <MenuItem value={7}>7</MenuItem>
-                <MenuItem value={8}>8</MenuItem>
-                <MenuItem value={9}>9</MenuItem>
-                <MenuItem value={10}>10</MenuItem>
-              </Select>
-            </FormControl>
           </Grid>
         </Grid>
       </Card>
