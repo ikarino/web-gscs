@@ -6,6 +6,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 
 import { WebGscsRecord } from "../../slices/slice.interface";
 import OutputChips from "./OutputChips";
@@ -24,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     field: {
       margin: theme.spacing(1)
+    },
+    textarea: {
+      width: "100%",
+      whiteSpace: "pre-line"
     }
   })
 );
@@ -53,11 +58,7 @@ export default function RecordCard({
     <React.Fragment>
       {showAuthor && (
         <>
-          <b>
-            {record.webGscsExtra.userName}さんの投稿
-            <br />
-          </b>
-          {record.webGscsExtra.comment}
+          <b>{record.webGscsExtra.userName}さんの投稿</b>
           <br />
         </>
       )}
@@ -85,6 +86,8 @@ export default function RecordCard({
         <FinishStatePaper record={record} />
         <InputChips inp={inp} />
         <OutputChips record={record} />
+
+        <p className={classes.textarea}>{record.webGscsExtra.comment}</p>
       </CardContent>
       <CardActions>{cardActions}</CardActions>
     </Card>
