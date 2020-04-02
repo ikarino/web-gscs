@@ -5,24 +5,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
-import Card from "@material-ui/core/Card";
-import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-
-import ImportExportIcon from "@material-ui/icons/ImportExport";
 
 import { WebGscsRecord } from "../../slices/slice.interface";
 import scsInputSlice from "../../slices/scsInputSlice";
 import { RootState } from "../../store";
 import RecordCard, { ActionButtonType } from "../share/RecordCard";
+import ControlCard, { Control } from "../share/ControlCard";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,18 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type Control = {
-  sortBy: "exp" | "createdAt";
-  order: "descend" | "ascend";
-  speed: "single" | "double" | "either";
-  numHoimin: number;
-  numKillerma: number;
-  withKinoko: boolean;
-  growKinoko: boolean;
-  withKiton: boolean;
-  growKiton: boolean;
-};
-
 type KeyRecord = { r: WebGscsRecord; k: string };
 
 export default function Records() {
@@ -82,6 +61,7 @@ export default function Records() {
     growKinoko: false,
     growKiton: false
   });
+  const [open, setOpen] = useState(true);
   const [recordsRendered, setRecordsRendered] = useState<KeyRecord[]>([]);
 
   useFirestoreConnect("records2");
@@ -119,6 +99,38 @@ export default function Records() {
       } else {
         return true;
       }
+    })
+    .filter(kr => {
+      const r = kr.r;
+      const friends = r.scsInput.friends;
+      const lvKiton =
+        Math.min(
+          ...friends.filter(f => f.name === "きとうし").map(f => f.lv)
+        ) === Infinity
+          ? 0
+          : Math.min(
+              ...friends.filter(f => f.name === "きとうし").map(f => f.lv)
+            );
+
+      const withKiton = !control.withKiton || lvKiton > 0;
+      const growKiton = !control.growKiton || lvKiton < 5;
+      return withKiton && growKiton;
+    })
+    .filter(kr => {
+      const r = kr.r;
+      const friends = r.scsInput.friends;
+      const lvKinoko =
+        Math.min(
+          ...friends.filter(f => f.name === "おばけキノコ").map(f => f.lv)
+        ) === Infinity
+          ? 0
+          : Math.min(
+              ...friends.filter(f => f.name === "おばけキノコ").map(f => f.lv)
+            );
+
+      const withKinoko = !control.withKinoko || lvKinoko > 0;
+      const growKinoko = !control.growKinoko || lvKinoko < 5;
+      return withKinoko && growKinoko;
     })
     .filter(kr => {
       const r = kr.r;
@@ -195,109 +207,12 @@ export default function Records() {
           {rendered}
         </Grid>
       </Container>
-      <Card className={classes.controller} component={Paper} elevation={5}>
-        <Box
-          display="flex"
-          justifyContent="center"
-          className={classes.orderBox}
-        >
-          <ButtonGroup size="small" aria-label="speed button group">
-            <Button size="small" variant="outlined">
-              経験値順
-            </Button>
-            <Button size="small" variant="outlined">
-              投稿日順
-            </Button>
-          </ButtonGroup>
-          <Button size="small">
-            <ImportExportIcon />
-          </Button>
-        </Box>
-        <Grid container>
-          <Grid item xs={6}>
-            <Box
-              className={classes.buttonSet}
-              justifyContent="center"
-              display="flex"
-            >
-              <ButtonGroup size="small" aria-label="speed button group">
-                <Button>倍速</Button>
-                <Button>等速</Button>
-              </ButtonGroup>
-            </Box>
-            <Box
-              className={classes.buttonSet}
-              justifyContent="center"
-              display="flex"
-            >
-              <ButtonGroup size="small" aria-label="kinoko button group">
-                <Button>茸有</Button>
-                <Button>茸育</Button>
-              </ButtonGroup>
-            </Box>
-            <Box
-              className={classes.buttonSet}
-              justifyContent="center"
-              display="flex"
-            >
-              <ButtonGroup size="small" aria-label="kiton button group">
-                <Button>祈有</Button>
-                <Button>祈育</Button>
-              </ButtonGroup>
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box justifyContent="center" display="flex">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="numKillerma-label">キラーマ数</InputLabel>
-                <Select
-                  labelId="numKillerma-label"
-                  id="numKillerma"
-                  value={control.numKillerma}
-                  onChange={() => {}}
-                >
-                  <MenuItem value={-1}>指定なし</MenuItem>
-                  <MenuItem value={0}>0</MenuItem>
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                  <MenuItem value={6}>6</MenuItem>
-                  <MenuItem value={7}>7</MenuItem>
-                  <MenuItem value={8}>8</MenuItem>
-                  <MenuItem value={9}>9</MenuItem>
-                  <MenuItem value={10}>10</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <Box justifyContent="center" display="flex">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="numHoimin-label">ホイミン数</InputLabel>
-                <Select
-                  labelId="numHoimin-label"
-                  id="numHoimin"
-                  value={control.numHoimin}
-                  onChange={() => {}}
-                >
-                  <MenuItem value={-1}>指定なし</MenuItem>
-                  <MenuItem value={0}>0</MenuItem>
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                  <MenuItem value={6}>6</MenuItem>
-                  <MenuItem value={7}>7</MenuItem>
-                  <MenuItem value={8}>8</MenuItem>
-                  <MenuItem value={9}>9</MenuItem>
-                  <MenuItem value={10}>10</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-          </Grid>
-        </Grid>
-      </Card>
+      <ControlCard
+        control={control}
+        setControl={setControl}
+        open={open}
+        setOpen={setOpen}
+      />
     </React.Fragment>
   );
 }
