@@ -8,6 +8,7 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 import FieldContainer from "../share/FieldContainer";
 import NameFieldContainer from "../share/NameFieldContainer";
@@ -60,6 +61,51 @@ function FieldCard({ inp }: Props) {
           >
             ID ⇔ 名前
           </Button>
+        </Box>
+        <Box display="flex" justifyContent="center">
+          <ButtonGroup>
+            <Button
+              color="primary"
+              variant="outlined"
+              className={classes.button}
+              size="small"
+              disabled={true}
+            >
+              ID
+            </Button>
+            <Button
+              color="primary"
+              variant="outlined"
+              className={classes.button}
+              disabled={true}
+            >
+              名前
+            </Button>
+            <Button
+              color="primary"
+              variant="outlined"
+              className={classes.button}
+              disabled={true}
+            >
+              Lv
+            </Button>
+            <Button
+              color="primary"
+              variant="outlined"
+              className={classes.button}
+              disabled={true}
+            >
+              水
+            </Button>
+            <Button
+              color="primary"
+              variant="outlined"
+              className={classes.button}
+              disabled={true}
+            >
+              ル
+            </Button>
+          </ButtonGroup>
         </Box>
       </CardContent>
     </Card>
