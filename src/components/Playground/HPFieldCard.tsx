@@ -37,7 +37,7 @@ const useStylesController = makeStyles<Theme, { col: number }>((theme: Theme) =>
       width: `${100 / props.col}%`,
       paddingBottom: `${100 / props.col}%`,
       overflow: "hidden",
-      border: "1px solid black",
+      border: "1px solid green",
       [theme.breakpoints.down("sm")]: {
         // TODO
         fontSize: "15px"

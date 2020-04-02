@@ -12,6 +12,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import Typography from "@material-ui/core/Typography";
 
 // import CopyToClipboard from "react-copy-to-clipboard";
 
@@ -54,14 +55,18 @@ export default function ResultCard({ record }: Props) {
   // 計算結果、投稿者情報関係、シェアボタン等
   return (
     <Card variant="outlined" className={classes.root}>
-      <CardHeader title="Result" />
+      <CardHeader title="Info" />
       <CardContent>
         <TableContainer component={Paper}>
           <Table size="small">
             <TableBody>
               <TableRow>
-                <TableCell align="center" colSpan={2}>
+                <TableCell colSpan={2}>
                   {extra.userName}さんの投稿
+                  <br />
+                  <Typography variant="body2" color="textSecondary">
+                    {extra.comment}
+                  </Typography>
                 </TableCell>
               </TableRow>
               <TableRow>
