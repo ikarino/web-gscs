@@ -6,7 +6,6 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 
 import { WebGscsRecord } from "../../slices/slice.interface";
 import OutputChips from "./OutputChips";
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     textarea: {
       width: "100%",
-      whiteSpace: "pre-line"
+      whiteSpace: "pre-wrap"
     }
   })
 );
@@ -87,7 +86,9 @@ export default function RecordCard({
         <InputChips inp={inp} />
         <OutputChips record={record} />
 
-        <p className={classes.textarea}>{record.webGscsExtra.comment}</p>
+        <div className={classes.textarea}>
+          {record.webGscsExtra.comment.replace("\\n", "\n")}
+        </div>
       </CardContent>
       <CardActions>{cardActions}</CardActions>
     </Card>

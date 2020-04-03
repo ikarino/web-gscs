@@ -25,7 +25,14 @@ export const actionStart = (
     ...state,
     record: {
       ...state.record,
-      scsInput: action.payload // here
+      scsInput: {
+        // here
+        ...action.payload,
+        config: {
+          ...action.payload.config,
+          pConf: undefined
+        }
+      }
     },
     progress: 0, // here
     isRunning: true, //here,

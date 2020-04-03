@@ -15,7 +15,7 @@ import Fab from "@material-ui/core/Fab";
 
 import ImportExportIcon from "@material-ui/icons/ImportExport";
 import TuneIcon from "@material-ui/icons/Tune";
-import CloseIcon from "@material-ui/icons/Close";
+// import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -100,9 +100,9 @@ export default function ControlCard({
         elevation={5}
         hidden={open}
       >
-        <Button size="small" onClick={() => setOpen(!open)}>
+        {/* <Button size="small" onClick={() => setOpen(!open)}>
           <CloseIcon />
-        </Button>
+        </Button> */}
         <Grid container>
           <Grid item xs={12}>
             <Box

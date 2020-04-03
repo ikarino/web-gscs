@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useFirestore, isLoaded, isEmpty } from "react-redux-firebase";
 
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -11,13 +15,14 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
-import TwitterIcon from "@material-ui/icons/Twitter";
 import Typography from "@material-ui/core/Typography";
+import Snackbar from "@material-ui/core/Snackbar";
 
-// import CopyToClipboard from "react-copy-to-clipboard";
+import TwitterIcon from "@material-ui/icons/Twitter";
 
 import { WebGscsRecord } from "../../slices/slice.interface";
 import { sum } from "../share/mathFunctions";
+import { RootState } from "../../store";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,19 +34,82 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "white",
       marginTop: theme.spacing(1),
       textTransform: "none"
+    },
+    deleteButton: {
+      marginLeft: theme.spacing(1),
+      marginTop: theme.spacing(1)
+    },
+    comment: {
+      whiteSpace: "pre-wrap"
     }
   })
 );
 
+type PropsSnackBar = {
+  open: boolean;
+  content: string;
+};
+
+function DeleteSnackBar({ open, content }: PropsSnackBar) {
+  return (
+    <Snackbar
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "center"
+      }}
+      open={open}
+      autoHideDuration={3000}
+      message={content}
+    />
+  );
+}
+
 type Props = {
+  docId: string;
   record: WebGscsRecord;
 };
 
-export default function ResultCard({ record }: Props) {
+export default function ResultCard({ docId, record }: Props) {
   const classes = useStyles();
   const inp = record.scsInput;
   const out = record.scsOutput;
   const extra = record.webGscsExtra;
+
+  const auth = useSelector((state: RootState) => state.firebase.auth);
+  const firestore = useFirestore();
+  const history = useHistory();
+
+  const [open, setOpen] = useState(false);
+  const [content, setContent] = useState<string>("");
+
+  const deleteRecord = () => {
+    firestore
+      .collection("records2")
+      .doc(docId)
+      .delete()
+      .then(() => {
+        setContent("削除に成功しました");
+        setOpen(true);
+        history.push("/");
+      })
+      .catch(e => {
+        setContent(`削除に失敗しました😅${e}`);
+        setOpen(true);
+      });
+  };
+
+  const deleteButton =
+    isLoaded(auth) && !isEmpty(auth) && extra.userId === auth.uid ? (
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={deleteRecord}
+        size="small"
+        className={classes.deleteButton}
+      >
+        削除
+      </Button>
+    ) : null;
 
   const waiting =
     (sum(out.loss.action.mean) /
@@ -64,8 +132,12 @@ export default function ResultCard({ record }: Props) {
                 <TableCell colSpan={2}>
                   {extra.userName}さんの投稿
                   <br />
-                  <Typography variant="body2" color="textSecondary">
-                    {extra.comment}
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    className={classes.comment}
+                  >
+                    {extra.comment.replace("\\n", "\n")}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -124,7 +196,9 @@ export default function ResultCard({ record }: Props) {
           <TwitterIcon fontSize="small" />
           ツイート
         </Button>
+        {deleteButton}
       </CardContent>
+      <DeleteSnackBar open={open} content={content} />
     </Card>
   );
 }

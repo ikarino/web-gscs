@@ -142,8 +142,8 @@ export default function Dashboard() {
       <List>{listItems}</List>
     );
 
-  const updatesList = commits.slice(0, 5).map(commit => (
-    <ListItem>
+  const updatesList = commits.slice(0, 5).map((commit, i) => (
+    <ListItem key={`commit-${i}`}>
       <ListItemText
         primary={
           <Typography component="span" variant="body1" color="textPrimary">

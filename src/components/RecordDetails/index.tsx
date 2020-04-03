@@ -44,6 +44,7 @@ type Props = RouteComponentProps<{ id: string }>;
 export default function RecordDetails(props: Props) {
   const classes = useStyles();
   const [record, setRecord] = useState<WebGscsRecord | undefined>(undefined);
+  const [exists, setExists] = useState(true);
   const firestore = useFirestore();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -58,15 +59,21 @@ export default function RecordDetails(props: Props) {
       .collection("records2")
       .doc(props.match.params.id)
       .onSnapshot(doc => {
-        setRecord(doc.data() as WebGscsRecord);
+        if (doc.exists) {
+          setRecord(doc.data() as WebGscsRecord);
+        } else {
+          setExists(false);
+        }
       });
   }, [props.match.params.id, firestore]);
 
-  const rendered = record ? (
+  const rendered = !exists ? (
+    <p>投稿データが見つかりませんでした。</p>
+  ) : record ? (
     <Grid container spacing={3}>
       <Grid item xs={12} sm={4}>
         <Paper className={classes.cardGrid}>
-          <ResultCard record={record} />
+          <ResultCard record={record} docId={props.match.params.id} />
         </Paper>
       </Grid>
       <Grid item xs={12} sm={4}>
