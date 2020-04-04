@@ -21,18 +21,12 @@ export const actionStart = (
   state: SliceRunScs,
   action: PayloadAction<SCSInput>
 ): SliceRunScs => {
+  delete action.payload.config.pConf;
   return {
     ...state,
     record: {
       ...state.record,
-      scsInput: {
-        // here
-        ...action.payload,
-        config: {
-          ...action.payload.config,
-          pConf: undefined
-        }
-      }
+      scsInput: action.payload
     },
     progress: 0, // here
     isRunning: true, //here,
