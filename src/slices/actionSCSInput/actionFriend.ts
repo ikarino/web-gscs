@@ -111,12 +111,27 @@ export const actionChangeOrder = (
 ) => {
   const { removedIndex, addedIndex } = action.payload;
   if (removedIndex && addedIndex) {
+    console.log(removedIndex, addedIndex);
+    if (removedIndex === addedIndex) return state;
+
     const friends = arrayMove(state.inp.friends, removedIndex, addedIndex);
     const data = state.inp.field.data.slice();
-    const dRemovedIndex = data.indexOf(removedIndex + 10);
-    const dAddedIndex = data.indexOf(addedIndex + 10);
-    data[dRemovedIndex] = addedIndex + 10;
-    data[dAddedIndex] = removedIndex + 10;
+
+    const indexs = [...Array(state.inp.friends.length).keys()].map(order => {
+      return data.indexOf(order + 10);
+    });
+    if (removedIndex < addedIndex) {
+      data[indexs[removedIndex]] = addedIndex + 10;
+      for (let i = removedIndex + 1; i <= addedIndex; i++) {
+        data[indexs[i]] = i + 10 - 1;
+      }
+    } else {
+      for (let i = addedIndex; i < removedIndex; i++) {
+        data[indexs[i]] = i + 10 + 1;
+      }
+      data[indexs[removedIndex]] = addedIndex + 10;
+    }
+
     return {
       ...state,
       inp: {
