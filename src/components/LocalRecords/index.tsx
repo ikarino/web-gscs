@@ -158,7 +158,12 @@ export default function LocalRecords() {
       return (
         <Grid item xs={12} sm={6} md={4} key={key}>
           <Paper className={classes.cardGrid}>
-            <RecordCard time={key} record={record} buttons={buttons} />
+            <RecordCard
+              time={key}
+              record={record}
+              buttons={buttons}
+              showAuthor={false}
+            />
           </Paper>
         </Grid>
       );

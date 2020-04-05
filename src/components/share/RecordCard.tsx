@@ -85,10 +85,11 @@ export default function RecordCard({
         <FinishStatePaper record={record} />
         <InputChips inp={inp} />
         <OutputChips record={record} />
-
-        <div className={classes.textarea}>
-          {record.webGscsExtra.comment.replace("\\n", "\n")}
-        </div>
+        {showAuthor && (
+          <div className={classes.textarea}>
+            {record.webGscsExtra.comment.replace("\\n", "\n")}
+          </div>
+        )}
       </CardContent>
       <CardActions>{cardActions}</CardActions>
     </Card>
