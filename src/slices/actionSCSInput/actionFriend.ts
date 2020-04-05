@@ -1,5 +1,8 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 
+import { DropResult } from "react-smooth-dnd";
+import arrayMove from "array-move";
+
 import { SliceSCSInput } from "../slice.interface";
 import { SCSFriendInput } from "../../scs";
 
@@ -100,4 +103,31 @@ export const actionAddFriend = (
       }
     }
   };
+};
+
+export const actionChangeOrder = (
+  state: SliceSCSInput,
+  action: PayloadAction<DropResult>
+) => {
+  const { removedIndex, addedIndex } = action.payload;
+  if (removedIndex && addedIndex) {
+    const friends = arrayMove(state.inp.friends, removedIndex, addedIndex);
+    const data = state.inp.field.data.slice();
+    const dRemovedIndex = data.indexOf(removedIndex + 10);
+    const dAddedIndex = data.indexOf(addedIndex + 10);
+    data[dRemovedIndex] = addedIndex + 10;
+    data[dAddedIndex] = removedIndex + 10;
+    return {
+      ...state,
+      inp: {
+        ...state.inp,
+        friends,
+        field: {
+          ...state.inp.field,
+          data
+        }
+      }
+    };
+  }
+  return state;
 };

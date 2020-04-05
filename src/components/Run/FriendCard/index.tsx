@@ -9,8 +9,8 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
 import FriendAddDialog from "./FriendAddDialog";
-import FriendTable from "../../share/FriendTable";
-// import FriendTable from "../share/FriendTable2";
+// import FriendTable from "../../share/FriendTable";
+import FriendListDnd from "../../share/FriendListDnd";
 
 import { RootState } from "../../../store";
 import { SCSFriendInput } from "../../../scs";
@@ -37,22 +37,28 @@ export default function FriendCard() {
   const friends = useSelector((state: RootState) => state.scsInput.inp.friends);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+
+  const addButton =
+    friends.length !== 10 ? (
+      <Box display="flex" justifyContent="center">
+        <Button
+          variant="outlined"
+          size="small"
+          className={classes.addButton}
+          disabled={friends.length === 10}
+          onClick={() => setOpen(true)}
+        >
+          仲間追加
+        </Button>
+      </Box>
+    ) : null;
+
   return (
     <Card variant="outlined" className={classes.root}>
       <CardHeader title="Friend" />
       <CardContent>
-        <FriendTable friends={friends} editable={true} />
-        <Box display="flex" justifyContent="center">
-          <Button
-            variant="outlined"
-            size="small"
-            className={classes.addButton}
-            disabled={friends.length === 10}
-            onClick={() => setOpen(true)}
-          >
-            仲間追加
-          </Button>
-        </Box>
+        <FriendListDnd friends={friends} editable={true} />
+        {addButton}
       </CardContent>
       <FriendAddDialog
         open={open}

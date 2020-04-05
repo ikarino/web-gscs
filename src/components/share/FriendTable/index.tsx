@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -14,17 +15,26 @@ import { SCSFriendInput } from "../../../scs";
 import FriendChip from "./FriendChip";
 import FriendEditDialogue from "./FriendEditDialogue";
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 350
-  },
-  td: {
-    padding: 3,
-    margin: 0
-  },
-  tr: { padding: 3, margin: 0 },
-  trh: { padding: 3, margin: 0, backgroundColor: "gray" }
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    table: {
+      minWidth: 350
+    },
+    td: {
+      padding: theme.spacing(0.5),
+      margin: 0
+    },
+    tr: {
+      padding: theme.spacing(0.5),
+      margin: 0
+    },
+    trh: {
+      padding: theme.spacing(0.5),
+      margin: 0,
+      backgroundColor: "gray"
+    }
+  })
+);
 
 type Props = {
   friends: SCSFriendInput[];
